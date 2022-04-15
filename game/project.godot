@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "RigidBody2D",
+"class": "Ball",
+"language": "GDScript",
+"path": "res://ball/Ball.gd"
+} ]
+_global_script_class_icons={
+"Ball": ""
+}
+
 [application]
 
 config/name="Breakout4Godot"
