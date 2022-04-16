@@ -2,7 +2,7 @@
  "background_color": "ff262626",
  "config_file": "res://.gutconfig.json",
  "dirs": [
-  "res://test/unit"
+  "res://tests/"
  ],
  "disable_colors": false,
  "double_strategy": "partial",
@@ -19,7 +19,7 @@
  "opacity": 100,
  "post_run_script": "",
  "pre_run_script": "",
- "prefix": "test_",
+ "prefix": "",
  "selected": "spy.gd",
  "should_exit": true,
  "should_exit_on_success": false,

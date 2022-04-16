@@ -8,5 +8,5 @@
 [node name="BricksMap" parent="." instance=ExtResource( 2 )]
 
 [node name="Ball" parent="." instance=ExtResource( 1 )]
-position = Vector2( 390, 321 )
+position = Vector2( 180, 212 )
 speed = 100.0
