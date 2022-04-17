@@ -10,3 +10,4 @@
 [node name="Ball" parent="." instance=ExtResource( 1 )]
 position = Vector2( 180, 212 )
 speed = 100.0
+direction = null

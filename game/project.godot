@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Ball",
 "language": "GDScript",
 "path": "res://ball/Ball.gd"
+}, {
+"base": "TileMap",
+"class": "BricksMap",
+"language": "GDScript",
+"path": "res://bricks/BricksMap.gd"
 } ]
 _global_script_class_icons={
-"Ball": ""
+"Ball": "",
+"BricksMap": ""
 }
 
 [application]
