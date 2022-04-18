@@ -16,9 +16,8 @@ func _ready():
 func bricks_hit_at(global_hit_pos: Vector2):
 	var tileIdx = world_to_map(to_local(global_hit_pos))
 	set_cellv(tileIdx, TileMap.INVALID_CELL)
-	var animation = animations_cache[tileIdx]
-	animation.visible = true
-	animation.get_node("AnimationPlayer").play("explode")
+	var explosion = animations_cache[tileIdx]
+	explosion.explode()
 	
 
 
@@ -26,5 +25,7 @@ func _build_hidden_boom_at_tile_idx(idx: Vector2) -> Node2D:
 	var brickBoomNode: Node2D = BrickBoomScn.instance()
 	add_child(brickBoomNode)
 	brickBoomNode.visible = false
+	#world coordinate holds top left corner of cell position
+	# origin of exploding animation is center of cell, so adding offset
 	brickBoomNode.position = map_to_world(idx) + cell_size / 2
 	return brickBoomNode
