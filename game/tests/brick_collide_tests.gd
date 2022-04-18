@@ -14,13 +14,11 @@ func before_each():
 
 
 func test_ball_collide_bricks():
-    
     # bricks and ball dont touch
     _setup_tree_bricks_pos_ball_pos(
         Vector2(100, 0), 
         Vector2(10, 0)
     )
-
     #move ball into bricks
     var collision = ball.move_and_collide(Vector2(100, 0))
     assert_not_null(collision, "ball and bricks should collide!")
@@ -28,13 +26,13 @@ func test_ball_collide_bricks():
         assert_eq(collision.collider, bricks, "ball should collide with bricks!")
     
 
+
 func test_ball_collide_brick_lost():
     # bricks and ball dont touch
     _setup_tree_bricks_pos_ball_pos(
         Vector2(100, 0), 
         Vector2(10, 0)
     )
-
     ball.speed = 100.0
     ball.direction = Vector2.RIGHT
     gut.simulate(ball, 100, 0.1)
@@ -42,6 +40,11 @@ func test_ball_collide_brick_lost():
     var tileCoord = Vector2.ZERO
     assert_eq(bricks.get_cellv(tileCoord), TileMap.INVALID_CELL)
 
+
+
+
+
+######################HELPERS############################
 
 func _setup_tree_bricks_pos_ball_pos(bricksPos: Vector2, ballPos: Vector2):
     parent.add_child(bricks);
