@@ -29,7 +29,7 @@ points = PoolVector2Array( 1.43997, 1.77644, 62.1167, 1.55213, 62.341, 30.4885, 
 } ]
 0/z_index = 0
 
-[node name="BricksMap" type="TileMap"]
+[node name="BricksMap" type="TileMap" groups=["bricks"]]
 tile_set = SubResource( 1 )
 cell_size = Vector2( 64, 32 )
 format = 1

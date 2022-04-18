@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://ball/Ball.tscn" type="PackedScene" id=1]
 [ext_resource path="res://bricks/BricksMap.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Barrier.tscn" type="PackedScene" id=3]
 
 [node name="BreakoutGame" type="Node2D"]
 
@@ -10,4 +11,12 @@
 [node name="Ball" parent="." instance=ExtResource( 1 )]
 position = Vector2( 180, 212 )
 speed = 100.0
-direction = null
+
+[node name="BarrierLeft" parent="." instance=ExtResource( 3 )]
+
+[node name="BarrierTop" parent="." instance=ExtResource( 3 )]
+position = Vector2( 450, -25 )
+rotation = 1.5708
+
+[node name="BarrierRight" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1040, 0 )
