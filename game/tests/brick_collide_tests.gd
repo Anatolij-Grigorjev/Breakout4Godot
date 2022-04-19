@@ -29,9 +29,9 @@ func test_ball_collide_bricks():
 func test_ball_collide_brick_lost():
     # bricks and ball dont touch
 
-    _setup_tree([bricks, ball])
     bricks.position = Vector2(100, 0)
     ball.position = Vector2(10, 0)
+    _setup_tree([bricks, ball])
 
     ball.speed = 100.0
     ball.direction = Vector2.RIGHT
