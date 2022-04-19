@@ -3,7 +3,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 700 )
 
-[node name="Barrier" type="Area2D"]
+[node name="Barrier" type="StaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
