@@ -14,10 +14,13 @@ func _ready():
 
 
 func bricks_hit_at(global_hit_pos: Vector2):
-	var tileIdx = world_to_map(to_local(global_hit_pos))
-	set_cellv(tileIdx, TileMap.INVALID_CELL)
-	var explosion = animations_cache[tileIdx]
-	explosion.explode()
+	var tileIdx: Vector2 = world_to_map(to_local(global_hit_pos))
+	print("global pos: " + String(global_hit_pos) + " tileidx: " + String(tileIdx) + " tile type: " + String(get_cellv(tileIdx)))
+	var tileTypeAtPos = get_cellv(tileIdx)
+	if (tileTypeAtPos != TileMap.INVALID_CELL):
+		set_cellv(tileIdx, TileMap.INVALID_CELL)
+		var explosion = animations_cache[tileIdx]
+		explosion.explode()
 	
 
 
