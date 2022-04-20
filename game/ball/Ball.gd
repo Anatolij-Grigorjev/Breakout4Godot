@@ -1,8 +1,9 @@
 extends KinematicBody2D
 class_name Ball
 
-export(float) var speed: float = 20;
+signal ball_collided(collision)
 
+export(float) var speed: float = 20;
 export(Vector2) var direction := Vector2.LEFT;
 
 func _process(delta: float):
@@ -19,3 +20,4 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 		tilemap.bricks_hit_at(collision.position)
 
 	direction = direction.bounce(collision.normal)
+	emit_signal("ball_collided", collision)

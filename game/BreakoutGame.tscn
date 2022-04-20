@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ball/Ball.tscn" type="PackedScene" id=1]
 [ext_resource path="res://bricks/BricksMap.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Barrier.tscn" type="PackedScene" id=3]
+[ext_resource path="res://BallCollideSmoke.tscn" type="PackedScene" id=4]
 
 [node name="BreakoutGame" type="Node2D"]
 
@@ -21,3 +22,5 @@ rotation = 1.5708
 
 [node name="BarrierRight" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1044, 0 )
+
+[node name="CollideSmoke" parent="." instance=ExtResource( 4 )]
