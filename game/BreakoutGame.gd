@@ -10,7 +10,6 @@ func _ready():
 
 
 func _on_ball_collided(collision: KinematicCollision2D):
-	
 	ballSmoke.global_position = collision.position - (collision.normal * 10)
 	ballSmoke.rotation = collision.normal.angle()
 	ballSmoke.emitting = true

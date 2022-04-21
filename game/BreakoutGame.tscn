@@ -11,10 +11,6 @@ script = ExtResource( 5 )
 
 [node name="BricksMap" parent="." instance=ExtResource( 2 )]
 
-[node name="Ball" parent="." instance=ExtResource( 1 )]
-position = Vector2( 180, 212 )
-speed = 100.0
-
 [node name="BarrierLeft" parent="." instance=ExtResource( 3 )]
 position = Vector2( -20, 0 )
 
@@ -26,3 +22,5 @@ rotation = 1.5708
 position = Vector2( 1044, 0 )
 
 [node name="CollideSmoke" parent="." instance=ExtResource( 4 )]
+
+[node name="Ball" parent="." instance=ExtResource( 1 )]
