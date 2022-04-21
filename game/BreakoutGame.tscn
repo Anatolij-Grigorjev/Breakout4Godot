@@ -24,3 +24,4 @@ position = Vector2( 1044, 0 )
 [node name="CollideSmoke" parent="." instance=ExtResource( 4 )]
 
 [node name="Ball" parent="." instance=ExtResource( 1 )]
+speed = 100.0

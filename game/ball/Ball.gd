@@ -5,7 +5,7 @@ signal ball_collided(collision)
 
 onready var anim: AnimationPlayer = $AnimationPlayer
 
-export(float) var speed: float = 100;
+export(float) var speed: float = 99;
 export(Vector2) var direction := Vector2.LEFT;
 
 func _process(delta: float):
