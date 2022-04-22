@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "BricksMap",
 "language": "GDScript",
 "path": "res://bricks/BricksMap.gd"
+}, {
+"base": "Node2D",
+"class": "ParticlesBattery",
+"language": "GDScript",
+"path": "res://tools/ParticlesBattery.gd"
 } ]
 _global_script_class_icons={
 "Ball": "",
 "BrickExplode": "",
-"BricksMap": ""
+"BricksMap": "",
+"ParticlesBattery": ""
 }
 
 [application]
