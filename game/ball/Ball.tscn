@@ -83,6 +83,8 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id=4]
 resource_name = "bounce-strech"
+length = 0.5
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
 tracks/0/interp = 1
@@ -90,10 +92,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
+"times": PoolRealArray( 0, 0.25, 0.5 ),
 "transitions": PoolRealArray( 2.2974, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 8, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 5, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:scale")
@@ -102,10 +104,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
+"times": PoolRealArray( 0, 0.25, 0.5 ),
 "transitions": PoolRealArray( 1.6245, 0.466516, 1 ),
 "update": 0,
-"values": [ Vector2( 0.325565, 1 ), Vector2( 1.32556, 0.64 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 0.75, 1 ), Vector2( 1.25, 0.9 ), Vector2( 1, 1 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:speed")
@@ -114,7 +116,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
+"times": PoolRealArray( 0, 0.25, 0.5 ),
 "transitions": PoolRealArray( 2.46229, 0.574349, 1 ),
 "update": 0,
 "values": [ 0.0, 150.0, 100.0 ]
@@ -122,7 +124,8 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "hit-squish"
-length = 0.5
+length = 0.25
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
@@ -130,10 +133,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.25 ),
 "transitions": PoolRealArray( 0.5, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0.325565, 1 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 0.75, 1 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:position")
@@ -142,10 +145,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.25 ),
 "transitions": PoolRealArray( 0.466516, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 8, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 5, 0 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite:rotation_degrees")
@@ -154,7 +157,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.5 ),
+"times": PoolRealArray( 0.25 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
@@ -166,7 +169,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.25 ),
 "transitions": PoolRealArray( 0.435275, 1 ),
 "update": 0,
 "values": [ 100.0, 0.0 ]
@@ -182,6 +185,7 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 3.0
 anims/RESET = SubResource( 2 )
 anims/bounce-strech = SubResource( 4 )
 anims/hit-squish = SubResource( 3 )

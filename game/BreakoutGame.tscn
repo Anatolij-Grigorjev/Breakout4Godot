@@ -1,10 +1,22 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://ball/Ball.tscn" type="PackedScene" id=1]
 [ext_resource path="res://bricks/BricksMap.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Barrier.tscn" type="PackedScene" id=3]
 [ext_resource path="res://BallCollideSmoke.tscn" type="PackedScene" id=4]
 [ext_resource path="res://BreakoutGame.gd" type="Script" id=5]
+
+[sub_resource type="Curve" id=5]
+max_value = 2.0
+_data = [ Vector2( 0, 2 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.446177 ), -4.80631, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0.720588, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Curve" id=7]
+min_value = -1.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
 [node name="BreakoutGame" type="Node2D"]
 script = ExtResource( 5 )
@@ -21,7 +33,22 @@ rotation = 1.5708
 [node name="BarrierRight" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1044, 0 )
 
-[node name="CollideSmoke" parent="." instance=ExtResource( 4 )]
+[node name="CollideSmoke" type="CPUParticles2D" parent="." instance=ExtResource( 4 )]
+position = Vector2( -12, 0 )
+emitting = false
+amount = 35
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+emission_shape = 2
+emission_rect_extents = Vector2( 1, 1 )
+gravity = Vector2( 0, 0 )
+initial_velocity = 100.0
+linear_accel = 75.0
+linear_accel_random = 0.5
+radial_accel = 50.0
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 3 )
+hue_variation_curve = SubResource( 7 )
 
 [node name="Ball" parent="." instance=ExtResource( 1 )]
-speed = 100.0
