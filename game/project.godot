@@ -39,6 +39,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Breakout4Godot"
+run/main_scene="res://BreakoutGame.tscn"
 config/icon="res://icon.png"
 
 [editor_plugins]

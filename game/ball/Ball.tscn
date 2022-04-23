@@ -83,7 +83,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id=4]
 resource_name = "bounce-strech"
-length = 0.5
+length = 0.2
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -92,7 +92,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5 ),
+"times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 2.2974, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 5, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
@@ -104,7 +104,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5 ),
+"times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1.6245, 0.466516, 1 ),
 "update": 0,
 "values": [ Vector2( 0.75, 1 ), Vector2( 1.25, 0.9 ), Vector2( 1, 1 ) ]
@@ -116,7 +116,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5 ),
+"times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 2.46229, 0.574349, 1 ),
 "update": 0,
 "values": [ 0.0, 150.0, 100.0 ]
@@ -177,6 +177,7 @@ tracks/3/keys = {
 
 [node name="Ball" type="KinematicBody2D"]
 script = ExtResource( 2 )
+speed = 100.0
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -185,7 +186,6 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_speed = 3.0
 anims/RESET = SubResource( 2 )
 anims/bounce-strech = SubResource( 4 )
 anims/hit-squish = SubResource( 3 )
