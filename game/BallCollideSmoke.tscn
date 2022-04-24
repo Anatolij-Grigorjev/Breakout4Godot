@@ -15,14 +15,13 @@ _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 [node name="CollideSmoke" type="CPUParticles2D"]
 position = Vector2( -12, 0 )
 emitting = false
-amount = 35
+amount = 40
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
-emission_shape = 2
-emission_rect_extents = Vector2( 1, 1 )
+spread = 180.0
 gravity = Vector2( 0, 0 )
-initial_velocity = 100.0
+initial_velocity = 125.0
 linear_accel = 75.0
 linear_accel_random = 0.5
 radial_accel = 50.0

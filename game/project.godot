@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "ParticlesBattery",
 "language": "GDScript",
 "path": "res://tools/ParticlesBattery.gd"
+}, {
+"base": "Reference",
+"class": "Utils",
+"language": "GDScript",
+"path": "res://Utils.gd"
 } ]
 _global_script_class_icons={
 "Ball": "",
 "BrickExplode": "",
 "BricksMap": "",
-"ParticlesBattery": ""
+"ParticlesBattery": "",
+"Utils": ""
 }
 
 [application]

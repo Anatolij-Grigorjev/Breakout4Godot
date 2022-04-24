@@ -4,6 +4,7 @@ export(Vector2) var initialBallPos = Vector2(190, 200)
 
 onready var ball = $Ball
 onready var ballSmokes = $ParticlesBattery
+onready var cameraShake = $Camera2D/ScreenShake
 
 
 # Called when the node enters the scene tree for the first time.
@@ -14,6 +15,7 @@ func _ready():
 
 func _on_ball_collided(collision: KinematicCollision2D):
 	
+	cameraShake.beginShake()
 	var particlesPos = collision.position - (collision.normal * 10)
 	var particlesRotation = collision.normal.angle()
 	ballSmokes.fireNextParticleSystem(particlesPos, particlesRotation)
