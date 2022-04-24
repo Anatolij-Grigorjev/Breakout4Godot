@@ -1,8 +1,13 @@
 extends Node2D
 class_name BrickExplode
 
+
+onready var brickPartTopLeft = $BrickPartTopLeft
+onready var brickPartBottomLeft = $BrickPartBottomLeft
+onready var brickPartTopRight = $BrickPartTopRight
+onready var brickPartBottomRight = $BrickPartBottomRight
+
 onready var impactTween: Tween = $ImpactTween
-onready var anim: AnimationPlayer = $AnimationPlayer
 
 var impactDuration: float = 0.25
 
@@ -15,7 +20,7 @@ func explode(hit_normal: Vector2):
 	visible = true
 	_build_and_start_impact_tween(hit_normal)
 	yield(get_tree().create_timer(0.1), "timeout")
-	anim.play("explode")
+	_push_brick_parts(-1 * hit_normal)
 
 
 func _build_and_start_impact_tween(hit_normal: Vector2):
@@ -26,3 +31,10 @@ func _build_and_start_impact_tween(hit_normal: Vector2):
 		impactDuration, Tween.TRANS_EXPO, Tween.EASE_OUT
 	)
 	impactTween.start()
+
+
+func _push_brick_parts(direction: Vector2):
+	brickPartTopLeft.start_move(direction.rotated(deg2rad(-60)))
+	brickPartBottomLeft.start_move(direction.rotated(deg2rad(-30)))
+	brickPartTopRight.start_move(direction.rotated(deg2rad(30)))
+	brickPartBottomRight.start_move(direction.rotated(deg2rad(60)))
