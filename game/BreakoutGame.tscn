@@ -12,7 +12,7 @@
 script = ExtResource( 5 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 374, 247 )
+position = Vector2( 508, 298 )
 current = true
 
 [node name="ScreenShake" parent="Camera2D" instance=ExtResource( 7 )]
