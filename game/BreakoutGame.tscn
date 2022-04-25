@@ -30,7 +30,6 @@ rotation = 1.5708
 position = Vector2( 1044, 0 )
 
 [node name="Ball" parent="." instance=ExtResource( 1 )]
-speed = 99.0
 
 [node name="ParticlesBattery" type="Node2D" parent="."]
 script = ExtResource( 6 )
