@@ -33,9 +33,24 @@ func test_ball_collide_brick_lost():
     ball.position = Vector2(10, 0)
     _setup_tree([bricks, ball])
 
-    ball.speed = 100.0
+    ball.currentSpeed = 100.0
     ball.direction = Vector2.RIGHT
     gut.simulate(ball, 100, 0.1)
     #top left tile
     var tileCoord = Vector2.ZERO
     assert_eq(bricks.get_cellv(tileCoord), TileMap.INVALID_CELL)
+
+
+func test_ball_collide_bricks_ball_faster():
+
+    bricks.position = Vector2(100, 0)
+    ball.position = Vector2(10, 0)
+    _setup_tree([bricks, ball])
+
+    var initialBallSpeed = 100
+
+    ball.currentSpeed = initialBallSpeed
+    ball.direction = Vector2.RIGHT
+    gut.simulate(ball, 100, 0.1)
+
+    assert_gt(ball.currentSpeed, initialBallSpeed, "ball got faster after hitting brick")
