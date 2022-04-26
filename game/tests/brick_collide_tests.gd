@@ -23,7 +23,20 @@ func test_ball_collide_bricks():
     assert_not_null(collision, "ball and bricks should collide!")
     if (collision):
         assert_eq(collision.collider, bricks, "ball should collide with bricks!")
+
+
+func test_ball_collide_bricks_emit_signal():
     
+    bricks.position = Vector2(100, 0)
+    ball.position = Vector2(10, 0)
+    _setup_tree([bricks, ball])
+    watch_signals(bricks)
+
+    ball.currentSpeed = 100.0
+    ball.direction = Vector2.RIGHT
+    gut.simulate(ball, 100, 0.1)
+    
+    assert_signal_emitted(bricks, "brickDestroyed", "destryong brick should emit signal")
 
 
 func test_ball_collide_brick_lost():

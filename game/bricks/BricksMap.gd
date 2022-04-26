@@ -1,6 +1,8 @@
 extends TileMap
 class_name BricksMap
 
+signal brickDestroyed(brickType, brickPos)
+
 const BrickBoomScn = preload("res://bricks/BrickExplode.tscn")
 
 var animations_cache = {}
@@ -20,6 +22,7 @@ func bricks_hit_at(global_hit_pos: Vector2, hit_normal: Vector2):
 		set_cellv(tileIdx, TileMap.INVALID_CELL)
 		var explosion = animations_cache[tileIdx]
 		explosion.explode(hit_normal)
+		emit_signal("brickDestroyed", tileTypeAtPos, tileIdx)
 	
 
 
