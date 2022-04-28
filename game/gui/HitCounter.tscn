@@ -4,13 +4,28 @@
 
 [node name="HitCounter" type="Node2D"]
 script = ExtResource( 1 )
-scoreFormat = "%07d"
-score = 90.0
 
-[node name="Label" type="Label" parent="."]
+[node name="Tween" type="Tween" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 40.0
-margin_bottom = 14.0
-text = "0000090"
+margin_bottom = 40.0
+custom_constants/separation = 5
+
+[node name="TagLabel" type="Label" parent="HBoxContainer"]
+margin_top = 13.0
+margin_right = 49.0
+margin_bottom = 27.0
+text = "SCORE: "
+valign = 1
+uppercase = true
+
+[node name="ValueLabel" type="Label" parent="HBoxContainer"]
+margin_left = 54.0
+margin_top = 13.0
+margin_right = 110.0
+margin_bottom = 27.0
+text = "0000000"
 align = 2
 valign = 1
 uppercase = true
