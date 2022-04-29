@@ -29,19 +29,19 @@ func _build_mover_rotation():
 	mover.interpolate_property(
 		sprite, "rotation_degrees",
 		0, 720, 
-		travelDuration, Tween.TRANS_EXPO, Tween.EASE_OUT
+		travelDuration, Tween.TRANS_QUAD, Tween.EASE_OUT
 	)
 
 func _build_mover_scale():
 	mover.interpolate_property(
 		sprite, "scale",
 		Vector2.ONE, Vector2.ZERO,
-		travelDuration, Tween.TRANS_EXPO, Tween.EASE_OUT
+		travelDuration, Tween.TRANS_QUAD, Tween.EASE_OUT
 	)
 
 func _build_mover_travel(direction: Vector2):
 	mover.interpolate_property(
 		self, "position",
 		null, position + direction * 50,
-		travelDuration, Tween.TRANS_EXPO, Tween.EASE_OUT
+		travelDuration, Tween.TRANS_QUAD, Tween.EASE_OUT
 	)
