@@ -28,7 +28,7 @@ func _build_and_start_impact_tween(hit_normal: Vector2):
 	impactTween.interpolate_property(
 		self, "position",
 		null, position + (hit_normal * -10),
-		impactDuration, Tween.TRANS_EXPO, Tween.EASE_OUT
+		impactDuration, Tween.TRANS_QUAD, Tween.EASE_OUT
 	)
 	impactTween.start()
 
