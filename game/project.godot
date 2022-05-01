@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://tools/ParticlesBattery.gd"
 }, {
+"base": "Timer",
+"class": "TTL",
+"language": "GDScript",
+"path": "res://tools/TTL.gd"
+}, {
 "base": "Reference",
 "class": "Utils",
 "language": "GDScript",
@@ -39,6 +44,7 @@ _global_script_class_icons={
 "BrickExplode": "",
 "BricksMap": "",
 "ParticlesBattery": "",
+"TTL": "",
 "Utils": ""
 }
 

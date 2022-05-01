@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://gui/ScoredPoints.gd" type="Script" id=1]
+[ext_resource path="res://tools/TTL.gd" type="Script" id=2]
 
 [node name="ScoredPoints" type="Node2D"]
 script = ExtResource( 1 )
@@ -15,4 +16,4 @@ uppercase = true
 [node name="Duration" type="Timer" parent="."]
 
 [node name="TTL" type="Timer" parent="."]
-one_shot = true
+script = ExtResource( 2 )
