@@ -1,17 +1,20 @@
 extends Node2D
 
+
+const FlashPointsScn = preload("res://gui/ScoredPoints.tscn")
+
 onready var bricks = $BricksMap
 onready var ball = $Ball
 onready var ballSmokes = $ParticlesBattery
 onready var cameraShake = $Camera2D/ScreenShake
-onready var scoreCounter = $HitCounter
+onready var scoreCounter = $TotalScore
 
 var currentScore := 0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	scoreCounter.score = currentScore
+	scoreCounter.value = currentScore
 	ball.connect("ball_collided", self, "_on_ball_collided")
 	bricks.connect("brickDestroyed", self, "_on_brick_destroyed")
 
@@ -25,5 +28,18 @@ func _on_ball_collided(collision: KinematicCollision2D):
 		ballSmokes.fireNextParticleSystem(particlesPos, particlesRotation)
 
 
-func _on_brick_destroyed(type: int, pos: Vector2):
-	scoreCounter.score += 1000
+func _on_brick_destroyed(type: int, tileIdx: Vector2):
+
+	var brickPoints = _get_points_for_brick_type(type)
+
+	var flashPoints = FlashPointsScn.instance()
+	# world position of tile idx is relative to tilemap origin (0;0)
+	flashPoints.global_position = (bricks.map_to_world(tileIdx) + bricks.position) - Vector2(-5, 15)
+	flashPoints.text = "+%s" % brickPoints
+	add_child(flashPoints)
+
+	scoreCounter.value += brickPoints
+
+
+func _get_points_for_brick_type(_type: int) -> float:
+	return 1000.0

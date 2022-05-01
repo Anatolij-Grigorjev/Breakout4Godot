@@ -47,3 +47,5 @@ script = ExtResource( 6 )
 [node name="CollideSmoke3" parent="ParticlesBattery" instance=ExtResource( 4 )]
 
 [node name="CollideSmoke4" parent="ParticlesBattery" instance=ExtResource( 4 )]
+
+[node name="CollideSmoke5" parent="ParticlesBattery" instance=ExtResource( 4 )]
