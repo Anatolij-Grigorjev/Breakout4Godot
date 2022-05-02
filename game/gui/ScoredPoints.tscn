@@ -5,6 +5,7 @@
 
 [node name="ScoredPoints" type="Node2D"]
 script = ExtResource( 1 )
+colorFlashDuration = 0.15
 
 [node name="Label" type="Label" parent="."]
 margin_right = 40.0
@@ -17,3 +18,5 @@ uppercase = true
 
 [node name="TTL" type="Timer" parent="."]
 script = ExtResource( 2 )
+
+[node name="Tween" type="Tween" parent="."]
