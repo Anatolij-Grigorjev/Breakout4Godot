@@ -38,14 +38,16 @@ func _process(delta: float):
 func _handle_potential_collision(collision: KinematicCollision2D):
 	if (not collision):
 		return
-	
-	if collision.collider.is_in_group("bricks"):
-		var tilemap: BricksMap = collision.collider as BricksMap
-		tilemap.bricks_hit_at(collision.position, collision.normal)
+
+	if not collision.collider.is_in_group("barrier"):
 		sprite.rotation = collision.normal.angle()
 		anim.play("hit-squish")
 		currentSpeed = clamp(currentSpeed + speedAdditive, baseSpeed, baseSpeed * maxSpeedCoef)
 		currentSpinRadians = clamp(currentSpinRadians + spinAdditive, baseSpinRadians, baseSpinRadians * maxSpeedCoef)
+	
+	if collision.collider.is_in_group("bricks"):
+		var tilemap: BricksMap = collision.collider as BricksMap
+		tilemap.bricks_hit_at(collision.position, collision.normal)
 			
 	emit_signal("ball_collided", collision)
 	direction = direction.bounce(collision.normal)
