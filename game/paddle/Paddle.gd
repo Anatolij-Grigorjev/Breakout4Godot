@@ -9,7 +9,11 @@ func _ready():
 
 
 func _process(delta: float):
+	var direction = Vector2(0, 0)
 	if Input.is_action_pressed("ui_left"):
-		position.x -= delta * speed
+		direction.x = -1
 	if Input.is_action_pressed("ui_right"):
-		position.x += delta * speed
+		direction.x = 1
+	
+	move_and_collide(direction * speed * delta)
+
