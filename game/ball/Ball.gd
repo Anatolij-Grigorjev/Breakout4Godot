@@ -41,11 +41,11 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 
 	if not collision.collider.is_in_group("barrier"):
 		sprite.rotation = collision.normal.angle()
-		anim.play("hit-squish")
 		currentSpeed = clamp(currentSpeed + speedAdditive, baseSpeed, baseSpeed * maxSpeedCoef)
 		currentSpinRadians = clamp(currentSpinRadians + spinAdditive, baseSpinRadians, baseSpinRadians * maxSpeedCoef)
 	
 	if collision.collider.is_in_group("bricks"):
+		anim.play("hit-squish")
 		var tilemap: BricksMap = collision.collider as BricksMap
 		tilemap.bricks_hit_at(collision.position, collision.normal)
 			
