@@ -48,6 +48,10 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 		anim.play("hit-squish")
 		var tilemap: BricksMap = collision.collider as BricksMap
 		tilemap.bricks_hit_at(collision.position, collision.normal)
+	
+	if collision.collider.is_in_group("paddle"):
+		var paddle = collision.collider
+		paddle.ball_hit_at(collision.position, collision.normal)
 			
 	emit_signal("ball_collided", collision)
 	direction = direction.bounce(collision.normal)
