@@ -3,7 +3,7 @@ extends KinematicBody2D
 
 export(float) var speed: float = 150.0
 
-onready var ballSparks = $Sprite/BallHitSparks
+onready var ballSparks = $Sprite/ParticlesBattery
 onready var anim: AnimationPlayer = $AnimationPlayer
 
 
@@ -22,6 +22,6 @@ func _process(delta: float):
 
 
 func ball_hit_at(global_hit_pos: Vector2, hit_normal: Vector2):
-	ballSparks.global_position = global_hit_pos
 	anim.play("bounce_ball")
+	ballSparks.fireNextParticleSystem(global_hit_pos)
 

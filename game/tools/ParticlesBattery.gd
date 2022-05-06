@@ -32,7 +32,7 @@ func _filterParticleSystemsChildren() -> Array:
 	return systems
 	
 
-func fireNextParticleSystem(particlesPos: Vector2, particlesRot: float) -> void:
+func fireNextParticleSystem(particlesPos: Vector2, particlesRot: float = 0) -> void:
 	if (numSystems == 0):
 		return
 		
