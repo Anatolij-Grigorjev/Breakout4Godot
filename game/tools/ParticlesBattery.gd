@@ -32,13 +32,13 @@ func _filterParticleSystemsChildren() -> Array:
 	return systems
 	
 
-func fireNextParticleSystem(particlesPos: Vector2, particlesRot: float = 0) -> void:
+func fireNextParticleSystem(global_particles_pos: Vector2, particles_rot: float = 0) -> void:
 	if (numSystems == 0):
 		return
 		
 	var particles = particleSystems[currentSystemIdx]
-	particles.global_position = particlesPos
-	particles.rotation = particlesRot
+	particles.global_position = global_particles_pos
+	particles.rotation = particles_rot
 	emit_signal("activeParticlesWillEmit", particles)
 	particles.emitting = true
 	emit_signal("activeParticlesEmitted", particles)

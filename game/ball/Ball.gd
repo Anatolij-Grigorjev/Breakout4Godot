@@ -39,10 +39,11 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 	if (not collision):
 		return
 
+	var new_direction = direction.bounce(collision.normal)
+
 	if not collision.collider.is_in_group("barrier"):
 		sprite.rotation = collision.normal.angle()
-		currentSpeed = clamp(currentSpeed + speedAdditive, baseSpeed, baseSpeed * maxSpeedCoef)
-		currentSpinRadians = clamp(currentSpinRadians + spinAdditive, baseSpinRadians, baseSpinRadians * maxSpeedCoef)
+		_speedup_ball()
 	
 	if collision.collider.is_in_group("bricks"):
 		anim.play("hit-squish")
@@ -52,6 +53,19 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 	if collision.collider.is_in_group("paddle"):
 		var paddle = collision.collider
 		paddle.ball_hit_at(collision.position, collision.normal)
+		#adjust new direction to be more exiciting (central in release)
+		var current_angle = new_direction.angle()
+		var allowed_adjustmenet = rand_range(PI / 12, PI / 6)
+		print("land angle: %s" % rad2deg(current_angle))
+		if abs(current_angle) < PI / 6 or abs(current_angle) > (5 * PI / 6):
+			new_direction = new_direction.rotated(allowed_adjustmenet * sign(current_angle))
+			print("not exciting, adjusted to %s" % rad2deg(new_direction.angle()))
+		
 			
 	emit_signal("ball_collided", collision)
-	direction = direction.bounce(collision.normal)
+	direction = new_direction
+
+
+func _speedup_ball():
+	currentSpeed = clamp(currentSpeed + speedAdditive, baseSpeed, baseSpeed * maxSpeedCoef)
+	currentSpinRadians = clamp(currentSpinRadians + spinAdditive, baseSpinRadians, baseSpinRadians * maxSpeedCoef)
