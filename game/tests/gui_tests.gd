@@ -22,12 +22,18 @@ func test_increasing_num_lives_adds_children():
     assert_eq(livesCounter.ballsContainer.get_child_count(), newAmount)
 
 
-func _IGNORED_test_decrese_num_lives_removes_children():
+func test_decrese_num_lives_removes_children():
 
     _setup_tree([livesCounter])
     var newAmount = 1
+    var originalAmount = livesCounter.numExtraBalls
     livesCounter.numExtraBalls = newAmount
 
     _wait_seconds(1.5)
 
-    assert_eq(livesCounter.ballsContainer.get_child_count(), newAmount)
+    var freeingNodes = []
+    for ball in livesCounter.ballsContainer.get_children():
+        if ball.is_queued_for_deletion():
+            freeingNodes.append(ball)
+
+    assert_eq(freeingNodes.size(), originalAmount - newAmount)
