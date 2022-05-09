@@ -29,7 +29,7 @@ func test_decrese_num_lives_removes_children():
     var originalAmount = livesCounter.numExtraBalls
     livesCounter.numExtraBalls = newAmount
 
-    _wait_seconds(1.5)
+    _wait_next_frame()
 
     var freeingNodes = []
     for ball in livesCounter.ballsContainer.get_children():
@@ -37,3 +37,21 @@ func test_decrese_num_lives_removes_children():
             freeingNodes.append(ball)
 
     assert_eq(freeingNodes.size(), originalAmount - newAmount)
+
+
+func test_num_lives_cant_be_negative():
+
+    _setup_tree([livesCounter])
+    var newAmount = -7
+    livesCounter.numExtraBalls = newAmount
+
+    _wait_next_frame()
+    var remainingNodes = []
+    for ball in livesCounter.ballsContainer.get_children():
+        if not ball.is_queued_for_deletion():
+            remainingNodes.append(ball)
+    
+    assert_eq(livesCounter.numExtraBalls, 0)
+    assert_eq(remainingNodes.size(), 0)
+    
+

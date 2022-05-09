@@ -16,7 +16,7 @@ func _ready():
 
 
 func _setNumBalls(newBallsNum: int):
-	numExtraBalls = newBallsNum
+	numExtraBalls = clamp(newBallsNum, 0, newBallsNum)
 	if ($HBoxContainer):
 		_reset_visible_balls(numExtraBalls)
 

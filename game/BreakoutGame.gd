@@ -8,6 +8,7 @@ onready var ball = $Ball
 onready var ballSmokes = $ParticlesBattery
 onready var cameraShake = $Camera2D/ScreenShake
 onready var scoreCounter = $TotalScore
+onready var livesCounter = $LivesCounter
 
 var currentScore := 0
 
