@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://paddle/paddle.png" type="Texture" id=1]
 [ext_resource path="res://paddle/Paddle.gd" type="Script" id=2]
 [ext_resource path="res://tools/ParticlesBattery.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ball/Ball.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -111,3 +112,9 @@ polygon = PoolVector2Array( -64, 4, -35, -7, 36, -7, 63, 4, 36, 8, -36, 8 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
 anims/bounce_ball = SubResource( 1 )
+
+[node name="Ball" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, -24 )
+
+[node name="BallPosition" type="Position2D" parent="."]
+position = Vector2( 0, -24 )

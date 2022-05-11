@@ -10,4 +10,5 @@ func _ready():
 
 func _on_BallLossArea_body_entered(body: Node):
 	if body.is_in_group("ball"):
+		print("ball position %s parent %s" % [body.position, body.get_parent()])
 		emit_signal("ball_fell", body)

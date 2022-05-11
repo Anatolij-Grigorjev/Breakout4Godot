@@ -36,11 +36,16 @@ func fireNextParticleSystem(global_particles_pos: Vector2, particles_rot: float 
 	if (numSystems == 0):
 		return
 		
-	var particles = particleSystems[currentSystemIdx]
+	var particles = next_system()
 	particles.global_position = global_particles_pos
 	particles.rotation = particles_rot
 	emit_signal("activeParticlesWillEmit", particles)
 	particles.emitting = true
 	emit_signal("activeParticlesEmitted", particles)
+
+
+func next_system() -> Node2D:
+	var particles = particleSystems[currentSystemIdx]
 	currentSystemIdx = (currentSystemIdx + 1) % numSystems
+	return particles
 	

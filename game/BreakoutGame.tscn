@@ -1,6 +1,5 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://ball/Ball.tscn" type="PackedScene" id=1]
 [ext_resource path="res://bricks/BricksMap.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Barrier.tscn" type="PackedScene" id=3]
 [ext_resource path="res://BallCollideSmoke.tscn" type="PackedScene" id=4]
@@ -36,10 +35,6 @@ position = Vector2( 1044, 0 )
 
 [node name="TotalScore" parent="." instance=ExtResource( 8 )]
 position = Vector2( 884, 10 )
-
-[node name="Ball" parent="." instance=ExtResource( 1 )]
-position = Vector2( 490, 499 )
-direction = Vector2( 0, 1 )
 
 [node name="ParticlesBattery" type="Node2D" parent="."]
 script = ExtResource( 6 )

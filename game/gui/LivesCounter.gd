@@ -21,7 +21,6 @@ func _setNumBalls(newBallsNum: int):
 		_reset_visible_balls(numExtraBalls)
 
 
-
 func _reset_visible_balls(numBalls: int):
 	var container = $HBoxContainer
 	var currentBalls = container.get_children()
@@ -29,6 +28,7 @@ func _reset_visible_balls(numBalls: int):
 	if numBalls > currentNum:
 		for _idx in range(numBalls - currentNum):
 			var newBall = ExtraBallScn.instance()
+			newBall.owner = container
 			container.add_child(newBall)
 	if numBalls < currentNum:
 		for idx in range(numBalls, currentNum):

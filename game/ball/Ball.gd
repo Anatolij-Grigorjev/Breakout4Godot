@@ -13,19 +13,25 @@ export(float) var baseSpeed: float = 99
 export(float) var baseSpinDegrees: float = 360.0
 export(Vector2) var direction := Vector2.LEFT
 
+var baseSpinRadians = deg2rad(baseSpinDegrees)
+var speedAdditive = baseSpeed * bounceSpeedupCoef - baseSpeed
+var spinAdditive = baseSpinRadians * bounceSpeedupCoef - baseSpinRadians
+
 var currentSpeed
-var baseSpinRadians
 var currentSpinRadians
-var speedAdditive
-var spinAdditive
 
 
 func _ready():
+	reset()
+
+
+func reset():
 	currentSpeed = baseSpeed
-	baseSpinRadians = deg2rad(baseSpinDegrees)
 	currentSpinRadians = baseSpinRadians
-	speedAdditive = baseSpeed * bounceSpeedupCoef - baseSpeed
-	spinAdditive = baseSpinRadians * bounceSpeedupCoef - baseSpinRadians
+
+func stop():
+	currentSpeed = 0
+	currentSpinRadians = 0
 
 
 func _process(delta: float):

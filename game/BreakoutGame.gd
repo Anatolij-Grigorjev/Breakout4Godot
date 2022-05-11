@@ -1,10 +1,14 @@
 extends Node2D
 
-
 const FlashPointsScn = preload("res://gui/ScoredPoints.tscn")
 
+
+signal game_over(total_score)
+
+
 onready var bricks = $BricksMap
-onready var ball = $Ball
+onready var ball = $Paddle/Ball
+onready var paddle = $Paddle
 onready var ballSmokes = $ParticlesBattery
 onready var cameraShake = $Camera2D/ScreenShake
 onready var scoreCounter = $TotalScore
@@ -50,3 +54,9 @@ func _get_points_for_brick_type(_type: int) -> float:
 
 func _on_ball_fallen(_ball):
 	livesCounter.numExtraBalls -= 1
+	if (livesCounter.numExtraBalls <= 0):
+		emit_signal("game_over", scoreCounter.value)
+		print("!!!GAME OVER!!!\n\nTOTAL SCORE:%s" % scoreCounter.value)
+	else:
+		remove_child(ball)
+		paddle.attach_ball(ball)
