@@ -22,10 +22,10 @@ var currentSpinRadians
 
 
 func _ready():
-	reset()
+	reset_speed()
 
 
-func reset():
+func reset_speed():
 	currentSpeed = baseSpeed
 	currentSpinRadians = baseSpinRadians
 

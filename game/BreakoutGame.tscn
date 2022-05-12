@@ -56,4 +56,4 @@ position = Vector2( 489, 534 )
 position = Vector2( 40, 551 )
 
 [node name="BallLossArea" parent="." instance=ExtResource( 11 )]
-position = Vector2( 505, 669 )
+position = Vector2( 515, 613 )

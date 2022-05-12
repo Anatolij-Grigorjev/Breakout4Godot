@@ -24,7 +24,7 @@ func _process(delta: float):
 	if Input.is_action_pressed("ui_right"):
 		direction.x = 1
 	if Input.is_action_just_released("ui_accept") and attachedBall:
-		_detach_ball()
+		_launch_ball()
 	
 	move_and_collide(direction * speed * delta)
 
@@ -41,9 +41,9 @@ func attach_ball(ball: Ball):
 	attachedBall.position = ballPosition.position
 
 
-func _detach_ball():
+func _launch_ball():
 	remove_child(attachedBall)
-	attachedBall.reset()
+	attachedBall.reset_speed()
 	get_parent().add_child(attachedBall)
 	attachedBall.global_position = Vector2(global_position.x, global_position.y - 10)
 	attachedBall = null
