@@ -23,6 +23,7 @@ func _ready():
 	scoreCounter.value = currentScore
 	ball.connect("ball_collided", self, "_on_ball_collided")
 	bricks.connect("brickDestroyed", self, "_on_brick_destroyed")
+	bricks.connect("map_cleared", self, "_on_bricksmap_cleared")
 	ballLossArea.connect("ball_fell", self, "_on_ball_fallen")
 
 
@@ -48,8 +49,12 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 	scoreCounter.value += brickPoints
 
 
-func _get_points_for_brick_type(_type: int) -> float:
-	return 1000.0
+func _get_points_for_brick_type(_type: int) -> int:
+	return int(rand_range(500, 1000))
+
+
+func _on_bricksmap_cleared(cleared_bricks: int):
+	print("cleared brickmap with %s bricks" % cleared_bricks)
 
 
 func _on_ball_fallen(ball):
