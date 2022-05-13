@@ -52,11 +52,12 @@ func _get_points_for_brick_type(_type: int) -> float:
 	return 1000.0
 
 
-func _on_ball_fallen(_ball):
+func _on_ball_fallen(ball):
 	livesCounter.numExtraBalls -= 1
 	if (livesCounter.numExtraBalls <= 0):
 		emit_signal("game_over", scoreCounter.value)
-		print("!!!GAME OVER!!!\n\nTOTAL SCORE:%s" % scoreCounter.value)
+		print("!!!GAME OVER!!!\nTOTAL SCORE:%s" % scoreCounter.value)
+		ball.queue_free()
 	else:
 		remove_child(ball)
 		paddle.attach_ball(ball)
