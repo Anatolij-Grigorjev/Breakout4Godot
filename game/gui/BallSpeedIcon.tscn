@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://gui/ball_speed_icon.png" type="Texture" id=1]
+[ext_resource path="res://gui/BallSpeedIcon.gd" type="Script" id=2]
+
+[node name="BallSpeedIcon" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/separation = 10
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+margin_right = 64.0
+margin_bottom = 40.0
+texture = ExtResource( 1 )
+stretch_mode = 6
+
+[node name="X" type="Label" parent="HBoxContainer"]
+margin_left = 74.0
+margin_top = 13.0
+margin_right = 82.0
+margin_bottom = 27.0
+text = "X"
+align = 1
+valign = 1
+
+[node name="MultiplierLbl" type="Label" parent="HBoxContainer"]
+margin_left = 92.0
+margin_top = 13.0
+margin_right = 112.0
+margin_bottom = 27.0
+text = "1.0"
+align = 1
+valign = 1
+uppercase = true

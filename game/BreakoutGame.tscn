@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
+[ext_resource path="res://gui/BallSpeedIcon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://bricks/BricksMap.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Barrier.tscn" type="PackedScene" id=3]
 [ext_resource path="res://BallCollideSmoke.tscn" type="PackedScene" id=4]
@@ -57,3 +58,6 @@ position = Vector2( 40, 551 )
 
 [node name="BallLossArea" parent="." instance=ExtResource( 11 )]
 position = Vector2( 515, 613 )
+
+[node name="BallSpeedIcon" parent="." instance=ExtResource( 1 )]
+position = Vector2( 43, 509 )
