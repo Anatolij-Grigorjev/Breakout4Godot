@@ -53,11 +53,11 @@ script = ExtResource( 6 )
 [node name="Paddle" parent="." instance=ExtResource( 9 )]
 position = Vector2( 489, 534 )
 
-[node name="LivesCounter" parent="." instance=ExtResource( 10 )]
-position = Vector2( 40, 551 )
-
 [node name="BallLossArea" parent="." instance=ExtResource( 11 )]
 position = Vector2( 515, 613 )
 
+[node name="LivesCounter" parent="." instance=ExtResource( 10 )]
+position = Vector2( 26, 550 )
+
 [node name="BallSpeedIcon" parent="." instance=ExtResource( 1 )]
-position = Vector2( 43, 509 )
+position = Vector2( 20, 504 )

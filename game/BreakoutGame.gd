@@ -27,7 +27,7 @@ func _ready():
 	ballLossArea.connect("ball_fell", self, "_on_ball_fallen")
 
 
-func _on_ball_collided(collision: KinematicCollision2D):
+func _on_ball_collided(collision: KinematicCollision2D, _ball):
 	
 	if (collision.collider.is_in_group("bricks")):
 		cameraShake.beginShake()

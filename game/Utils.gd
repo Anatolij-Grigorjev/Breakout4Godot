@@ -181,7 +181,8 @@ static func swapVector(input: Vector2) -> Vector2:
 
 	
 """
-Safely get first element from possibly null or empty array
+Safely get first element from possibly null or empty array.
+If the array is null or empty the return is null
 """
 static func getFirst(arr: Array):
 	if (arr == null or arr.empty()):

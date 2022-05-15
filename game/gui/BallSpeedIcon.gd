@@ -4,15 +4,16 @@ extends Node2D
 onready var mult_Lbl: Label = $HBoxContainer/MultiplierLbl
 
 
-var ball
-
-
 func _ready():
 	var ballsInTree = get_tree().get_nodes_in_group("ball")
 	if not ballsInTree.empty():
-		ball = ballsInTree[0]
+		var ball = Utils.getFirst(ballsInTree)
+		ball.connect("ball_collided", self, "_on_ball_collided")
 	
 
-func _process(delta):
-	if (ball):
-		mult_Lbl.text = "%s" % (ball.currentSpeed / ball.baseSpeed)
+func _on_ball_collided(_collision: KinematicCollision2D, ball: Ball):
+	_refresh_speed_multiplier(ball)
+
+
+func _refresh_speed_multiplier(ball: Ball):
+	mult_Lbl.text = "%s" % (ball.currentSpeed / ball.baseSpeed)

@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name Ball
 
-signal ball_collided(collision)
+signal ball_collided(collision, ball)
 
 onready var anim: AnimationPlayer = $AnimationPlayer
 onready var sprite: Sprite = $Sprite
@@ -71,7 +71,7 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 			print("not exciting, adjusted for %s to %s" % [rad2deg(allowed_adjustmenet), rad2deg(new_direction.angle())])
 		
 			
-	emit_signal("ball_collided", collision)
+	emit_signal("ball_collided", collision, self)
 	direction = new_direction
 
 
