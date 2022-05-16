@@ -1,15 +1,30 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://gui/ScoredPoints.gd" type="Script" id=1]
 [ext_resource path="res://tools/TTL.gd" type="Script" id=2]
 
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 90
+corner_radius_top_right = 90
+corner_radius_bottom_right = 90
+corner_radius_bottom_left = 90
+anti_aliasing = false
+
 [node name="ScoredPoints" type="Node2D"]
 script = ExtResource( 1 )
+colorsCycle = [ Color( 0.607843, 0.607843, 0.980392, 1 ), Color( 1, 1, 0, 1 ) ]
 colorFlashDuration = 0.15
 
 [node name="Label" type="Label" parent="."]
 margin_right = 40.0
 margin_bottom = 14.0
+custom_styles/normal = SubResource( 1 )
 text = "+100"
 align = 1
 uppercase = true

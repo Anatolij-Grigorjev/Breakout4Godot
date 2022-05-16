@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 
 onready var mult_Lbl: Label = $HBoxContainer/MultiplierLbl

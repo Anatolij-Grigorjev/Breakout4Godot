@@ -3,7 +3,7 @@
 [ext_resource path="res://gui/ball_speed_icon.png" type="Texture" id=1]
 [ext_resource path="res://gui/BallSpeedIcon.gd" type="Script" id=2]
 
-[node name="BallSpeedIcon" type="Node2D"]
+[node name="BallSpeedIcon" type="Control"]
 script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

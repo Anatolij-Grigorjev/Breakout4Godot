@@ -35,7 +35,6 @@ rotation = 1.5708
 position = Vector2( 1044, 0 )
 
 [node name="TotalScore" parent="." instance=ExtResource( 8 )]
-position = Vector2( 884, 10 )
 
 [node name="ParticlesBattery" type="Node2D" parent="."]
 script = ExtResource( 6 )
@@ -57,7 +56,5 @@ position = Vector2( 489, 534 )
 position = Vector2( 515, 613 )
 
 [node name="LivesCounter" parent="." instance=ExtResource( 10 )]
-position = Vector2( 26, 550 )
 
 [node name="BallSpeedIcon" parent="." instance=ExtResource( 1 )]
-position = Vector2( 20, 504 )

@@ -1,5 +1,5 @@
 tool
-extends Node2D
+extends Control
 
 const ExtraBallScn = preload("res://gui/ExtraBallImage.tscn")
 

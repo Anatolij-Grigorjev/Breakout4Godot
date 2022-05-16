@@ -1,5 +1,5 @@
 tool
-extends Node2D
+extends Control
 
 export(String) var valueTagText: String = "SCORE: "
 export(String) var valueFormat: String = "%07d"
