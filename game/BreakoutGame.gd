@@ -11,8 +11,9 @@ onready var ball = $Paddle/Ball
 onready var paddle = $Paddle
 onready var ballSmokes = $ParticlesBattery
 onready var cameraShake = $Camera2D/ScreenShake
-onready var scoreCounter = $TotalScore
-onready var livesCounter = $LivesCounter
+
+onready var scoreCounter = $GUI/GameHUD/ScoresHUD/AccumCounter
+onready var livesCounter = $GUI/GameHUD/LivesHUD/LivesCounter
 onready var ballLossArea = $BallLossArea
 
 var currentScore := 0
