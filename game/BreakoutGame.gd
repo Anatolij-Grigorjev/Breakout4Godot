@@ -13,7 +13,7 @@ onready var ballSmokes = $ParticlesBattery
 onready var cameraShake = $Camera2D/ScreenShake
 
 onready var scoreCounter = $GUI/GameHUD/ScoresHUD/AccumCounter
-onready var livesCounter = $GUI/GameHUD/LivesHUD/LivesCounter
+onready var livesCounter = $GUI/GameHUD/LowerHUD/LivesHUD/MarginContainer/LivesCounter
 onready var ballLossArea = $BallLossArea
 
 var currentScore := 0
