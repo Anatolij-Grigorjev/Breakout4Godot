@@ -51,7 +51,7 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 
 
 func _get_points_for_brick_type(_type: int) -> int:
-	return int(rand_range(500, 1000))
+	return int(rand_range(800, 900))
 
 
 func _on_bricksmap_cleared(cleared_bricks: int):
