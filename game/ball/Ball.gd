@@ -7,7 +7,7 @@ onready var anim: AnimationPlayer = $AnimationPlayer
 onready var sprite: Sprite = $Sprite
 
 export(float) var bounceSpeedupCoef: float = 1.2
-export(float) var maxSpeedCoef: float = 2.5
+export(float) var maxSpeedCoef: float = 5.0
 
 export(float) var baseSpeed: float = 99
 export(float) var baseSpinDegrees: float = 360.0
@@ -49,9 +49,9 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 
 	if not collision.collider.is_in_group("barrier"):
 		sprite.rotation = collision.normal.angle()
-		_speedup_ball()
 	
 	if collision.collider.is_in_group("bricks"):
+		_speedup_ball()
 		anim.play("hit-squish")
 		var tilemap: BricksMap = collision.collider as BricksMap
 		tilemap.bricks_hit_at(collision.position, collision.normal)
