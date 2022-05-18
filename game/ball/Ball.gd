@@ -33,6 +33,9 @@ func stop():
 	currentSpeed = 0
 	currentSpinRadians = 0
 
+func currentSpeedupCoef() -> float:
+	return currentSpeed / max(baseSpeed, 1.0)
+
 
 func _process(delta: float):
 	var collision: KinematicCollision2D = move_and_collide(direction * currentSpeed * delta)

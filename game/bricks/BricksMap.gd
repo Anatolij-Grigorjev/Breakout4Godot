@@ -1,11 +1,17 @@
 extends TileMap
 class_name BricksMap
 
+const BrickBoomScn = preload("res://bricks/BrickExplode.tscn")
+
+
 signal brickDestroyed(brickType, brickPos)
 signal map_cleared(num_bricks)
 
 
-const BrickBoomScn = preload("res://bricks/BrickExplode.tscn")
+export(Dictionary) var pointsForBrickOfType = { 
+	0: 540.0 
+}
+
 
 var animations_cache = {}
 var total_num_bricks: int = 0
@@ -23,6 +29,9 @@ func _process(delta):
 		var rand_normal = Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0))
 		_hit_brick_at_idx(first_used_cell, rand_normal)
 
+
+func get_points_for_brick_type(type: int) -> float:
+	return pointsForBrickOfType[type]
 
 
 func bricks_hit_at(global_hit_pos: Vector2, hit_normal: Vector2):

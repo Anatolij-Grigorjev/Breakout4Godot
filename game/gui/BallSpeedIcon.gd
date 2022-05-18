@@ -16,4 +16,4 @@ func _on_ball_collided(_collision: KinematicCollision2D, ball: Ball):
 
 
 func _refresh_speed_multiplier(ball: Ball):
-	mult_Lbl.text = "%s" % (ball.currentSpeed / ball.baseSpeed)
+	mult_Lbl.text = "%s" % ball.currentSpeedupCoef()

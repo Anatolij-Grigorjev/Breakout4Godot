@@ -50,8 +50,9 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 	scoreCounter.value += brickPoints
 
 
-func _get_points_for_brick_type(_type: int) -> int:
-	return int(rand_range(800, 900))
+func _get_points_for_brick_type(type: int) -> float:
+	var base_points = bricks.get_points_for_brick_type(type)
+	return base_points * ball.currentSpeedupCoef()
 
 
 func _on_bricksmap_cleared(cleared_bricks: int):
