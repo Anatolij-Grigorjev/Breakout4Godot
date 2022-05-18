@@ -6,10 +6,10 @@ signal ball_collided(collision, ball)
 onready var anim: AnimationPlayer = $AnimationPlayer
 onready var sprite: Sprite = $Sprite
 
-export(float) var bounceSpeedupCoef: float = 1.2
-export(float) var maxSpeedCoef: float = 5.0
+export(float) var bounceSpeedupCoef: float = 1.1
+export(float) var maxSpeedCoef: float = 3.0
 
-export(float) var baseSpeed: float = 99
+export(float) var baseSpeed: float = 120
 export(float) var baseSpinDegrees: float = 360.0
 export(Vector2) var direction := Vector2.LEFT
 
