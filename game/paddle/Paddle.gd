@@ -3,7 +3,9 @@ extends KinematicBody2D
 
 export(float) var speed: float = 150.0
 
-onready var ballSparks = $Sprite/ParticlesBattery
+onready var ballSparks1x = $Sprite/ParticlesBattery
+onready var ballSparks2x = $Sprite/ParticlesBattery2x
+onready var ballSparks3x = $Sprite/ParticlesBattery3x
 onready var anim: AnimationPlayer = $AnimationPlayer
 onready var ballPosition: Position2D = $BallPosition
 
@@ -29,8 +31,9 @@ func _process(delta: float):
 	move_and_collide(direction * speed * delta)
 
 
-func ball_hit_at(global_hit_pos: Vector2, hit_normal: Vector2):
+func ball_hit_at(global_hit_pos: Vector2, ball_speed_coef: float):
 	anim.play("bounce_ball")
+	var ballSparks = _pick_sparks_for_ball_hit(ball_speed_coef)
 	ballSparks.fireNextParticleSystem(global_hit_pos)
 
 
@@ -39,6 +42,15 @@ func attach_ball(ball: Ball):
 	add_child(attachedBall)
 	attachedBall.stop()
 	attachedBall.position = ballPosition.position
+
+
+func _pick_sparks_for_ball_hit(ball_speed_coef: float) -> CPUParticles2D:
+	if ball_speed_coef < 1.5:
+		return ballSparks1x
+	elif ball_speed_coef < 2.5:
+		return ballSparks2x
+	else:
+		return ballSparks3x
 
 
 func _launch_ball():

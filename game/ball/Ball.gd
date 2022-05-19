@@ -68,7 +68,7 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 	
 	if collision.collider.is_in_group("paddle"):
 		var paddle = collision.collider
-		paddle.ball_hit_at(collision.position, collision.normal)
+		paddle.ball_hit_at(collision.position, currentSpeedupCoef())
 		#adjust new direction to be more exiciting (central in release)
 		var current_angle = new_direction.angle()
 		var allowed_adjustmenet = rand_range(PI / 12, PI / 6)
