@@ -1,7 +1,8 @@
 extends KinematicBody2D
 class_name Ball
 
-signal ball_collided(collision, ball)
+signal ball_collided(collision)
+signal ball_speed_changed(ball)
 
 onready var anim: AnimationPlayer = $AnimationPlayer
 onready var sprite: Sprite = $Sprite
@@ -26,12 +27,14 @@ func _ready():
 
 
 func reset_speed():
-	currentSpeed = baseSpeed
+	_set_current_speed_and_broadcast(baseSpeed)
 	currentSpinRadians = baseSpinRadians
 
+
 func stop():
-	currentSpeed = 0
+	_set_current_speed_and_broadcast(0)
 	currentSpinRadians = 0
+
 
 func currentSpeedupCoef() -> float:
 	return currentSpeed / max(baseSpeed, 1.0)
@@ -42,6 +45,10 @@ func _process(delta: float):
 	sprite.rotate(currentSpinRadians * delta)
 	_handle_potential_collision(collision)
 
+
+func _set_current_speed_and_broadcast(new_speed_val: float):
+	currentSpeed = new_speed_val
+	emit_signal("ball_speed_changed", self)
 
 
 func _handle_potential_collision(collision: KinematicCollision2D):
@@ -74,10 +81,10 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 			print("not exciting, adjusted for %s to %s" % [rad2deg(allowed_adjustmenet), rad2deg(new_direction.angle())])
 		
 			
-	emit_signal("ball_collided", collision, self)
+	emit_signal("ball_collided", collision)
 	direction = new_direction
 
 
 func _speedup_ball():
-	currentSpeed = clamp(currentSpeed + speedAdditive, baseSpeed, baseSpeed * maxSpeedCoef)
+	_set_current_speed_and_broadcast(clamp(currentSpeed + speedAdditive, baseSpeed, baseSpeed * maxSpeedCoef))
 	currentSpinRadians = clamp(currentSpinRadians + spinAdditive, baseSpinRadians, baseSpinRadians * maxSpeedCoef)
