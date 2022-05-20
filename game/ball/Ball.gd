@@ -72,13 +72,12 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 		#adjust new direction to be more exiciting (central in release)
 		var current_angle = new_direction.angle()
 		var allowed_adjustmenet = rand_range(PI / 12, PI / 6)
-		print("land angle: %s" % rad2deg(current_angle))
 		if abs(current_angle) < PI / 6:
 			new_direction = new_direction.rotated(sign(current_angle) * allowed_adjustmenet)
-			print("not exciting, adjusted for %s to %s" % [rad2deg(allowed_adjustmenet), rad2deg(new_direction.angle())])
+			print("land angle: %s not exciting, adjusted for %s to %s" % [rad2deg(current_angle), rad2deg(allowed_adjustmenet), rad2deg(new_direction.angle())])
 		elif abs(current_angle) > PI * 5 / 6:
 			new_direction = new_direction.rotated(-sign(current_angle) * allowed_adjustmenet)
-			print("not exciting, adjusted for %s to %s" % [rad2deg(allowed_adjustmenet), rad2deg(new_direction.angle())])
+			print("land angle: %s not exciting, adjusted for %s to %s" % [rad2deg(current_angle), rad2deg(allowed_adjustmenet), rad2deg(new_direction.angle())])
 		
 			
 	emit_signal("ball_collided", collision)

@@ -36,7 +36,6 @@ func get_points_for_brick_type(type: int) -> float:
 
 func bricks_hit_at(global_hit_pos: Vector2, hit_normal: Vector2):
 	var tileIdx: Vector2 = world_to_map(to_local(global_hit_pos))
-	print("global pos: " + String(global_hit_pos) + " tileidx: " + String(tileIdx) + " tile type: " + String(get_cellv(tileIdx)))
 	_hit_brick_at_idx(tileIdx, hit_normal)
 	
 
@@ -56,8 +55,8 @@ func _build_hidden_boom_at_tile_idx(idx: Vector2) -> Node2D:
 	var brickBoomNode: Node2D = BrickBoomScn.instance()
 	add_child(brickBoomNode)
 	brickBoomNode.visible = false
-	#world coordinate holds top left corner of cell position
-	# origin of exploding animation is center of cell, so adding offset
+	# world coordinate holds top left corner of cell position
+	#  origin of exploding animation is center of cell, so adding offset
 	brickBoomNode.position = map_to_world(idx) + cell_size / 2
 	return brickBoomNode
 
