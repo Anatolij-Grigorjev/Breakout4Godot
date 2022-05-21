@@ -55,7 +55,7 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 	if (not collision):
 		return
 
-	var new_direction = direction.bounce(collision.normal)
+	var next_direction = direction.bounce(collision.normal)
 
 	if not collision.collider.is_in_group("barrier"):
 		sprite.rotation = collision.normal.angle()
@@ -69,21 +69,25 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 	if collision.collider.is_in_group("paddle"):
 		var paddle = collision.collider
 		paddle.ball_hit_at(collision.position, currentSpeedupCoef())
-		#adjust new direction to be more exiciting (central in release)
-		var current_angle = new_direction.angle()
-		var allowed_adjustmenet = rand_range(PI / 12, PI / 6)
-		if abs(current_angle) < PI / 6:
-			new_direction = new_direction.rotated(sign(current_angle) * allowed_adjustmenet)
-			print("land angle: %s not exciting, adjusted for %s to %s" % [rad2deg(current_angle), rad2deg(allowed_adjustmenet), rad2deg(new_direction.angle())])
-		elif abs(current_angle) > PI * 5 / 6:
-			new_direction = new_direction.rotated(-sign(current_angle) * allowed_adjustmenet)
-			print("land angle: %s not exciting, adjusted for %s to %s" % [rad2deg(current_angle), rad2deg(allowed_adjustmenet), rad2deg(new_direction.angle())])
+	
+	direction = _adjust_horizontal_bounce_direction(next_direction, collision.collider)
 		
-			
 	emit_signal("ball_collided", collision)
-	direction = new_direction
 
 
 func _speedup_ball():
 	_set_current_speed_and_broadcast(clamp(currentSpeed + speedAdditive, baseSpeed, baseSpeed * maxSpeedCoef))
 	currentSpinRadians = clamp(currentSpinRadians + spinAdditive, baseSpinRadians, baseSpinRadians * maxSpeedCoef)
+
+
+func _adjust_horizontal_bounce_direction(original_direction: Vector2, collider: Node2D) -> Vector2:
+	var current_angle = original_direction.angle()
+	var allowed_adjustmenet = rand_range(PI / 12, PI / 6)
+	var new_direction = original_direction
+	if abs(current_angle) < PI / 6:
+		new_direction = new_direction.rotated(sign(current_angle) * allowed_adjustmenet)
+		print("(on %s): land angle: %s not exciting, adjusted for %s to %s" % [collider, rad2deg(current_angle), rad2deg(allowed_adjustmenet), rad2deg(new_direction.angle())])
+	elif abs(current_angle) > PI * 5 / 6:
+		new_direction = new_direction.rotated(-sign(current_angle) * allowed_adjustmenet)
+		print("(on %s): land angle: %s not exciting, adjusted for %s to %s" % [collider, rad2deg(current_angle), rad2deg(allowed_adjustmenet), rad2deg(new_direction.angle())])
+	return new_direction
