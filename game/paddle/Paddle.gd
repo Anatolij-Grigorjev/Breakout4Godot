@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 
-export(float) var speed: float = 150.0
+export(float) var speed: float = 175.0
 export(float) var base_ball_recoil = 7
 
 onready var ballSparks1x = $Sprite/ParticlesBattery

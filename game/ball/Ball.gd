@@ -8,7 +8,7 @@ onready var anim: AnimationPlayer = $AnimationPlayer
 onready var sprite: Sprite = $Sprite
 
 export(float) var bounceSpeedupCoef: float = 1.1
-export(float) var maxSpeedCoef: float = 3.0
+export(float) var maxSpeedCoef: float = 2.5
 
 export(float) var baseSpeed: float = 120
 export(float) var baseSpinDegrees: float = 360.0
