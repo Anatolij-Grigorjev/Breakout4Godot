@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://gui/GameHUD.tscn" type="PackedScene" id=1]
 [ext_resource path="res://bricks/BricksMap.tscn" type="PackedScene" id=2]
@@ -7,11 +7,17 @@
 [ext_resource path="res://BreakoutGame.gd" type="Script" id=5]
 [ext_resource path="res://tools/ParticlesBattery.gd" type="Script" id=6]
 [ext_resource path="res://tools/CameraShake.tscn" type="PackedScene" id=7]
+[ext_resource path="res://bg/Background.tscn" type="PackedScene" id=8]
 [ext_resource path="res://paddle/Paddle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://BallLossArea.tscn" type="PackedScene" id=11]
 
 [node name="BreakoutGame" type="Node2D"]
 script = ExtResource( 5 )
+
+[node name="BG" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Background" parent="BG" instance=ExtResource( 8 )]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 508, 298 )
@@ -52,5 +58,6 @@ position = Vector2( 489, 534 )
 position = Vector2( 515, 613 )
 
 [node name="GUI" type="CanvasLayer" parent="."]
+layer = 5
 
 [node name="GameHUD" parent="GUI" instance=ExtResource( 1 )]
