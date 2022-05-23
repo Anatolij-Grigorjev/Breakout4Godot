@@ -11,14 +11,14 @@ onready var tween: Tween = $Tween
 onready var ballPosition: Position2D = $BallPosition
 
 
-var attachedBall: Node2D
+var ballRef: Node2D
 
 
 
 func _ready():
-	if ($Ball):
-		attachedBall = $Ball
-		attachedBall.stop()
+	ballRef = _try_get_ball_reference()
+	if ballRef:
+		ballRef.stop()
 
 
 func _process(delta: float):
@@ -27,7 +27,7 @@ func _process(delta: float):
 		direction.x = -1
 	if Input.is_action_pressed("ui_right"):
 		direction.x = 1
-	if Input.is_action_just_released("ui_accept") and attachedBall:
+	if Input.is_action_just_released("ui_accept") and ballRef:
 		_launch_ball()
 	
 	move_and_collide(direction * speed * delta)
@@ -40,27 +40,33 @@ func ball_hit_at(global_hit_pos: Vector2, ball_speed_coef: float):
 
 
 func attach_ball(ball: Ball):
-	attachedBall = ball
-	add_child(attachedBall)
-	attachedBall.stop()
-	attachedBall.position = ballPosition.position
+	ballRef = ball
+	add_child(ballRef)
+	ballRef.stop()
+	ballRef.position = ballPosition.position
+
+
+func _try_get_ball_reference() -> Node2D:
+	if $Ball:
+		return $Ball as Node2D
+	else:
+		return Utils.getFirst(get_tree().get_nodes_in_group("ball"))
 
 
 func _pick_sparks_for_ball_hit(ball_speed_coef: float) -> CPUParticles2D:
-	if ball_speed_coef < 1.5:
+	if ball_speed_coef < ballRef.maxSpeedCoef / 2:
 		return ballSparks1x
-	elif ball_speed_coef < 2.5:
+	elif ball_speed_coef < ballRef.maxSpeedCoef:
 		return ballSparks2x
 	else:
 		return ballSparks3x
 
 
 func _launch_ball():
-	remove_child(attachedBall)
-	attachedBall.reset_speed()
-	get_parent().add_child(attachedBall)
-	attachedBall.global_position = Vector2(global_position.x, global_position.y - 10)
-	attachedBall = null
+	remove_child(ballRef)
+	ballRef.reset_speed()
+	get_parent().add_child(ballRef)
+	ballRef.global_position = Vector2(global_position.x, global_position.y - 10)
 
 
 func _prepare_and_run_bounce_reaction_tweens(ball_speed_coef: float):
