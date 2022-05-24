@@ -17,7 +17,7 @@ script = ExtResource( 5 )
 [node name="BG" type="CanvasLayer" parent="."]
 layer = -10
 
-[node name="Background" parent="BG" instance=ExtResource( 8 )]
+[node name="Background" parent="BG" groups=["bg"] instance=ExtResource( 8 )]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 508, 298 )
