@@ -6,6 +6,7 @@ const FlashPointsScn = preload("res://gui/ScoredPoints.tscn")
 signal game_over(total_score)
 
 
+onready var bg = $BG/Background
 onready var bricks = $BricksMap
 onready var ball = $Paddle/Ball
 onready var paddle = $Paddle
@@ -35,6 +36,7 @@ func _on_ball_collided(collision: KinematicCollision2D):
 		var particlesPos = collision.position - (collision.normal * 10)
 		var particlesRotation = collision.normal.angle()
 		ballSmokes.fireNextParticleSystem(particlesPos, particlesRotation)
+		bg.do_pulse(ball.currentSpeedupCoef())
 
 
 func _on_brick_destroyed(type: int, tileIdx: Vector2):
