@@ -1,7 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://bricks/brick.png" type="Texture" id=1]
 [ext_resource path="res://bricks/BricksMap.gd" type="Script" id=2]
+[ext_resource path="res://shaders/sprite_outline.shader" type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 3 )
+shader_param/outline_width = 1.0
+shader_param/outline_color = null
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 1.43997, 1.77644, 62.1167, 1.55213, 62.341, 30.4885, 1.55213, 30.2642 )
@@ -30,6 +36,7 @@ points = PoolVector2Array( 1.43997, 1.77644, 62.1167, 1.55213, 62.341, 30.4885, 
 0/z_index = 0
 
 [node name="BricksMap" type="TileMap" groups=["bricks"]]
+material = SubResource( 3 )
 tile_set = SubResource( 1 )
 cell_size = Vector2( 64, 32 )
 format = 1

@@ -1,12 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://bricks/brick.png" type="Texture" id=1]
 [ext_resource path="res://bricks/BrickPart.gd" type="Script" id=2]
+[ext_resource path="res://shaders/sprite_outline.shader" type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
+shader_param/outline_width = 1.0
+shader_param/outline_color = null
 
 [node name="BrickPart" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 1 )
 texture = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
