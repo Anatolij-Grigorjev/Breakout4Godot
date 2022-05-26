@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://paddle/paddle.png" type="Texture" id=1]
 [ext_resource path="res://paddle/Paddle.gd" type="Script" id=2]
 [ext_resource path="res://tools/ParticlesBattery.tscn" type="PackedScene" id=3]
-[ext_resource path="res://ball/Ball.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Gradient" id=3]
 colors = PoolColorArray( 0.880021, 0.925879, 0.0782984, 1, 0.0396164, 0.0926177, 0.936928, 1 )
@@ -180,9 +179,6 @@ color_ramp = SubResource( 3 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -64, 4, -35, -7, 36, -7, 63, 4, 36, 8, -36, 8 )
-
-[node name="Ball" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, -24 )
 
 [node name="BallPosition" type="Position2D" parent="."]
 position = Vector2( 0, -24 )
