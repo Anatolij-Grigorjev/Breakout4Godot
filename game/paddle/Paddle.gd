@@ -18,6 +18,7 @@ onready var ballPosition: Position2D = $BallPosition
 
 var ballRef: Node2D
 var ball_attached = false
+var sprite_material
 
 var prev_direction: Vector2 = Vector2.ZERO
 var this_direction_time: float = 0.0
@@ -28,6 +29,7 @@ func _ready():
 	ball_attached = _check_has_attached_ball()
 	if (ball_attached):
 		attach_ball(ballRef)
+	sprite_material = $Sprite.material
 
 
 func _process(delta: float):
@@ -44,7 +46,8 @@ func _process(delta: float):
 	else:
 		this_direction_time = 0
 	
-	var moment_speed = base_speed + this_direction_time * acceleration
+	var moment_speed = abs(direction.x) * (base_speed + this_direction_time * acceleration)
+	sprite_material.set_shader_param("radius", _calc_speed_blur(moment_speed))
 	move_and_collide(direction * moment_speed * delta)
 
 	prev_direction = direction
@@ -70,6 +73,13 @@ func _check_has_attached_ball() -> bool:
 		if child.is_in_group("ball"):
 			return true 
 	return false
+
+
+func _calc_speed_blur(current_speed: float) -> float:
+	if current_speed < base_speed * 1.5:
+		return 0.0
+	return current_speed / (base_speed * 1.5)
+
 
 
 func _pick_sparks_for_ball_hit(ball_speed_coef: float) -> CPUParticles2D:
