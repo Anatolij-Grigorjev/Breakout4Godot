@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
 
-export(float) var speed: float = 175.0
+export(float) var base_speed: float = 150.0
+export(float) var acceleration: float = 150.0
 export(float) var base_ball_recoil = 7
 
 onready var ballSparks1x = $Sprite/ParticlesBattery
@@ -13,6 +14,9 @@ onready var ballPosition: Position2D = $BallPosition
 
 var ballRef: Node2D
 var ball_attached = false
+
+var prev_direction: Vector2 = Vector2.ZERO
+var this_direction_time: float = 0.0
 
 
 func _ready():
@@ -31,7 +35,16 @@ func _process(delta: float):
 	if Input.is_action_just_released("ui_accept") and ball_attached:
 		_launch_ball()
 	
-	move_and_collide(direction * speed * delta)
+	if direction == prev_direction:
+		this_direction_time += delta
+	else:
+		this_direction_time = 0
+	
+	var moment_speed = base_speed + this_direction_time * acceleration
+	move_and_collide(direction * moment_speed * delta)
+
+	prev_direction = direction
+
 
 
 func ball_hit_at(global_hit_pos: Vector2, ball_speed_coef: float):

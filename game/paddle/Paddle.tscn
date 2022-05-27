@@ -9,7 +9,6 @@ colors = PoolColorArray( 0.880021, 0.925879, 0.0782984, 1, 0.0396164, 0.0926177,
 
 [node name="Paddle" type="KinematicBody2D" groups=["paddle"]]
 script = ExtResource( 2 )
-speed = 300.0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 2, 1 )
