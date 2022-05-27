@@ -2,7 +2,11 @@ extends KinematicBody2D
 
 
 export(float) var base_speed: float = 150.0
+
+# acceleration added over seconds of consistent movement in same direction
 export(float) var acceleration: float = 150.0
+
+# base amount of travel paddle does recoiling from ball
 export(float) var base_ball_recoil = 7
 
 onready var ballSparks1x = $Sprite/ParticlesBattery
