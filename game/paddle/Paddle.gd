@@ -23,6 +23,8 @@ var sprite_material
 var prev_direction: Vector2 = Vector2.ZERO
 var this_direction_time: float = 0.0
 
+var velocity: Vector2 = Vector2.ZERO
+
 
 func _ready():
 	ballRef = Utils.getFirstTreeNodeInGroup(get_tree(), "ball")
@@ -48,7 +50,8 @@ func _process(delta: float):
 	
 	var moment_speed = abs(direction.x) * (base_speed + this_direction_time * acceleration)
 	sprite_material.set_shader_param("radius", _calc_speed_blur(moment_speed))
-	move_and_collide(direction * moment_speed * delta)
+	velocity = direction * moment_speed
+	move_and_collide(velocity * delta)
 
 	prev_direction = direction
 
