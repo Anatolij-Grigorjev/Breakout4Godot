@@ -44,10 +44,12 @@ func _process(delta: float):
 	var collision: KinematicCollision2D = move_and_collide(direction * currentSpeed * delta)
 	sprite.rotate(currentSpinRadians * delta)
 	_handle_potential_collision(collision)
+		
 
 
 func _set_current_speed_and_broadcast(new_speed_val: float):
 	currentSpeed = new_speed_val
+	sprite.material.set_shader_param("radius", max(0.0, currentSpeedupCoef() - 1.5))
 	emit_signal("ball_speed_changed", self)
 
 
