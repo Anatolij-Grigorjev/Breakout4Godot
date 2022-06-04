@@ -123,20 +123,6 @@ tracks/2/keys = {
 [node name="Ball" type="KinematicBody2D" groups=["ball"]]
 script = ExtResource( 2 )
 
-[node name="TrailSprite" type="Sprite" parent="."]
-self_modulate = Color( 1, 1, 1, 0.431373 )
-scale = Vector2( 0.9, 0.9 )
-texture = ExtResource( 1 )
-offset = Vector2( 12.2222, 0 )
-
-[node name="TrailSprite2" type="Sprite" parent="TrailSprite"]
-self_modulate = Color( 1, 1, 1, 0.431373 )
-show_behind_parent = true
-position = Vector2( 26.6667, 0 )
-scale = Vector2( 0.8, 0.8 )
-texture = ExtResource( 1 )
-offset = Vector2( -9.53674e-07, 0 )
-
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 5 )
 texture = ExtResource( 1 )

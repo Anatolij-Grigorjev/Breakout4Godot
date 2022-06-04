@@ -6,7 +6,6 @@ signal ball_speed_changed(ball)
 
 onready var anim: AnimationPlayer = $AnimationPlayer
 onready var sprite: Sprite = $Sprite
-onready var trailSprite: Sprite = $TrailSprite
 
 export(float) var bounceSpeedupCoef: float = 1.15
 export(float) var maxSpeedCoef: float = 2.5
@@ -44,8 +43,6 @@ func currentSpeedupCoef() -> float:
 func _process(delta: float):
 	var collision: KinematicCollision2D = move_and_collide(direction * currentSpeed * delta)
 	sprite.rotate(currentSpinRadians * delta)
-	var inverseDirection = Vector2(-direction.x, -direction.y)
-	trailSprite.rotation = inverseDirection.angle()
 	_handle_potential_collision(collision)
 		
 
@@ -54,7 +51,6 @@ func _set_current_speed_and_broadcast(new_speed_val: float):
 	currentSpeed = new_speed_val
 	var high_speed_prc = currentSpeedupCoef() - 1.5
 	sprite.material.set_shader_param("radius", max(0.0, high_speed_prc))
-	trailSprite.modulate.a = high_speed_prc
 	emit_signal("ball_speed_changed", self)
 
 
