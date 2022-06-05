@@ -69,4 +69,4 @@ layer = 5
 [node name="GameHUD" parent="GUI" instance=ExtResource( 1 )]
 
 [node name="BallTrailTimer" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.09

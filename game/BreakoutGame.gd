@@ -49,14 +49,13 @@ func _on_ball_trail_timeout():
 
 	var ball_trail = BallTrailScn.instance()
 	ball_trail.global_position = ball.global_position
-	add_child(ball_trail)
+	add_child_below_node(bricks, ball_trail)
 
 
 
 func _on_ball_speed_changed(ball: Ball):
 
 	var speed_coef = ball.currentSpeedupCoef()
-	ballTrailTimer.wait_time = 0.3 - ((speed_coef - 1.5) / 10.0)
 	if speed_coef > 1.5 and ballTrailTimer.is_stopped():
 		ballTrailTimer.start()
 	if speed_coef < 1.5 and not ballTrailTimer.is_stopped():
