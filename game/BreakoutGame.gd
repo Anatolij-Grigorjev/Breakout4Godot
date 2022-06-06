@@ -39,9 +39,7 @@ func _on_ball_collided(collision: KinematicCollision2D):
 	
 	if (collision.collider.is_in_group("bricks")):
 		cameraShake.beginShake()
-		var particlesPos = collision.position - (collision.normal * 10)
-		var particlesRotation = collision.normal.angle()
-		ballSmokes.fireNextParticleSystem(particlesPos, particlesRotation)
+		_fire_collision_particles(collision)
 		bg.do_pulse(ball.currentSpeedupCoef())
 
 
@@ -65,23 +63,10 @@ func _on_ball_speed_changed(ball: Ball):
 func _on_brick_destroyed(type: int, tileIdx: Vector2):
 
 	var brickPoints = _get_points_for_brick_type(type)
-
-	var flashPoints = FlashPointsScn.instance()
-	# world position of tile idx is relative to tilemap origin (0;0)
-	flashPoints.global_position = (bricks.map_to_world(tileIdx) + bricks.position) - Vector2(-5, 15)
-	flashPoints.text = "+%s" % brickPoints
-	add_child(flashPoints)
-
+	# brick position is relative to tilemap parent
+	var brick_origin_pos = bricks.map_to_world(tileIdx) + bricks.position
+	_add_scored_points_bubble(brick_origin_pos, brickPoints)
 	scoreCounter.value += brickPoints
-
-
-func _get_points_for_brick_type(type: int) -> float:
-	var base_points = bricks.get_points_for_brick_type(type)
-	return base_points * ball.currentSpeedupCoef()
-
-
-func _on_bricksmap_cleared(cleared_bricks: int):
-	print("cleared brickmap with %s bricks" % cleared_bricks)
 
 
 func _on_ball_fallen(ball):
@@ -93,3 +78,26 @@ func _on_ball_fallen(ball):
 	else:
 		remove_child(ball)
 		paddle.attach_ball(ball)
+
+
+func _on_bricksmap_cleared(cleared_bricks: int):
+	print("cleared brickmap with %s bricks" % cleared_bricks)
+
+
+
+func _get_points_for_brick_type(type: int) -> float:
+	var base_points = bricks.get_points_for_brick_type(type)
+	return base_points * ball.currentSpeedupCoef()
+
+
+func _fire_collision_particles(collision: KinematicCollision2D):
+	var particlesPos = collision.position - (collision.normal * 10)
+	var particlesRotation = collision.normal.angle()
+	ballSmokes.fireNextParticleSystem(particlesPos, particlesRotation)
+
+
+func _add_scored_points_bubble(score_origin: Vector2, points: float):
+	var flashPoints = FlashPointsScn.instance()
+	flashPoints.global_position = score_origin - Vector2(-5, 15)
+	flashPoints.text = "+%s" % points
+	add_child(flashPoints)
