@@ -91,8 +91,8 @@ func _adjust_horizontal_bounce_direction(original_direction: Vector2, collider: 
 	var new_direction = original_direction
 	if abs(current_angle) < PI / 6:
 		new_direction = new_direction.rotated(sign(current_angle) * allowed_adjustmenet)
-		print("(on %s): land angle: %s (%s rad) not exciting, adjusted for %s (%s rad) to %s" % [collider, rad2deg(current_angle), current_angle, rad2deg(allowed_adjustmenet), allowed_adjustmenet, rad2deg(new_direction.angle())])
+		print("(on %s): land angle: %s deg. not exciting, adjusted for %s deg. to %s deg." % [collider, rad2deg(current_angle), rad2deg(allowed_adjustmenet), rad2deg(new_direction.angle())])
 	elif abs(current_angle) > PI * 5 / 6:
 		new_direction = new_direction.rotated(-sign(current_angle) * allowed_adjustmenet)
-		print("(on %s): land angle: %s (%s rad) not exciting, adjusted for %s (%s rad) to %s" % [collider, rad2deg(current_angle), current_angle, rad2deg(allowed_adjustmenet), allowed_adjustmenet, rad2deg(new_direction.angle())])
+		print("(on %s): land angle: %s deg. not exciting, adjusted for %s deg. to %s deg." % [collider, rad2deg(current_angle), rad2deg(allowed_adjustmenet), rad2deg(new_direction.angle())])
 	return new_direction
