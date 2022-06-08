@@ -5,12 +5,17 @@ const BrickBoomScn = preload("res://bricks/BrickExplode.tscn")
 
 
 signal brickDestroyed(brickType, brickPos)
+signal brick_damaged(brick_pos, hit_type, new_type)
 signal map_cleared(num_bricks)
 
-
-export(Dictionary) var pointsForBrickOfType = { 
+export(Dictionary) var brick_type_transitions = {
+	1: 0,
+	0: -1
+}
+export(Dictionary) var points_for_brick_of_type = { 
 	0: 540.0 
 }
+
 
 
 var animations_cache = {}
@@ -31,7 +36,7 @@ func _process(delta):
 
 
 func get_points_for_brick_type(type: int) -> float:
-	return pointsForBrickOfType[type]
+	return points_for_brick_of_type[type]
 
 
 func bricks_hit_at(global_hit_pos: Vector2, hit_normal: Vector2):
@@ -41,14 +46,17 @@ func bricks_hit_at(global_hit_pos: Vector2, hit_normal: Vector2):
 
 func _hit_brick_at_idx(tileIdx: Vector2, hit_normal: Vector2):
 	var tileTypeAtPos = get_cellv(tileIdx)
-	if (tileTypeAtPos != TileMap.INVALID_CELL):
-		set_cellv(tileIdx, TileMap.INVALID_CELL)
+	if (tileTypeAtPos == TileMap.INVALID_CELL):
+		return
+
+	var next_brick_type = brick_type_transitions[tileTypeAtPos]
+	if next_brick_type == TileMap.INVALID_CELL:
 		var explosion = animations_cache[tileIdx]
 		explosion.explode(hit_normal)
 		emit_signal("brickDestroyed", tileTypeAtPos, tileIdx)
-		var map_cleared = _check_all_cells_empty()
-		if map_cleared:
-			emit_signal("map_cleared", total_num_bricks)
+	
+	set_cellv(tileIdx, next_brick_type)
+	_check_and_emit_if_grid_empty()
 
 
 func _build_hidden_boom_at_tile_idx(idx: Vector2) -> Node2D:
@@ -59,6 +67,12 @@ func _build_hidden_boom_at_tile_idx(idx: Vector2) -> Node2D:
 	#  origin of exploding animation is center of cell, so adding offset
 	brickBoomNode.position = map_to_world(idx) + cell_size / 2
 	return brickBoomNode
+
+
+func _check_and_emit_if_grid_empty():
+	var map_cleared = _check_all_cells_empty()
+	if map_cleared:
+		emit_signal("map_cleared", total_num_bricks)
 
 
 func _check_all_cells_empty() -> bool:
