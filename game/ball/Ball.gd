@@ -17,6 +17,7 @@ export(Vector2) var direction := Vector2.LEFT
 var baseSpinRadians = deg2rad(baseSpinDegrees)
 var speedAdditive = baseSpeed * bounceSpeedupCoef - baseSpeed
 var spinAdditive = baseSpinRadians * bounceSpeedupCoef - baseSpinRadians
+var maxBallSpeed = maxSpeedCoef * baseSpeed
 
 var currentSpeed
 var currentSpinRadians
@@ -49,7 +50,7 @@ func _process(delta: float):
 
 func _set_current_speed_and_broadcast(new_speed_val: float):
 	currentSpeed = new_speed_val
-	var high_speed_prc = currentSpeedupCoef() - 1.5
+	var high_speed_prc = currentSpeedupCoef() - (maxSpeedCoef - 1.0)
 	sprite.material.set_shader_param("radius", max(0.0, high_speed_prc))
 	emit_signal("ball_speed_changed", self)
 
