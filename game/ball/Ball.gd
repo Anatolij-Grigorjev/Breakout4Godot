@@ -7,10 +7,10 @@ signal ball_speed_changed(ball)
 onready var anim: AnimationPlayer = $AnimationPlayer
 onready var sprite: Sprite = $Sprite
 
-export(float) var bounceSpeedupCoef: float = 1.15
-export(float) var maxSpeedCoef: float = 2.5
+export(float) var bounceSpeedupCoef: float = 1.1
+export(float) var maxSpeedCoef: float = 2.0
 
-export(float) var baseSpeed: float = 120
+export(float) var baseSpeed: float = 145
 export(float) var baseSpinDegrees: float = 360.0
 export(Vector2) var direction := Vector2.LEFT
 

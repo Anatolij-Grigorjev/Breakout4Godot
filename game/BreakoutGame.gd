@@ -99,5 +99,5 @@ func _fire_collision_particles(collision: KinematicCollision2D):
 func _add_scored_points_bubble(score_origin: Vector2, points: float):
 	var flashPoints = FlashPointsScn.instance()
 	flashPoints.global_position = score_origin - Vector2(-5, 15)
-	flashPoints.text = "+%s" % points
+	flashPoints.text = "+%s" % int(points)
 	add_child(flashPoints)
