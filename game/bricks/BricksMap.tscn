@@ -14,7 +14,7 @@ shader_param/outline_color = null
 points = PoolVector2Array( 1.43997, 1.77644, 62.1167, 1.55213, 62.341, 30.4885, 1.55213, 30.2642 )
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
-points = PoolVector2Array( 64, 32, 0, 32, 0, 0, 64, 0 )
+points = PoolVector2Array( 62.516, 31.0224, 1.62839, 30.8609, 1.7899, 1.30539, 62.6775, 1.30539 )
 
 [sub_resource type="TileSet" id=1]
 0/name = "brick white"

@@ -24,8 +24,8 @@ var total_num_bricks: int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	total_num_bricks = get_used_cells().size()
-	for tileIdx in get_used_cells():
-		animations_cache[tileIdx] = _build_hidden_boom_at_tile_idx(tileIdx)
+	for tile_idx in get_used_cells():
+		animations_cache[tile_idx] = _build_hidden_boom_at_tile_idx(tile_idx)
 	
 
 func _process(delta):
@@ -40,33 +40,35 @@ func get_points_for_brick_type(type: int) -> float:
 
 
 func bricks_hit_at(global_hit_pos: Vector2, hit_normal: Vector2):
-	var tileIdx: Vector2 = world_to_map(to_local(global_hit_pos))
-	_hit_brick_at_idx(tileIdx, hit_normal)
+	var tile_idx: Vector2 = world_to_map(to_local(global_hit_pos))
+	_hit_brick_at_idx(tile_idx, hit_normal)
 	
 
-func _hit_brick_at_idx(tileIdx: Vector2, hit_normal: Vector2):
-	var tileTypeAtPos = get_cellv(tileIdx)
-	if (tileTypeAtPos == TileMap.INVALID_CELL):
+func _hit_brick_at_idx(tile_idx: Vector2, hit_normal: Vector2):
+	var tile_type_at_idx = get_cellv(tile_idx)
+	if (tile_type_at_idx == TileMap.INVALID_CELL):
 		return
 
-	var next_brick_type = brick_type_transitions[tileTypeAtPos]
+	var next_brick_type = brick_type_transitions[tile_type_at_idx]
 	if next_brick_type == TileMap.INVALID_CELL:
-		var explosion = animations_cache[tileIdx]
+		var explosion = animations_cache[tile_idx]
 		explosion.explode(hit_normal)
-		emit_signal("brickDestroyed", tileTypeAtPos, tileIdx)
+		emit_signal("brickDestroyed", tile_type_at_idx, tile_idx)
+	else:
+		emit_signal("brick_damaged", tile_idx, tile_type_at_idx, next_brick_type)
 	
-	set_cellv(tileIdx, next_brick_type)
+	set_cellv(tile_idx, next_brick_type)
 	_check_and_emit_if_grid_empty()
 
 
 func _build_hidden_boom_at_tile_idx(idx: Vector2) -> Node2D:
-	var brickBoomNode: Node2D = BrickBoomScn.instance()
-	add_child(brickBoomNode)
-	brickBoomNode.visible = false
+	var brick_boom_node: Node2D = BrickBoomScn.instance()
+	add_child(brick_boom_node)
+	brick_boom_node.visible = false
 	# world coordinate holds top left corner of cell position
 	#  origin of exploding animation is center of cell, so adding offset
-	brickBoomNode.position = map_to_world(idx) + cell_size / 2
-	return brickBoomNode
+	brick_boom_node.position = map_to_world(idx) + cell_size / 2
+	return brick_boom_node
 
 
 func _check_and_emit_if_grid_empty():
