@@ -12,7 +12,7 @@ export(float) var maxSpeedCoef: float = 2.0
 
 export(float) var baseSpeed: float = 145
 export(float) var baseSpinDegrees: float = 360.0
-export(Vector2) var direction := Vector2.LEFT
+export(Vector2) var direction := Vector2.DOWN
 
 var baseSpinRadians = deg2rad(baseSpinDegrees)
 var speedAdditive = baseSpeed * bounceSpeedupCoef - baseSpeed
@@ -30,6 +30,7 @@ func _ready():
 func reset_speed():
 	_set_current_speed_and_broadcast(baseSpeed)
 	currentSpinRadians = baseSpinRadians
+	direction = Vector2.DOWN
 
 
 func stop():
