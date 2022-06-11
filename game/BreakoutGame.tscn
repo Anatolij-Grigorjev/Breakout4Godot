@@ -28,6 +28,15 @@ current = true
 
 [node name="BricksMap" parent="." instance=ExtResource( 2 )]
 position = Vector2( 110, 65 )
+brick_type_transitions = {
+0: -1,
+1: 2,
+2: -1
+}
+points_for_brick_of_type = {
+0: 540.0,
+2: 750.0
+}
 
 [node name="BarrierLeft" parent="." instance=ExtResource( 3 )]
 position = Vector2( -20, 0 )

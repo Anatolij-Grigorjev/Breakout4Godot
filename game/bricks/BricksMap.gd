@@ -17,15 +17,11 @@ export(Dictionary) var points_for_brick_of_type = {
 }
 
 
-
-var animations_cache = {}
 var total_num_bricks: int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	total_num_bricks = get_used_cells().size()
-	for tile_idx in get_used_cells():
-		animations_cache[tile_idx] = _build_hidden_boom_at_tile_idx(tile_idx)
 	
 
 func _process(delta):
@@ -51,11 +47,12 @@ func _hit_brick_at_idx(tile_idx: Vector2, hit_normal: Vector2):
 
 	var next_brick_type = brick_type_transitions[tile_type_at_idx]
 	if next_brick_type == TileMap.INVALID_CELL:
-		var explosion = animations_cache[tile_idx]
-		explosion.explode(hit_normal)
+		_build_hidden_boom_at_tile_idx(tile_idx).explode(hit_normal)
 		emit_signal("brickDestroyed", tile_type_at_idx, tile_idx)
 	else:
+		_build_hidden_boom_at_tile_idx(tile_idx).explode(hit_normal)
 		emit_signal("brick_damaged", tile_idx, tile_type_at_idx, next_brick_type)
+
 	
 	set_cellv(tile_idx, next_brick_type)
 	_check_and_emit_if_grid_empty()
@@ -65,6 +62,7 @@ func _build_hidden_boom_at_tile_idx(idx: Vector2) -> Node2D:
 	var brick_boom_node: Node2D = BrickBoomScn.instance()
 	add_child(brick_boom_node)
 	brick_boom_node.visible = false
+	brick_boom_node.show_behind_parent = true
 	# world coordinate holds top left corner of cell position
 	#  origin of exploding animation is center of cell, so adding offset
 	brick_boom_node.position = map_to_world(idx) + cell_size / 2
