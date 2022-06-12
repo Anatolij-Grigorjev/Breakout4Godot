@@ -76,6 +76,7 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 
 func _on_ball_fallen(ball):
 	livesCounter.numExtraBalls -= 1
+	ballTrailTimer.stop()
 	if (livesCounter.numExtraBalls <= 0):
 		emit_signal("game_over", scoreCounter.value)
 		print("!!!GAME OVER!!!\nTOTAL SCORE:%s" % scoreCounter.value)
