@@ -29,8 +29,8 @@ var velocity: Vector2 = Vector2.ZERO
 func _ready():
 	ballRef = Utils.getFirstTreeNodeInGroup(get_tree(), "ball")
 	ball_attached = _check_has_attached_ball()
-	if (ball_attached):
-		attach_ball(ballRef)
+	if ball_attached:
+		_clamp_ball_on_paddle()
 	sprite_material = $Sprite.material
 
 
@@ -67,6 +67,10 @@ func attach_ball(ball: Ball):
 	ballRef = ball
 	add_child(ballRef)
 	ball_attached = true
+	_clamp_ball_on_paddle()
+
+
+func _clamp_ball_on_paddle():
 	ballRef.stop()
 	ballRef.position = ballPosition.position
 

@@ -17,18 +17,14 @@ onready var cameraShake = $Camera2D/ScreenShake
 onready var scoreCounter = $GUI/GameHUD/ScoresHUD/AccumCounter
 onready var livesCounter = $GUI/GameHUD/LowerHUD/LivesHUD/MarginContainer/LivesCounter
 onready var ballLossArea = $BallLossArea
-onready var ballTrailTimer = $BallTrailTimer
 
 var currentScore := 0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	ballTrailTimer.stop()
 	scoreCounter.value = currentScore
-	ballTrailTimer.connect("timeout", self, "_on_ball_trail_timeout")
 	ball.connect("ball_collided", self, "_on_ball_collided")
-	ball.connect("ball_speed_changed", self, "_on_ball_speed_changed")
 	bricks.connect("brickDestroyed", self, "_on_brick_destroyed")
 	bricks.connect("brick_damaged", self, "_on_brick_damaged")
 	bricks.connect("map_cleared", self, "_on_bricksmap_cleared")
@@ -42,23 +38,6 @@ func _on_ball_collided(collision: KinematicCollision2D):
 		cameraShake.beginShake()
 		_fire_collision_particles(collision)
 		bg.do_pulse(ball.currentSpeedupCoef())
-
-
-func _on_ball_trail_timeout():
-
-	var ball_trail = BallTrailScn.instance()
-	ball_trail.global_position = ball.global_position
-	add_child_below_node(bricks, ball_trail)
-
-
-
-func _on_ball_speed_changed(ball: Ball):
-
-	var speed_coef = ball.currentSpeedupCoef()
-	if speed_coef > 1.5 and ballTrailTimer.is_stopped():
-		ballTrailTimer.start()
-	if speed_coef < 1.5 and not ballTrailTimer.is_stopped():
-		ballTrailTimer.stop()
 
 
 func _on_brick_damaged(tile_idx: Vector2, old_type: int, new_type: int):
@@ -76,7 +55,6 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 
 func _on_ball_fallen(ball):
 	livesCounter.numExtraBalls -= 1
-	ballTrailTimer.stop()
 	if (livesCounter.numExtraBalls <= 0):
 		emit_signal("game_over", scoreCounter.value)
 		print("!!!GAME OVER!!!\nTOTAL SCORE:%s" % scoreCounter.value)
