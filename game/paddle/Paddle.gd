@@ -9,9 +9,7 @@ export(float) var acceleration: float = 150.0
 # base amount of travel paddle does recoiling from ball
 export(float) var base_ball_recoil = 7
 
-onready var ballSparks1x = $Sprite/ParticlesBattery
-onready var ballSparks2x = $Sprite/ParticlesBattery2x
-onready var ballSparks3x = $Sprite/ParticlesBattery3x
+onready var paddle_hit_sparks = $PaddleHitSparks
 onready var tween: Tween = $Tween
 onready var ballPosition: Position2D = $BallPosition
 
@@ -59,8 +57,7 @@ func _process(delta: float):
 
 func ball_hit_at(global_hit_pos: Vector2, ball_speed_coef: float):
 	_prepare_and_run_bounce_reaction_tweens(ball_speed_coef)
-	var ballSparks = _pick_sparks_for_ball_hit(ball_speed_coef)
-	ballSparks.fireNextParticleSystem(global_hit_pos)
+	paddle_hit_sparks.fire_hit_sparks(global_hit_pos, ball_speed_coef)
 
 
 func attach_ball(ball: Ball):
@@ -86,16 +83,6 @@ func _calc_speed_blur(current_speed: float) -> float:
 	if current_speed < base_speed * 1.5:
 		return 0.0
 	return current_speed / (base_speed * 1.5)
-
-
-
-func _pick_sparks_for_ball_hit(ball_speed_coef: float) -> CPUParticles2D:
-	if ball_speed_coef < ballRef.maxSpeedCoef / 2:
-		return ballSparks1x
-	elif ball_speed_coef < ballRef.maxSpeedCoef:
-		return ballSparks2x
-	else:
-		return ballSparks3x
 
 
 func _launch_ball():
