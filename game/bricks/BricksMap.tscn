@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://bricks/brick.png" type="Texture" id=1]
 [ext_resource path="res://bricks/BricksMap.gd" type="Script" id=2]
 [ext_resource path="res://shaders/sprite_outline.shader" type="Shader" id=3]
 [ext_resource path="res://bricks/brick2.png" type="Texture" id=4]
 [ext_resource path="res://bricks/brick2_break1.png" type="Texture" id=5]
+[ext_resource path="res://bricks/brick2_break2.png" type="Texture" id=6]
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 3 )
@@ -19,6 +20,9 @@ points = PoolVector2Array( 62.516, 31.0224, 1.62839, 30.8609, 1.7899, 1.30539, 6
 
 [sub_resource type="ConvexPolygonShape2D" id=5]
 points = PoolVector2Array( 8.03477, 2.24791, 61.8699, 2.65167, 62.0045, 27.0121, 59.0436, 30.1076, 1.97833, 29.4347, 2.51668, 5.07426 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 56.8453, 2.56154, 62.1167, 5.14114, 61.8924, 29.8156, 52.1348, 30.1521, 36.545, 30.0399, 31.9466, 26.7874, 27.9089, 26.8995, 25.5536, 29.7034, 2.11292, 29.8156, 2.33723, 2.6737 )
 
 [sub_resource type="TileSet" id=1]
 0/name = "brick white"
@@ -84,6 +88,27 @@ points = PoolVector2Array( 8.03477, 2.24791, 61.8699, 2.65167, 62.0045, 27.0121,
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 2/z_index = 0
+3/name = "brick2_break2.png 3"
+3/texture = ExtResource( 6 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 0, 0, 64, 32 )
+3/tile_mode = 0
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape = SubResource( 6 )
+3/shape_one_way = false
+3/shape_one_way_margin = 1.0
+3/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 6 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+3/z_index = 0
 
 [node name="BricksMap" type="TileMap" groups=["bricks"]]
 material = SubResource( 3 )

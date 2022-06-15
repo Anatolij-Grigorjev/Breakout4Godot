@@ -223,6 +223,16 @@ static func getRandom(elems: Array):
 	
 	return elems[randi() % elems.size()]
 	
+
+"""
+Return first arg if its not null, otherwise return second arg
+"""
+static func nvl(optional, default):
+	if optional == null:
+		return default
+	else:
+		return optional
+
 	
 """
 Attempt to map provided list of objects into a list of same ordering containing 

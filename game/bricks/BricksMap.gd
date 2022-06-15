@@ -9,8 +9,8 @@ signal brick_damaged(brick_pos, hit_type, new_type)
 signal map_cleared(num_bricks)
 
 export(Dictionary) var brick_type_transitions = {
-	1: 0,
-	0: -1
+	1: [0],
+	0: [-1]
 }
 export(Dictionary) var points_for_brick_of_type = { 
 	0: 540.0 
@@ -44,8 +44,8 @@ func _hit_brick_at_idx(tile_idx: Vector2, hit_normal: Vector2):
 	var tile_type_at_idx = get_cellv(tile_idx)
 	if (tile_type_at_idx == TileMap.INVALID_CELL):
 		return
-
-	var next_brick_type = brick_type_transitions[tile_type_at_idx]
+	
+	var next_brick_type = _get_next_brick_type(tile_type_at_idx)
 	if next_brick_type == TileMap.INVALID_CELL:
 		_build_hidden_boom_at_tile_idx(tile_idx).explode(hit_normal)
 		emit_signal("brickDestroyed", tile_type_at_idx, tile_idx)
@@ -56,6 +56,13 @@ func _hit_brick_at_idx(tile_idx: Vector2, hit_normal: Vector2):
 	yield(get_tree().create_timer(0.1), "timeout")
 	set_cellv(tile_idx, next_brick_type)
 	_check_and_emit_if_grid_empty()
+
+
+func _get_next_brick_type(current_type: int) -> int:
+	var potential_types = brick_type_transitions[current_type]
+	var next_random_type = Utils.getRandom(potential_types)
+
+	return Utils.nvl(next_random_type, -1)
 
 
 func _build_hidden_boom_at_tile_idx(idx: Vector2) -> Node2D:
