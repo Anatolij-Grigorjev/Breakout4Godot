@@ -46,11 +46,10 @@ func _hit_brick_at_idx(tile_idx: Vector2, hit_normal: Vector2):
 		return
 	
 	var next_brick_type = _get_next_brick_type(tile_type_at_idx)
+	_build_hidden_boom_at_tile_idx(tile_idx).explode(hit_normal)
 	if next_brick_type == TileMap.INVALID_CELL:
-		_build_hidden_boom_at_tile_idx(tile_idx).explode(hit_normal)
 		emit_signal("brickDestroyed", tile_type_at_idx, tile_idx)
 	else:
-		_build_hidden_boom_at_tile_idx(tile_idx).explode(hit_normal)
 		emit_signal("brick_damaged", tile_idx, tile_type_at_idx, next_brick_type)
 
 	yield(get_tree().create_timer(0.1), "timeout")

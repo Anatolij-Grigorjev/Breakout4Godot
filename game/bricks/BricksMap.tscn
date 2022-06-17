@@ -1,111 +1,115 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://bricks/brick.png" type="Texture" id=1]
+[ext_resource path="res://bricks/bricks_spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://bricks/BricksMap.gd" type="Script" id=2]
 [ext_resource path="res://shaders/sprite_outline.shader" type="Shader" id=3]
-[ext_resource path="res://bricks/brick2.png" type="Texture" id=4]
-[ext_resource path="res://bricks/brick2_break1.png" type="Texture" id=5]
-[ext_resource path="res://bricks/brick2_break2.png" type="Texture" id=6]
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 3 )
 shader_param/outline_width = 1.0
 shader_param/outline_color = null
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 1.43997, 1.77644, 62.1167, 1.55213, 62.341, 30.4885, 1.55213, 30.2642 )
-
 [sub_resource type="ConvexPolygonShape2D" id=4]
-points = PoolVector2Array( 62.516, 31.0224, 1.62839, 30.8609, 1.7899, 1.30539, 62.6775, 1.30539 )
+points = PoolVector2Array( 62.2288, 30.1521, 2.22507, 30.1521, 2.22507, 2.22507, 62.2288, 2.22507 )
 
 [sub_resource type="ConvexPolygonShape2D" id=5]
-points = PoolVector2Array( 8.03477, 2.24791, 61.8699, 2.65167, 62.0045, 27.0121, 59.0436, 30.1076, 1.97833, 29.4347, 2.51668, 5.07426 )
+points = PoolVector2Array( 62.2288, 29.7041, 2.56154, 29.7041, 2.56154, 2.33785, 62.2288, 2.33785 )
 
 [sub_resource type="ConvexPolygonShape2D" id=6]
-points = PoolVector2Array( 56.8453, 2.56154, 62.1167, 5.14114, 61.8924, 29.8156, 52.1348, 30.1521, 36.545, 30.0399, 31.9466, 26.7874, 27.9089, 26.8995, 25.5536, 29.7034, 2.11292, 29.8156, 2.33723, 2.6737 )
+points = PoolVector2Array( 10.076, 2.09674, 40.2462, 2.09674, 57.294, 2.43321, 58.5277, 8.26537, 62.0045, 6.3587, 61.8924, 29.9116, 33.9654, 29.6873, 32.956, 24.1916, 30.3764, 25.8739, 30.825, 30.0237, 2.11292, 30.1359, 2.33723, 16.9014, 2.44939, 4.11557 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+points = PoolVector2Array( 55.9481, 2.52087, 62.1167, 5.88557, 62.2288, 30.1114, 55.3873, 29.5506, 53.9293, 23.9428, 50.901, 24.2793, 51.4618, 30.1114, 35.6477, 29.4385, 33.8532, 27.0832, 28.2454, 27.0832, 25.8901, 29.8871, 2.44939, 29.3263, 2.44939, 2.74519 )
 
 [sub_resource type="TileSet" id=1]
-0/name = "brick white"
+0/name = "bricks_spritesheet.png 0"
 0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 64, 32 )
-0/tile_mode = 0
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 64, 32 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
 0/occluder_offset = Vector2( 0, 0 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 2 )
+0/shape = SubResource( 4 )
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": SubResource( 4 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
-1/name = "brick2.png 1"
-1/texture = ExtResource( 4 )
+1/name = "bricks_spritesheet.png 1"
+1/texture = ExtResource( 1 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
-1/region = Rect2( 0, 0, 64, 32 )
+1/region = Rect2( 0, 32, 64, 32 )
 1/tile_mode = 0
 1/occluder_offset = Vector2( 0, 0 )
 1/navigation_offset = Vector2( 0, 0 )
 1/shape_offset = Vector2( 0, 0 )
 1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape = SubResource( 4 )
+1/shape = SubResource( 5 )
 1/shape_one_way = false
 1/shape_one_way_margin = 1.0
 1/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 4 ),
+"shape": SubResource( 5 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 1/z_index = 0
-2/name = "brick2_break1.png 2"
-2/texture = ExtResource( 5 )
+2/name = "bricks_spritesheet.png 2"
+2/texture = ExtResource( 1 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
-2/region = Rect2( 0, 0, 64, 32 )
+2/region = Rect2( 0, 64, 64, 32 )
 2/tile_mode = 0
 2/occluder_offset = Vector2( 0, 0 )
 2/navigation_offset = Vector2( 0, 0 )
 2/shape_offset = Vector2( 0, 0 )
 2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-2/shape = SubResource( 5 )
+2/shape = SubResource( 6 )
 2/shape_one_way = false
 2/shape_one_way_margin = 1.0
 2/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 5 ),
+"shape": SubResource( 6 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 2/z_index = 0
-3/name = "brick2_break2.png 3"
-3/texture = ExtResource( 6 )
+3/name = "bricks_spritesheet.png 3"
+3/texture = ExtResource( 1 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
-3/region = Rect2( 0, 0, 64, 32 )
+3/region = Rect2( 0, 96, 64, 32 )
 3/tile_mode = 0
 3/occluder_offset = Vector2( 0, 0 )
 3/navigation_offset = Vector2( 0, 0 )
 3/shape_offset = Vector2( 0, 0 )
 3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-3/shape = SubResource( 6 )
+3/shape = SubResource( 7 )
 3/shape_one_way = false
 3/shape_one_way_margin = 1.0
 3/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 6 ),
+"shape": SubResource( 7 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 3/z_index = 0
@@ -117,12 +121,3 @@ cell_size = Vector2( 64, 32 )
 format = 1
 tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 65536, 0, 0, 65547, 0, 0, 131072, 0, 0, 131074, 1610612737, 0, 131081, 1, 0, 131083, 0, 0, 196608, 0, 0, 196611, 1610612737, 0, 196616, 1, 0, 196619, 0, 0, 262144, 0, 0, 262148, 1610612737, 0, 262151, 1, 0, 262155, 0, 0, 327680, 0, 0, 327684, 1610612737, 0, 327685, 1610612737, 0, 327686, 1610612737, 0, 327687, 1610612737, 0, 327691, 0, 0, 393216, 0, 0, 393227, 0, 0, 458752, 0, 0, 458763, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0 )
 script = ExtResource( 2 )
-brick_type_transitions = {
-0: -1,
-1: 2,
-2: -1
-}
-points_for_brick_of_type = {
-0: 540.0,
-2: 750.0
-}
