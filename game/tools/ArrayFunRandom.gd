@@ -6,7 +6,7 @@ The idea is to make sure samee values dont get picked too often to seem not fun 
 class_name ArrayFunRandom
 
 
-var allowed_repeats: int
+var max_allowed_repeats: int
 
 
 var elems: Array
@@ -20,7 +20,7 @@ var value_repeats = {}
 func _init(elems: Array = [], empty_default = null):
 	self.elems = elems
 	self.empty_default = empty_default
-	self.allowed_repeats = 2
+	self.max_allowed_repeats = 2
 	for elem in elems:
 		value_repeats[elem] = 0
 
@@ -28,7 +28,7 @@ func _init(elems: Array = [], empty_default = null):
 """
 Get random element from backing array. 
 the 'fun' part makes sure same value is not provided more often than 
-'allowed_repeats' times
+'max_allowed_repeats' times
 """
 func get_fun_random():
 	if (elems == null or elems.empty()):
@@ -47,11 +47,11 @@ func get_fun_random():
 
 
 func _is_value_too_frequent(value) -> bool:
-	return value_repeats[value] > allowed_repeats
+	return value_repeats[value] > max_allowed_repeats
 
 
 func _get_least_used_random():
-	var lowest_uses = allowed_repeats + 1
+	var lowest_uses = max_allowed_repeats + 1
 	var least_used = empty_default
 	for value in value_repeats:
 		if value_repeats[value] < lowest_uses:
