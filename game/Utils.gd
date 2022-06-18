@@ -210,19 +210,6 @@ Assert that supplied value is not null
 static func assertNotNull(elem):
 	assert(elem != null)
 	
-	
-"""
-Get array element at random index. Doesnt modify the input array
-Short circuit if array is of size 1 or less
-"""
-static func getRandom(elems: Array):
-	if (elems == null or elems.empty()):
-		return null
-	if (elems.size() == 1):
-		return elems[0]
-	
-	return elems[randi() % elems.size()]
-	
 
 """
 Return first arg if its not null, otherwise return second arg

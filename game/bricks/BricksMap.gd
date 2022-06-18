@@ -16,12 +16,15 @@ export(Dictionary) var points_for_brick_of_type = {
 	0: 540.0 
 }
 
-
+var types_transition_map = {}
 var total_num_bricks: int = 0
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	total_num_bricks = get_used_cells().size()
+	#replace arrays with "fun" wrappers
+	for type in brick_type_transitions:
+		types_transition_map[type] = ArrayFunRandom.new(brick_type_transitions[type], -1)
 	
 
 func _process(delta):
@@ -58,8 +61,8 @@ func _hit_brick_at_idx(tile_idx: Vector2, hit_normal: Vector2):
 
 
 func _get_next_brick_type(current_type: int) -> int:
-	var potential_types = brick_type_transitions[current_type]
-	var next_random_type = Utils.getRandom(potential_types)
+	var fun_array = types_transition_map[current_type] as ArrayFunRandom
+	var next_random_type = fun_array.get_fun_random()
 
 	return Utils.nvl(next_random_type, -1)
 

@@ -32,14 +32,16 @@ current = true
 position = Vector2( 110, 65 )
 brick_type_transitions = {
 0: [  ],
-1: [ 2, 3 ],
+1: [ 2, 3, 4 ],
 2: [  ],
-3: [  ]
+3: [  ],
+4: [  ]
 }
 points_for_brick_of_type = {
 0: 540.0,
 2: 750.0,
-3: 735.0
+3: 735.0,
+4: 741.0
 }
 
 [node name="BarrierLeft" parent="." instance=ExtResource( 3 )]

@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "ArrayFunRandom",
+"language": "GDScript",
+"path": "res://tools/ArrayFunRandom.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Ball",
 "language": "GDScript",
@@ -40,6 +45,7 @@ _global_script_classes=[ {
 "path": "res://Utils.gd"
 } ]
 _global_script_class_icons={
+"ArrayFunRandom": "",
 "Ball": "",
 "BrickExplode": "",
 "BricksMap": "",
