@@ -1,7 +1,7 @@
 """
 The class provides stateful algorithms to pick a random array element in a way that is more
 'fun' for the player but is actually less truly mathematically random.
-The idea is to make sure samee values dont get picked too often to seem not fun even if the picking is actually random
+The idea is to make sure same values dont get picked too often to seem not fun even if the picking is actually random
 """
 class_name ArrayFunRandom
 
@@ -27,8 +27,7 @@ func _init(elems: Array = [], empty_default = null, max_allowed_repeats: int = 1
 
 """
 Get random element from backing array. 
-the 'fun' part makes sure same value is not provided more often than 
-'max_allowed_repeats' times
+The 'fun' part makes sure same value is not provided more often than 'max_allowed_repeats' times
 """
 func get_fun_random():
 	if (elems == null or elems.empty()):
@@ -39,8 +38,9 @@ func get_fun_random():
 	var rand_idx = randi() % elems.size()
 	var random_value = elems[rand_idx]
 	if (_is_value_too_frequent(random_value)):
+		var least_used_value = _get_least_used_random()
 		value_repeats[random_value] = 0
-		random_value = _get_least_used_random()
+		random_value = least_used_value
 
 	value_repeats[random_value] += 1
 	return random_value
