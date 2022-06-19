@@ -17,10 +17,10 @@ var value_repeats = {}
 
 
 
-func _init(elems: Array = [], empty_default = null):
+func _init(elems: Array = [], empty_default = null, max_allowed_repeats: int = 1):
 	self.elems = elems
 	self.empty_default = empty_default
-	self.max_allowed_repeats = 2
+	self.max_allowed_repeats = max_allowed_repeats
 	for elem in elems:
 		value_repeats[elem] = 0
 

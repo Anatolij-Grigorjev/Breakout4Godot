@@ -67,14 +67,14 @@ func _get_next_brick_type(current_type: int) -> int:
 	return Utils.nvl(next_random_type, -1)
 
 
-func _build_hidden_boom_at_tile_idx(idx: Vector2) -> Node2D:
+func _build_hidden_boom_at_tile_idx(tile_idx: Vector2) -> Node2D:
 	var brick_boom_node: Node2D = BrickBoomScn.instance()
 	add_child(brick_boom_node)
 	brick_boom_node.visible = false
 	brick_boom_node.show_behind_parent = true
 	# world coordinate holds top left corner of cell position
 	#  origin of exploding animation is center of cell, so adding offset
-	brick_boom_node.position = map_to_world(idx) + cell_size / 2
+	brick_boom_node.position = map_to_world(tile_idx) + cell_size / 2
 	return brick_boom_node
 
 
