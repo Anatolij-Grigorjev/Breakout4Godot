@@ -9,11 +9,11 @@ class_name ArrayFunRandom
 var max_allowed_repeats: int
 
 
-var elems: Array
+var elems: Array = []
 var empty_default
 
 
-var value_repeats = {}
+var value_repeats:Dictionary = {}
 
 
 
@@ -40,10 +40,11 @@ func get_fun_random():
 	if (_is_value_too_frequent(random_value)):
 		var least_used_value = _get_least_used_random()
 		value_repeats[random_value] = 0
-		random_value = least_used_value
-
-	value_repeats[random_value] += 1
-	return random_value
+		return least_used_value
+	
+	else:
+		value_repeats[random_value] += 1
+		return random_value
 
 
 func _is_value_too_frequent(value) -> bool:

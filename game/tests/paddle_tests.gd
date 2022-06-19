@@ -45,7 +45,7 @@ func test_ball_hit_paddle_hit_anim():
 
     assert_signal_emitted(ball, "ball_collided", "ball didnt collide with paddle")
     assert_false(ball.anim.current_animation == "hit-squish")
-    assert_true(paddle.anim.current_animation == "bounce_ball")
+    assert_true(paddle.tween.is_active())
 
 
 func test_ball_hit_paddle_low_pos_anlge_paddle_fixes():
