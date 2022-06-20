@@ -16,11 +16,14 @@ func test_fun_random_respect_max_allowed():
 
     var latest_value = -1
     var num_times = 0
-    for _i in range(100):
+    for i in range(100):
         var random = afr.get_fun_random()
+        print("rng: %s, last: %s, repeats: %s" % [random, latest_value, num_times])
         if random == latest_value:
             num_times += 1
         else:
             latest_value = random
             num_times = 0
-        assert_lt(num_times, afr.max_allowed_repeats + 1, "picked value " + str(random) + " repeated " + str(num_times) + " time(-s)")
+        assert_lt(num_times, afr.max_allowed_repeats + 1, "picked value %s repeated %s time(-s) on iteration %s/%s" % [
+            random, num_times, i + 1, 100
+        ])
