@@ -16,8 +16,8 @@ func _setup_tree(nodes: Array):
     _wait_next_frame()
 
 
-func _wait_seconds(secs: float, message: String = "waiting..."):
+func _wait_seconds(secs: float, message: String = "waiting seconds..."):
     yield(yield_for(secs, message), YIELD)
 
 func _wait_next_frame():
-    _wait_seconds(0.16, "waiting for next frame...")
+    yield(_wait_seconds(0.16, "waiting for next frame..."), "completed")

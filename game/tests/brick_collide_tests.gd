@@ -49,6 +49,9 @@ func test_ball_collide_brick_lost():
     ball.currentSpeed = 100.0
     ball.direction = Vector2.RIGHT
     gut.simulate(ball, 100, 0.1)
+    
+    yield(_wait_next_frame(), "completed")
+
     #top left tile
     var tileCoord = Vector2.ZERO
     assert_eq(bricks.get_cellv(tileCoord), TileMap.INVALID_CELL)
