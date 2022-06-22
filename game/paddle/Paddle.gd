@@ -6,6 +6,9 @@ export(float) var base_speed: float = 150.0
 # acceleration added over seconds of consistent movement in same direction
 export(float) var acceleration: float = 150.0
 
+# how high does speed need to be above base to start seeing speed blur
+export(float) var blur_base_speed_coef: float = 1.2
+
 # base amount of travel paddle does recoiling from ball
 export(float) var base_ball_recoil = 7
 
@@ -80,9 +83,9 @@ func _check_has_attached_ball() -> bool:
 
 
 func _calc_speed_blur(current_speed: float) -> float:
-	if current_speed < base_speed * 1.5:
+	if current_speed < base_speed * blur_base_speed_coef:
 		return 0.0
-	return current_speed / (base_speed * 1.5)
+	return current_speed / (base_speed * blur_base_speed_coef)
 
 
 func _launch_ball():
