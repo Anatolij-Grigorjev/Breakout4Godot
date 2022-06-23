@@ -52,8 +52,12 @@ func _is_value_too_frequent(value) -> bool:
 
 
 func _get_least_used_random():
+
+	if value_repeats.empty():
+		return empty_default
+		
 	var lowest_uses = max_allowed_repeats + 1
-	var least_used = empty_default
+	var least_used = value_repeats.keys()[0]
 	for value in value_repeats:
 		if value_repeats[value] < lowest_uses:
 			lowest_uses = value_repeats[value]
