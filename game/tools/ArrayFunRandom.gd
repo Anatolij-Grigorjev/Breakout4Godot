@@ -11,15 +11,17 @@ var max_allowed_repeats: int
 
 var elems: Array = []
 var empty_default
+var prev_random_value
 
 
-var value_repeats:Dictionary = {}
+var value_repeats: Dictionary = {}
 
 
 
 func _init(elems: Array = [], empty_default = null, max_allowed_repeats: int = 1):
 	self.elems = elems
 	self.empty_default = empty_default
+	self.prev_random_value = empty_default
 	self.max_allowed_repeats = max_allowed_repeats
 	for elem in elems:
 		value_repeats[elem] = 0
@@ -37,14 +39,24 @@ func get_fun_random():
 	
 	var rand_idx = randi() % elems.size()
 	var random_value = elems[rand_idx]
-	if (_is_value_too_frequent(random_value)):
-		var least_used_value = _get_least_used_random()
-		value_repeats[random_value] = 0
-		return least_used_value
-	
+
+
+
+	if random_value != prev_random_value:
+		
+		value_repeats[prev_random_value] = 0
+
 	else:
-		value_repeats[random_value] += 1
-		return random_value
+		if (_is_value_too_frequent(random_value)):
+			var least_used_value = _get_least_used_random()
+			value_repeats[random_value] = 0
+			random_value = least_used_value
+		
+		else:
+			value_repeats[random_value] += 1
+
+	prev_random_value = random_value
+	return random_value
 
 
 func _is_value_too_frequent(value) -> bool:
