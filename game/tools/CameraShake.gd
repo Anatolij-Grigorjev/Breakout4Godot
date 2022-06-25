@@ -6,7 +6,8 @@ screen shake on-demand
 const TRANSITION = Tween.TRANS_SINE
 const EASING = Tween.EASE_OUT_IN
 
-signal onShakeEnded
+signal shake_started
+signal shake_ended
 
 var amplitude = 0
 var priority = 0
@@ -34,7 +35,7 @@ func _onFrequencyTimeout():
 
 func _onDurationTimeout():
 	$Frequency.stop()
-	emit_signal("onShakeEnded")
+	emit_signal("shake_ended")
 	_reset()
 	
 
@@ -42,7 +43,8 @@ func _onDurationTimeout():
 func _onCameraShakeRequested(duration = 0.2, frequency = 15, amplitude = 10, priority = 1):
 	if (priority < self.priority):
 		return
-	
+		
+	emit_signal("shake_started")
 	self.amplitude = amplitude
 	self.priority = priority
 	$Duration.wait_time = duration

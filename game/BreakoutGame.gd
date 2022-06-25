@@ -12,6 +12,7 @@ onready var bricks = $BricksMap
 onready var ball = $Paddle/Ball
 onready var paddle = $Paddle
 onready var ballSmokes = $ParticlesBattery
+onready var camera = $Camera2D
 onready var cameraShake = $Camera2D/ScreenShake
 
 onready var scoreCounter = $GUI/GameHUD/ScoresHUD/AccumCounter
@@ -19,6 +20,9 @@ onready var livesCounter = $GUI/GameHUD/LowerHUD/LivesHUD/MarginContainer/LivesC
 onready var ballLossArea = $BallLossArea
 
 var currentScore := 0
+
+var bricks_neutral_position: Vector2
+var sync_bricks_with_camera: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -30,6 +34,17 @@ func _ready():
 	bricks.connect("map_cleared", self, "_on_bricksmap_cleared")
 	ballLossArea.connect("ball_fell", self, "_on_ball_fallen")
 
+	cameraShake.connect("shake_started", self, "_on_camera_shake_started")
+	cameraShake.connect("shake_ended", self, "_on_camera_shake_ended")
+
+	bricks_neutral_position = bricks.position
+
+
+
+func _process(delta: float):
+	if sync_bricks_with_camera:
+		bricks.position = bricks_neutral_position + 0.25 * camera.offset
+
 
 
 func _on_ball_collided(collision: KinematicCollision2D):
@@ -38,6 +53,16 @@ func _on_ball_collided(collision: KinematicCollision2D):
 		cameraShake.beginShake()
 		_fire_collision_particles(collision)
 		bg.do_pulse(ball.currentSpeedupCoef())
+
+
+func _on_camera_shake_started():
+	sync_bricks_with_camera = true
+	
+
+
+func _on_camera_shake_ended():
+	sync_bricks_with_camera = false
+	bricks.position = bricks_neutral_position
 
 
 func _on_brick_damaged(tile_idx: Vector2, old_type: int, new_type: int):
