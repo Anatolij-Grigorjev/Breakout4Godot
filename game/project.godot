@@ -30,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://bricks/BricksMap.gd"
 }, {
 "base": "Node2D",
+"class": "CameraShakeDampener",
+"language": "GDScript",
+"path": "res://tools/CameraShakeDampener.gd"
+}, {
+"base": "Node2D",
 "class": "ParticlesBattery",
 "language": "GDScript",
 "path": "res://tools/ParticlesBattery.gd"
@@ -49,6 +54,7 @@ _global_script_class_icons={
 "Ball": "",
 "BrickExplode": "",
 "BricksMap": "",
+"CameraShakeDampener": "",
 "ParticlesBattery": "",
 "TTL": "",
 "Utils": ""
