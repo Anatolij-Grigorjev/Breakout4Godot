@@ -1,7 +1,38 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://gui/ball_speed_icon.png" type="Texture" id=1]
 [ext_resource path="res://gui/BallSpeedIcon.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("HBoxContainer/MultiplierLbl:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "changed"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath("HBoxContainer/MultiplierLbl:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.9 ),
+"transitions": PoolRealArray( 0.287175, 3.24901, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
+}
 
 [node name="BallSpeedIcon" type="Control"]
 script = ExtResource( 2 )
@@ -35,3 +66,7 @@ text = "1.0"
 align = 1
 valign = 1
 uppercase = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+anims/changed = SubResource( 2 )

@@ -17,3 +17,4 @@ func _on_ball_speed_changed(ball: Ball):
 
 func _refresh_speed_multiplier(ball: Ball):
 	mult_Lbl.text = "%.1f" % ball.currentSpeedupCoef()
+	$AnimationPlayer.play("changed")
