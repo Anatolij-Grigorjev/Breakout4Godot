@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+signal ball_speedup_requested
 
 export(float) var base_speed: float = 150.0
 
@@ -41,6 +42,8 @@ func _process(delta: float):
 		direction.x = -1
 	if Input.is_action_pressed("ui_right"):
 		direction.x = 1
+	if Input.is_action_just_released("ui_up"):
+		emit_signal("ball_speedup_requested")
 	if Input.is_action_just_released("ui_accept") and ball_attached:
 		_launch_ball()
 	

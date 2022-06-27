@@ -67,7 +67,7 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 		sprite.rotation = collision.normal.angle()
 	
 	if collision.collider.is_in_group("bricks"):
-		_speedup_ball()
+		speedup_ball()
 		anim.play("hit-squish")
 		var tilemap: BricksMap = collision.collider as BricksMap
 		tilemap.bricks_hit_at(collision.position, collision.normal)
@@ -82,7 +82,7 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 	emit_signal("ball_collided", collision)
 
 
-func _speedup_ball():
+func speedup_ball():
 	_set_current_speed_and_broadcast(clamp(currentSpeed + speedAdditive, baseSpeed, baseSpeed * maxSpeedCoef))
 	currentSpinRadians = clamp(currentSpinRadians + spinAdditive * currentSpeedupCoef(), baseSpinRadians, baseSpinRadians * 2.0 * maxSpeedCoef)
 

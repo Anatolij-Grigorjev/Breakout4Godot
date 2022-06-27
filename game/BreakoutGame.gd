@@ -30,6 +30,7 @@ func _ready():
 	bricks.connect("brick_damaged", self, "_on_brick_damaged")
 	bricks.connect("map_cleared", self, "_on_bricksmap_cleared")
 	ballLossArea.connect("ball_fell", self, "_on_ball_fallen")
+	paddle.connect("ball_speedup_requested", self, "_on_paddle_ball_speedup_requested")
 
 
 
@@ -39,6 +40,15 @@ func _on_ball_collided(collision: KinematicCollision2D):
 		cameraShake.beginShake()
 		_fire_collision_particles(collision)
 		bg.do_pulse(ball.currentSpeedupCoef())
+
+
+func _on_paddle_ball_speedup_requested():
+	#only speedup not attached ball
+	if paddle.ball_attached:
+		return
+	
+	ball.speedup_ball()
+	
 
 
 func _on_brick_damaged(tile_idx: Vector2, old_type: int, new_type: int):
