@@ -44,8 +44,7 @@ func currentSpeedupCoef() -> float:
 
 func _process(delta: float):
 	var collision: KinematicCollision2D = move_and_collide(direction * currentSpeed * delta)
-	var currentSpin = currentSpinRadians * max(1.0, currentSpeedupCoef())
-	sprite.rotate(currentSpin * delta)
+	sprite.rotate(currentSpinRadians * delta)
 	_handle_potential_collision(collision)
 		
 
@@ -85,7 +84,7 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 
 func _speedup_ball():
 	_set_current_speed_and_broadcast(clamp(currentSpeed + speedAdditive, baseSpeed, baseSpeed * maxSpeedCoef))
-	currentSpinRadians = clamp(currentSpinRadians + spinAdditive, baseSpinRadians, baseSpinRadians * maxSpeedCoef)
+	currentSpinRadians = clamp(currentSpinRadians + spinAdditive * currentSpeedupCoef(), baseSpinRadians, baseSpinRadians * 2.0 * maxSpeedCoef)
 
 
 func _adjust_horizontal_bounce_direction(original_direction: Vector2, collider: Node2D) -> Vector2:
