@@ -19,7 +19,7 @@ var speedAdditive = baseSpeed * bounceSpeedupCoef - baseSpeed
 var spinAdditive = baseSpinRadians * bounceSpeedupCoef - baseSpinRadians
 var maxBallSpeed = maxSpeedCoef * baseSpeed
 
-var currentSpeed
+var currentSpeed setget _set_current_speed_and_broadcast
 var currentSpinRadians
 
 

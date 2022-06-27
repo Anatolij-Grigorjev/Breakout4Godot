@@ -67,6 +67,7 @@ func _on_ball_fallen(ball):
 
 func _on_bricksmap_cleared(cleared_bricks: int):
 	print("cleared brickmap with %s bricks" % cleared_bricks)
+	ball.currentSpeed = 0.0
 
 
 
