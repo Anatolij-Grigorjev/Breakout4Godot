@@ -44,7 +44,8 @@ func currentSpeedupCoef() -> float:
 
 func _process(delta: float):
 	var collision: KinematicCollision2D = move_and_collide(direction * currentSpeed * delta)
-	sprite.rotate(currentSpinRadians * delta)
+	var currentSpin = currentSpinRadians * max(1.0, currentSpeedupCoef())
+	sprite.rotate(currentSpin * delta)
 	_handle_potential_collision(collision)
 		
 
