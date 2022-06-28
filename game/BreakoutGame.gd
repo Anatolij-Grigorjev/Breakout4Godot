@@ -17,6 +17,7 @@ onready var cameraShake = $Camera2D/ScreenShake
 
 onready var scoreCounter = $GUI/GameHUD/ScoresHUD/AccumCounter
 onready var livesCounter = $GUI/GameHUD/LowerHUD/LivesHUD/MarginContainer/LivesCounter
+onready var gameEndMessage = $GUI/GameEndMessage
 onready var ballLossArea = $BallLossArea
 
 var currentScore := 0
@@ -78,7 +79,8 @@ func _on_ball_fallen(ball):
 func _on_bricksmap_cleared(cleared_bricks: int):
 	print("cleared brickmap with %s bricks" % cleared_bricks)
 	ball.currentSpeed = 0.0
-
+	gameEndMessage.visible = true
+	gameEndMessage.get_node("AnimationPlayer").play("show")
 
 
 func _get_points_for_brick_type(type: int) -> float:
