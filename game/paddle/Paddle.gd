@@ -26,7 +26,7 @@ var prev_direction: Vector2 = Vector2.ZERO
 var this_direction_time: float = 0.0
 
 var velocity: Vector2 = Vector2.ZERO
-
+var input_enabled = true
 
 func _ready():
 	ballRef = Utils.getFirstTreeNodeInGroup(get_tree(), "ball")
@@ -36,16 +36,21 @@ func _ready():
 	sprite_material = $Sprite.material
 
 
+func disable_control():
+	input_enabled = false
+
+
 func _process(delta: float):
 	var direction = Vector2(0, 0)
-	if Input.is_action_pressed("ui_left"):
-		direction.x = -1
-	if Input.is_action_pressed("ui_right"):
-		direction.x = 1
-	if Input.is_action_just_released("ui_up"):
-		emit_signal("ball_speedup_requested")
-	if Input.is_action_just_released("ui_accept") and ball_attached:
-		_launch_ball()
+	if input_enabled:
+		if Input.is_action_pressed("ui_left"):
+			direction.x = -1
+		if Input.is_action_pressed("ui_right"):
+			direction.x = 1
+		if Input.is_action_just_released("ui_up"):
+			emit_signal("ball_speedup_requested")
+		if Input.is_action_just_released("ui_accept") and ball_attached:
+			_launch_ball()
 	
 	if direction == prev_direction:
 		this_direction_time += delta

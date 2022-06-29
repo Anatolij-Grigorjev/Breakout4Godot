@@ -69,8 +69,9 @@ func _on_ball_fallen(ball):
 	livesCounter.numExtraBalls -= 1
 	if (livesCounter.numExtraBalls <= 0):
 		emit_signal("game_over", scoreCounter.value)
-		print("!!!GAME OVER!!!\nTOTAL SCORE:%s" % scoreCounter.value)
 		ball.queue_free()
+		_show_stage_end_message("GAME OVER\nSCORE: " + str(scoreCounter.value))
+		paddle.disable_control()
 	else:
 		remove_child(ball)
 		paddle.attach_ball(ball)
@@ -79,7 +80,13 @@ func _on_ball_fallen(ball):
 func _on_bricksmap_cleared(cleared_bricks: int):
 	print("cleared brickmap with %s bricks" % cleared_bricks)
 	ball.currentSpeed = 0.0
+	paddle.disable_control()
+	_show_stage_end_message("SUCCESS\nSCORE: " + str(scoreCounter.value))
+
+
+func _show_stage_end_message(message: String):
 	gameEndMessage.visible = true
+	gameEndMessage.get_node("HBoxContainer/Label").text = message
 	gameEndMessage.get_node("AnimationPlayer").play("show")
 
 
