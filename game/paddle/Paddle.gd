@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
 signal ball_speedup_requested
+signal ball_speedup_started
+signal ball_speedup_ended
 
 export(float) var base_speed: float = 150.0
 
@@ -87,11 +89,16 @@ func attach_ball(ball: Ball):
 func _ensure_sppedup_cooldown_active():
 	if cooldownTimer.is_stopped():
 		cooldownTimer.start()
+		$AnimationPlayer.play("glow")
+		emit_signal("ball_speedup_started")
 
 
 func _stop_speedup_cooldown():
 	if not cooldownTimer.is_stopped():
 		cooldownTimer.stop()
+		$AnimationPlayer.stop()
+		$Sprite/GlowFX.material.set_shader_param("outline_width", 0.0)
+		emit_signal("ball_speedup_ended")
 
 
 func _on_speedup_cooldown_done():

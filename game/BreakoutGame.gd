@@ -32,6 +32,8 @@ func _ready():
 	bricks.connect("map_cleared", self, "_on_bricksmap_cleared")
 	ballLossArea.connect("ball_fell", self, "_on_ball_fallen")
 	paddle.connect("ball_speedup_requested", self, "_on_paddle_ball_speedup_requested")
+	paddle.connect("ball_speedup_started", self, "_on_paddle_ball_speedup_started")
+	paddle.connect("ball_speedup_ended", self, "_on_paddle_ball_speedup_ended")
 
 
 
@@ -49,6 +51,20 @@ func _on_paddle_ball_speedup_requested():
 		return
 	
 	ball.speedup_ball()
+
+
+func _on_paddle_ball_speedup_started():
+
+	if paddle.ball_attached:
+		return
+	ball.glow()
+
+
+func _on_paddle_ball_speedup_ended():
+
+	if paddle.ball_attached:
+		return
+	ball.stop_glowing()
 	
 
 

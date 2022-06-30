@@ -5,6 +5,7 @@ signal ball_collided(collision)
 signal ball_speed_changed(ball)
 
 onready var anim: AnimationPlayer = $AnimationPlayer
+onready var glow_anim: AnimationPlayer = $GlowAnimationPlayer
 onready var sprite: Sprite = $Sprite
 
 export(float) var bounceSpeedupCoef: float = 1.1
@@ -47,6 +48,14 @@ func _process(delta: float):
 	sprite.rotate(currentSpinRadians * delta)
 	_handle_potential_collision(collision)
 		
+
+func glow():
+	glow_anim.play("glow")
+
+
+func stop_glowing():
+	glow_anim.stop()
+	$Sprite/GlowFX.material.set_shader_param("outline_width", 0.0)
 
 
 func _set_current_speed_and_broadcast(new_speed_val: float):
