@@ -26,3 +26,6 @@ position = Vector2( 0, -24 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="PaddleHitSparks" parent="." instance=ExtResource( 3 )]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5

@@ -16,6 +16,7 @@ export(float) var base_ball_recoil = 7
 onready var paddle_hit_sparks = $PaddleHitSparks
 onready var tween: Tween = $Tween
 onready var ballPosition: Position2D = $BallPosition
+onready var cooldownTimer: Timer = $Timer
 
 
 var ballRef: Node2D
@@ -34,6 +35,7 @@ func _ready():
 	if ball_attached:
 		_clamp_ball_on_paddle()
 	sprite_material = $Sprite.material
+	cooldownTimer.connect("timeout", self, "_on_speedup_cooldown_done")
 
 
 func disable_control():
@@ -41,16 +43,20 @@ func disable_control():
 
 
 func _process(delta: float):
+
 	var direction = Vector2(0, 0)
-	if input_enabled:
-		if Input.is_action_pressed("ui_left"):
-			direction.x = -1
-		if Input.is_action_pressed("ui_right"):
-			direction.x = 1
-		if Input.is_action_just_released("ui_up"):
-			emit_signal("ball_speedup_requested")
-		if Input.is_action_just_released("ui_accept") and ball_attached:
-			_launch_ball()
+	
+	if input_enabled and Input.is_action_pressed("ui_left"):
+		direction.x = -1
+	if input_enabled and Input.is_action_pressed("ui_right"):
+		direction.x = 1
+	if input_enabled and Input.is_action_just_released("ui_accept") and ball_attached:
+		_launch_ball()
+	if input_enabled and Input.is_action_pressed("ui_up"):
+		_ensure_sppedup_cooldown_active()
+	else:
+		_stop_speedup_cooldown()
+	
 	
 	if direction == prev_direction:
 		this_direction_time += delta
@@ -76,6 +82,20 @@ func attach_ball(ball: Ball):
 	add_child(ballRef)
 	ball_attached = true
 	_clamp_ball_on_paddle()
+
+
+func _ensure_sppedup_cooldown_active():
+	if cooldownTimer.is_stopped():
+		cooldownTimer.start()
+
+
+func _stop_speedup_cooldown():
+	if not cooldownTimer.is_stopped():
+		cooldownTimer.stop()
+
+
+func _on_speedup_cooldown_done():
+	emit_signal("ball_speedup_requested")
 
 
 func _clamp_ball_on_paddle():
