@@ -51,10 +51,12 @@ func _process(delta: float):
 
 func glow():
 	glow_anim.play("glow")
+	$CPUParticles2D.emitting = true
 
 
 func stop_glowing():
 	glow_anim.stop()
+	$CPUParticles2D.emitting = false
 	$Sprite/GlowFX.material.set_shader_param("outline_width", 0.0)
 
 

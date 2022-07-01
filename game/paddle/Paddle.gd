@@ -90,6 +90,7 @@ func _ensure_sppedup_cooldown_active():
 	if cooldownTimer.is_stopped():
 		cooldownTimer.start()
 		$AnimationPlayer.play("glow")
+		$Sprite/GlowFX.show_behind_parent = false
 		emit_signal("ball_speedup_started")
 
 
@@ -98,6 +99,7 @@ func _stop_speedup_cooldown():
 		cooldownTimer.stop()
 		$AnimationPlayer.stop()
 		$Sprite/GlowFX.material.set_shader_param("outline_width", 0.0)
+		$Sprite/GlowFX.show_behind_parent = true
 		emit_signal("ball_speedup_ended")
 
 
