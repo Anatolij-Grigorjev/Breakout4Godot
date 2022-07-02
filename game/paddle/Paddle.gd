@@ -52,13 +52,13 @@ func _process(delta: float):
 
 	var direction = Vector2(0, 0)
 	
-	if input_enabled and Input.is_action_pressed("ui_left"):
+	if input_enabled and Input.is_action_pressed("paddle_left"):
 		direction.x = -1
-	if input_enabled and Input.is_action_pressed("ui_right"):
+	if input_enabled and Input.is_action_pressed("paddle_right"):
 		direction.x = 1
-	if input_enabled and Input.is_action_just_released("ui_accept") and ball_attached:
+	if input_enabled and Input.is_action_just_released("paddle_launch_ball") and ball_attached:
 		_launch_ball()
-	if input_enabled and Input.is_action_pressed("ui_up"):
+	if input_enabled and Input.is_action_pressed("paddle_ball_speedup"):
 		_ensure_sppedup_cooldown_active()
 	else:
 		_stop_speedup_cooldown()
