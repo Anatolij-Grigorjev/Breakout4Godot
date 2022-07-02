@@ -49,6 +49,9 @@ func _on_paddle_ball_speedup_requested():
 	#only speedup not attached ball
 	if paddle.ball_attached:
 		return
+	if ball.is_at_max_speed():
+		ball.stop_glowing()
+		return
 	
 	ball.speedup_ball()
 
