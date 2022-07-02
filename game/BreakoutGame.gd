@@ -57,6 +57,9 @@ func _on_paddle_ball_speedup_started():
 
 	if paddle.ball_attached:
 		return
+	if ball.is_at_max_speed():
+		return
+
 	ball.glow()
 
 
@@ -64,6 +67,7 @@ func _on_paddle_ball_speedup_ended():
 
 	if paddle.ball_attached:
 		return
+	
 	ball.stop_glowing()
 	
 

@@ -43,6 +43,10 @@ func currentSpeedupCoef() -> float:
 	return currentSpeed / max(baseSpeed, 1.0)
 
 
+func is_at_max_speed() -> bool:
+	return currentSpeed == maxBallSpeed
+
+
 func _process(delta: float):
 	var collision: KinematicCollision2D = move_and_collide(direction * currentSpeed * delta)
 	sprite.rotate(currentSpinRadians * delta)

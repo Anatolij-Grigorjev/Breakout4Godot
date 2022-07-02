@@ -59,7 +59,7 @@ func _process(delta: float):
 	if input_enabled and Input.is_action_just_released("paddle_launch_ball") and ball_attached:
 		_launch_ball()
 	if input_enabled and Input.is_action_pressed("paddle_ball_speedup"):
-		_ensure_sppedup_cooldown_active()
+		_ensure_speedup_cooldown_active()
 	else:
 		_stop_speedup_cooldown()
 	
@@ -90,7 +90,7 @@ func attach_ball(ball: Ball):
 	_clamp_ball_on_paddle()
 
 
-func _ensure_sppedup_cooldown_active():
+func _ensure_speedup_cooldown_active():
 	if cooldownTimer.is_stopped():
 		cooldownTimer.start()
 		$AnimationPlayer.play("glow")
