@@ -15,6 +15,9 @@ export(float) var blur_base_speed_coef: float = 1.2
 # base amount of travel paddle does recoiling from ball
 export(float) var base_ball_recoil = 7
 
+#cooldown before the ball speedup gets reqeusted while holding key
+export(float) var ball_speedup_cooldown = 0.25
+
 onready var paddle_hit_sparks = $PaddleHitSparks
 onready var tween: Tween = $Tween
 onready var ballPosition: Position2D = $BallPosition
@@ -37,6 +40,7 @@ func _ready():
 	if ball_attached:
 		_clamp_ball_on_paddle()
 	sprite_material = $Sprite.material
+	cooldownTimer.wait_time = ball_speedup_cooldown
 	cooldownTimer.connect("timeout", self, "_on_speedup_cooldown_done")
 
 
