@@ -19,12 +19,18 @@ export(Dictionary) var points_for_brick_of_type = {
 var types_transition_map = {}
 var total_num_bricks: int = 0
 
+#map of bricks positions to bricks before anything is destroyed
+var initial_bricks_snapshot = {}
+
 
 func _ready():
 	total_num_bricks = get_used_cells().size()
 	#replace arrays with "fun" wrappers
 	for type in brick_type_transitions:
 		types_transition_map[type] = ArrayFunRandom.new(brick_type_transitions[type], -1)
+	#build initial snapshot
+	for cell_idx in get_used_cells():
+		initial_bricks_snapshot[cell_idx] = get_cellv(cell_idx)
 	
 
 func _process(delta):
@@ -41,6 +47,11 @@ func get_points_for_brick_type(type: int) -> float:
 func bricks_hit_at(global_hit_pos: Vector2, hit_normal: Vector2):
 	var tile_idx: Vector2 = world_to_map(to_local(global_hit_pos))
 	_hit_brick_at_idx(tile_idx, hit_normal)
+
+
+func reset_bricks():
+	for saved_pos in initial_bricks_snapshot:
+		set_cellv(saved_pos, Utils.nvl(initial_bricks_snapshot[saved_pos], INVALID_CELL))
 	
 
 func _hit_brick_at_idx(tile_idx: Vector2, hit_normal: Vector2):

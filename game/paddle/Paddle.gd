@@ -48,6 +48,10 @@ func disable_control():
 	input_enabled = false
 
 
+func enable_control():
+	input_enabled = true
+
+
 func _process(delta: float):
 
 	var direction = Vector2(0, 0)

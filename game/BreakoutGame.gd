@@ -22,6 +22,8 @@ onready var ballLossArea = $BallLossArea
 
 var currentScore := 0
 
+var stageFinished = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,6 +36,27 @@ func _ready():
 	paddle.connect("ball_speedup_requested", self, "_on_paddle_ball_speedup_requested")
 	paddle.connect("ball_speedup_started", self, "_on_paddle_ball_speedup_started")
 	paddle.connect("ball_speedup_ended", self, "_on_paddle_ball_speedup_ended")
+
+
+func _process(delta):
+	if stageFinished and Input.is_action_just_released("ui_accept"):
+		_reset_stage()
+
+
+
+func _reset_stage():
+	stageFinished = false
+	_hide_stage_end_message()
+
+	ball.stop()
+	remove_child(ball)
+	paddle.attach_ball(ball)
+	paddle.enable_control()
+
+	scoreCounter.value = 0.0
+	livesCounter.numExtraBalls = 3
+
+	bricks.reset_bricks()
 
 
 
@@ -92,9 +115,10 @@ func _on_ball_fallen(ball):
 	livesCounter.numExtraBalls -= 1
 	if (livesCounter.numExtraBalls <= 0):
 		emit_signal("game_over", scoreCounter.value)
-		ball.queue_free()
+		ball.stop()
 		_show_stage_end_message("GAME OVER\nSCORE: " + str(scoreCounter.value))
 		paddle.disable_control()
+		stageFinished = true
 	else:
 		remove_child(ball)
 		paddle.attach_ball(ball)
@@ -102,6 +126,7 @@ func _on_ball_fallen(ball):
 
 func _on_bricksmap_cleared(cleared_bricks: int):
 	print("cleared brickmap with %s bricks" % cleared_bricks)
+	stageFinished = true
 	ball.currentSpeed = 0.0
 	paddle.disable_control()
 	_show_stage_end_message("SUCCESS\nSCORE: " + str(scoreCounter.value))
@@ -111,6 +136,10 @@ func _show_stage_end_message(message: String):
 	gameEndMessage.visible = true
 	gameEndMessage.get_node("HBoxContainer/Label").text = message
 	gameEndMessage.get_node("AnimationPlayer").play("show")
+
+
+func _hide_stage_end_message():
+	gameEndMessage.visible = false
 
 
 func _get_points_for_brick_type(type: int) -> float:
