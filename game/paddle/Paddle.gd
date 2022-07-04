@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+signal request_launch_ball
 signal ball_speedup_requested
 signal ball_speedup_started
 signal ball_speedup_ended
@@ -60,8 +61,9 @@ func _process(delta: float):
 		direction.x = -1
 	if input_enabled and Input.is_action_pressed("paddle_right"):
 		direction.x = 1
-	if input_enabled and Input.is_action_just_released("paddle_launch_ball") and ball_attached:
-		_launch_ball()
+	if input_enabled and Input.is_action_just_released("paddle_launch_ball"):
+		if ball_attached:
+			_launch_ball()
 	if input_enabled and Input.is_action_pressed("paddle_ball_speedup"):
 		_ensure_speedup_cooldown_active()
 	else:
