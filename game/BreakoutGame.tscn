@@ -75,7 +75,7 @@ script = ExtResource( 6 )
 [node name="CollideSmoke5" parent="ParticlesBattery" instance=ExtResource( 4 )]
 
 [node name="Paddle" parent="." instance=ExtResource( 9 )]
-position = Vector2( 489, 525 )
+position = Vector2( 507, 520 )
 base_speed = 300.0
 
 [node name="Ball" parent="Paddle" instance=ExtResource( 10 )]

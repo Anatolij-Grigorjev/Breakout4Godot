@@ -112,7 +112,7 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 
 
 func _on_ball_fallen(ball):
-	livesCounter.numExtraBalls -= 1
+	
 	if (livesCounter.numExtraBalls <= 0):
 		emit_signal("game_over", scoreCounter.value)
 		ball.stop()
@@ -120,6 +120,7 @@ func _on_ball_fallen(ball):
 		paddle.disable_control()
 		stageFinished = true
 	else:
+		livesCounter.numExtraBalls -= 1
 		remove_child(ball)
 		paddle.attach_ball(ball)
 
