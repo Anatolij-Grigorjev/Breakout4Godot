@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name Ball
 
-signal ball_collided(collision)
+signal ball_collided(ball, collision)
 signal ball_speed_changed(ball)
 
 onready var anim: AnimationPlayer = $AnimationPlayer
@@ -96,7 +96,7 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 	
 	direction = _adjust_horizontal_bounce_direction(next_direction, collision.collider)
 		
-	emit_signal("ball_collided", collision)
+	emit_signal("ball_collided", self, collision)
 
 
 func speedup_ball():

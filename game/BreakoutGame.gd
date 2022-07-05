@@ -2,6 +2,7 @@ extends Node2D
 
 const FlashPointsScn = preload("res://gui/ScoredPoints.tscn")
 const BallTrailScn = preload("res://ball/BallTrail.tscn")
+const BallScn = preload("res://ball/Ball.tscn")
 
 
 signal game_over(total_score)
@@ -9,7 +10,6 @@ signal game_over(total_score)
 
 onready var bg = $BG/Background
 onready var bricks = $BricksMap
-onready var ball = $Paddle/Ball
 onready var paddle = $Paddle
 onready var ballSmokes = $ParticlesBattery
 onready var camera = $Camera2D
@@ -28,7 +28,9 @@ var stageFinished = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	scoreCounter.value = currentScore
-	ball.connect("ball_collided", self, "_on_ball_collided")
+	#hook first ball up
+	$Paddle/Ball.connect("ball_collided", self, "_on_ball_collided")
+
 	bricks.connect("brickDestroyed", self, "_on_brick_destroyed")
 	bricks.connect("brick_damaged", self, "_on_brick_damaged")
 	bricks.connect("map_cleared", self, "_on_bricksmap_cleared")
@@ -50,8 +52,10 @@ func _reset_stage():
 	stageFinished = false
 	_hide_stage_end_message()
 
-	ball.stop()
-	remove_child(ball)
+	for ball in _get_active_balls():
+		ball.queue_free()
+	
+	var ball = _create_new_ball()
 	paddle.attach_ball(ball)
 	paddle.enable_control()
 
@@ -66,12 +70,12 @@ func _on_paddle_new_ball_requested():
 		return
 	
 	livesCounter.numExtraBalls -= 1
-	var new_ball = load("res://ball/Ball.tscn").instance()
+	var new_ball = _create_new_ball()
 	paddle.attach_ball(new_ball)
 
 
 
-func _on_ball_collided(collision: KinematicCollision2D):
+func _on_ball_collided(ball: Ball, collision: KinematicCollision2D):
 	
 	if (collision.collider.is_in_group("bricks")):
 		cameraShake.beginShake()
@@ -83,21 +87,23 @@ func _on_paddle_ball_speedup_requested():
 	#only speedup not attached ball
 	if paddle.ball_attached:
 		return
-	if ball.is_at_max_speed():
-		ball.stop_glowing()
-		return
-	
-	ball.speedup_ball()
+
+	for ball in _get_active_balls():
+		if ball.is_at_max_speed():
+			ball.stop_glowing()
+			continue
+		ball.speedup_ball()
 
 
 func _on_paddle_ball_speedup_started():
 
 	if paddle.ball_attached:
 		return
-	if ball.is_at_max_speed():
-		return
-
-	ball.glow()
+	
+	for ball in _get_active_balls():
+		if ball.is_at_max_speed():
+			continue
+		ball.glow()
 
 
 func _on_paddle_ball_speedup_ended():
@@ -105,7 +111,8 @@ func _on_paddle_ball_speedup_ended():
 	if paddle.ball_attached:
 		return
 	
-	ball.stop_glowing()
+	for ball in _get_active_balls():
+		ball.stop_glowing()
 	
 
 
@@ -124,8 +131,9 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 
 func _on_ball_fallen(ball):
 
-	var num_balls_in_scene = get_tree().get_nodes_in_group("ball").size()
+	var num_balls_in_scene = _get_active_balls().size()
 	if num_balls_in_scene > 1:
+		ball.queue_free()
 		return
 	if (livesCounter.numExtraBalls <= 0):
 		emit_signal("game_over", scoreCounter.value)
@@ -142,7 +150,8 @@ func _on_ball_fallen(ball):
 func _on_bricksmap_cleared(cleared_bricks: int):
 	print("cleared brickmap with %s bricks" % cleared_bricks)
 	stageFinished = true
-	ball.currentSpeed = 0.0
+	for ball in _get_active_balls():
+		ball.currentSpeed = 0.0
 	paddle.disable_control()
 	_show_stage_end_message("SUCCESS\nSCORE: " + str(scoreCounter.value))
 
@@ -159,7 +168,7 @@ func _hide_stage_end_message():
 
 func _get_points_for_brick_type(type: int) -> float:
 	var base_points = bricks.get_points_for_brick_type(type)
-	return base_points * ball.currentSpeedupCoef()
+	return base_points # * ball.currentSpeedupCoef()
 
 
 func _fire_collision_particles(collision: KinematicCollision2D):
@@ -173,3 +182,12 @@ func _add_scored_points_bubble(score_origin: Vector2, points: float):
 	flashPoints.global_position = score_origin - Vector2(-5, 15)
 	flashPoints.text = "+%s" % int(points)
 	add_child(flashPoints)
+
+
+func _get_active_balls() -> Array:
+	return get_tree().get_nodes_in_group("ball")
+
+func _create_new_ball():
+	var ball =  BallScn.instance()
+	ball.connect("ball_collided", self, "_on_ball_collided")
+	return ball
