@@ -64,6 +64,8 @@ func _process(delta: float):
 	if input_enabled and Input.is_action_just_released("paddle_launch_ball"):
 		if ball_attached:
 			_launch_ball()
+		else:
+			emit_signal("request_launch_ball")
 	if input_enabled and Input.is_action_pressed("paddle_ball_speedup"):
 		_ensure_speedup_cooldown_active()
 	else:

@@ -33,9 +33,11 @@ func _ready():
 	bricks.connect("brick_damaged", self, "_on_brick_damaged")
 	bricks.connect("map_cleared", self, "_on_bricksmap_cleared")
 	ballLossArea.connect("ball_fell", self, "_on_ball_fallen")
+
 	paddle.connect("ball_speedup_requested", self, "_on_paddle_ball_speedup_requested")
 	paddle.connect("ball_speedup_started", self, "_on_paddle_ball_speedup_started")
 	paddle.connect("ball_speedup_ended", self, "_on_paddle_ball_speedup_ended")
+	paddle.connect("request_launch_ball", self, "_on_paddle_new_ball_requested")
 
 
 func _process(delta):
@@ -57,6 +59,15 @@ func _reset_stage():
 	livesCounter.numExtraBalls = 3
 
 	bricks.reset_bricks()
+
+
+func _on_paddle_new_ball_requested():
+	if livesCounter.numExtraBalls <= 0 or paddle.ball_attached:
+		return
+	
+	livesCounter.numExtraBalls -= 1
+	var new_ball = load("res://ball/Ball.tscn").instance()
+	paddle.attach_ball(new_ball)
 
 
 
@@ -112,7 +123,10 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 
 
 func _on_ball_fallen(ball):
-	
+
+	var num_balls_in_scene = get_tree().get_nodes_in_group("ball").size()
+	if num_balls_in_scene > 1:
+		return
 	if (livesCounter.numExtraBalls <= 0):
 		emit_signal("game_over", scoreCounter.value)
 		ball.stop()
