@@ -7,6 +7,7 @@ signal ball_speed_changed(ball)
 onready var anim: AnimationPlayer = $AnimationPlayer
 onready var glow_anim: AnimationPlayer = $GlowAnimationPlayer
 onready var sprite: Sprite = $Sprite
+onready var hit_ball_sparks: ParticlesBattery = $ParticlesBattery
 
 export(float) var bounceSpeedupCoef: float = 1.1
 export(float) var maxSpeedCoef: float = 2.0
@@ -82,6 +83,9 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 
 	if not collision.collider.is_in_group("barrier"):
 		sprite.rotation = collision.normal.angle()
+
+	if collision.collider.is_in_group("ball"):
+		hit_ball_sparks.fireNextParticleSystem(collision.position)
 	
 	if collision.collider.is_in_group("bricks"):
 		speedup_ball()
