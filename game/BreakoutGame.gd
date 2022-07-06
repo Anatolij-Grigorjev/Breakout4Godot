@@ -23,6 +23,7 @@ onready var ballLossArea = $BallLossArea
 var currentScore := 0
 
 var stageFinished = false
+var paddle_starting_y: float = 0.0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -40,6 +41,7 @@ func _ready():
 	paddle.connect("ball_speedup_started", self, "_on_paddle_ball_speedup_started")
 	paddle.connect("ball_speedup_ended", self, "_on_paddle_ball_speedup_ended")
 	paddle.connect("request_launch_ball", self, "_on_paddle_new_ball_requested")
+	paddle_starting_y = paddle.position.y
 
 
 func _process(delta):
@@ -72,6 +74,7 @@ func _on_paddle_new_ball_requested():
 	livesCounter.numExtraBalls -= 1
 	var new_ball = _create_new_ball()
 	paddle.attach_ball(new_ball)
+	paddle.position.y = paddle_starting_y
 
 
 

@@ -43,6 +43,7 @@ func _ready():
 	sprite_material = $Sprite.material
 	cooldownTimer.wait_time = ball_speedup_cooldown
 	cooldownTimer.connect("timeout", self, "_on_speedup_cooldown_done")
+	tween.connect("tween_all_completed", self, "_ball_bounce_done")
 
 
 func disable_control():
@@ -146,15 +147,21 @@ func _launch_ball():
 		ballRef.global_position = Vector2(global_position.x, global_position.y - 10)
 
 
+func _ball_bounce_done():
+	#reset sprite position fully after all bouncing done
+	$Sprite.position = Vector2.ZERO
+
+
 func _prepare_and_run_bounce_reaction_tweens(ball_speed_coef: float):
 	tween.stop_all()
 	tween.remove_all()
 	var bounce_travel = base_ball_recoil * ball_speed_coef
 	var future_position = $Sprite.position + Vector2(0, bounce_travel)
+	var bounce_down_travel_time = 0.4
 	tween.interpolate_property(
 		$Sprite, 'position', 
 		null, future_position, 
-		0.4, 
+		bounce_down_travel_time, 
 		Tween.TRANS_QUAD, Tween.EASE_OUT
 	)
 	tween.interpolate_property(
@@ -162,6 +169,6 @@ func _prepare_and_run_bounce_reaction_tweens(ball_speed_coef: float):
 		future_position, Vector2.ZERO, 
 		0.3, 
 		Tween.TRANS_QUAD, Tween.EASE_IN, 
-		0.4
+		bounce_down_travel_time
 	)
 	tween.start()
