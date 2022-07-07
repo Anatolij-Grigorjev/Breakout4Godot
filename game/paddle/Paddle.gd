@@ -122,6 +122,7 @@ func _on_speedup_cooldown_done():
 
 func _clamp_ball_on_paddle():
 	ballRef.stop()
+	ballRef.disable_collisions()
 	ballRef.position = ballPosition.position
 
 
@@ -142,6 +143,7 @@ func _launch_ball():
 	ball_attached = false
 	if ballRef:
 		remove_child(ballRef)
+		ballRef.enable_collisions()
 		ballRef.reset_speed()
 		get_parent().add_child(ballRef)
 		ballRef.global_position = Vector2(global_position.x, global_position.y - 10)

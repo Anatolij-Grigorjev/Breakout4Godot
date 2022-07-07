@@ -40,6 +40,14 @@ func stop():
 	currentSpinRadians = 0
 
 
+func disable_collisions():
+	$CollisionShape2D.disabled = true
+
+
+func enable_collisions():
+	$CollisionShape2D.disabled = false
+
+
 func currentSpeedupCoef() -> float:
 	return currentSpeed / max(baseSpeed, 1.0)
 
