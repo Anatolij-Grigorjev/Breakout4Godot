@@ -1,12 +1,11 @@
 extends Node2D
 
 export(PackedScene) var ball_trail_scene
-export(NodePath) var ball_path = get_parent()
 export(float) var show_trail_speed_coef = 1.5
 
 onready var trail_timer: Timer = $Timer
 
-onready var ball = get_node(ball_path)
+onready var ball = get_parent()
 
 func _ready():
 	trail_timer.stop()
