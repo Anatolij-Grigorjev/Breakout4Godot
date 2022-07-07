@@ -36,10 +36,7 @@ var velocity: Vector2 = Vector2.ZERO
 var input_enabled = true
 
 func _ready():
-	ballRef = Utils.getFirstTreeNodeInGroup(get_tree(), "ball")
-	ball_attached = _check_has_attached_ball()
-	if ball_attached:
-		_clamp_ball_on_paddle()
+	
 	sprite_material = $Sprite.material
 	cooldownTimer.wait_time = ball_speedup_cooldown
 	cooldownTimer.connect("timeout", self, "_on_speedup_cooldown_done")
@@ -147,6 +144,7 @@ func _launch_ball():
 		ballRef.reset_speed()
 		get_parent().add_child(ballRef)
 		ballRef.global_position = Vector2(global_position.x, global_position.y - 10)
+		ballRef = null
 
 
 func _ball_bounce_done():

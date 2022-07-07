@@ -55,9 +55,8 @@ func _reset_stage():
 	for ball in _get_active_balls():
 		ball.queue_free()
 	
-	var ball = _create_new_ball()
-	paddle.attach_ball(ball)
 	paddle.enable_control()
+	paddle.position.y = paddle_starting_y
 
 	scoreCounter.value = 0.0
 	livesCounter.numExtraBalls = 3
@@ -88,12 +87,8 @@ func _on_paddle_ball_speedup_requested():
 
 	var active_balls = _get_active_balls()
 
-	#no unattached balls to speedup
-	if paddle.ball_attached and active_balls.size() == 1:
-		return
-
 	for ball in active_balls:
-		if ball.is_at_max_speed():
+		if ball.is_at_max_speed() or paddle.ballRef == ball:
 			ball.stop_glowing()
 			continue
 		ball.speedup_ball()
@@ -102,13 +97,9 @@ func _on_paddle_ball_speedup_requested():
 func _on_paddle_ball_speedup_started():
 
 	var active_balls = _get_active_balls()
-
-	#no unattached balls to speedup
-	if paddle.ball_attached and active_balls.size() == 1:
-		return
 	
 	for ball in active_balls:
-		if ball.is_at_max_speed():
+		if ball.is_at_max_speed() or paddle.ballRef == ball:
 			continue
 		ball.glow()
 
@@ -116,10 +107,6 @@ func _on_paddle_ball_speedup_started():
 func _on_paddle_ball_speedup_ended():
 
 	var active_balls = _get_active_balls()
-
-	#no unattached balls to speedup
-	if paddle.ball_attached and active_balls.size() == 1:
-		return
 	
 	for ball in active_balls:
 		ball.stop_glowing()
