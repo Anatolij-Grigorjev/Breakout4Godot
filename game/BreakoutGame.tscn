@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://gui/GameHUD.tscn" type="PackedScene" id=1]
 [ext_resource path="res://bricks/BricksMap.tscn" type="PackedScene" id=2]
@@ -9,10 +9,7 @@
 [ext_resource path="res://tools/CameraShake.tscn" type="PackedScene" id=7]
 [ext_resource path="res://bg/Background.tscn" type="PackedScene" id=8]
 [ext_resource path="res://paddle/Paddle.tscn" type="PackedScene" id=9]
-[ext_resource path="res://ball/Ball.tscn" type="PackedScene" id=10]
 [ext_resource path="res://BallLossArea.tscn" type="PackedScene" id=11]
-[ext_resource path="res://ball/BallTrailMaker.tscn" type="PackedScene" id=12]
-[ext_resource path="res://ball/BallTrail.tscn" type="PackedScene" id=13]
 [ext_resource path="res://tools/CameraShakeDampener.gd" type="Script" id=14]
 [ext_resource path="res://gui/GameEndMessage.tscn" type="PackedScene" id=15]
 
@@ -77,13 +74,6 @@ script = ExtResource( 6 )
 [node name="Paddle" parent="." instance=ExtResource( 9 )]
 position = Vector2( 507, 520 )
 base_speed = 300.0
-
-[node name="Ball" parent="Paddle" instance=ExtResource( 10 )]
-position = Vector2( 0, -26 )
-
-[node name="BallTrailMaker" parent="Paddle/Ball" instance=ExtResource( 12 )]
-ball_trail_scene = ExtResource( 13 )
-ball_path = NodePath("..")
 
 [node name="BallLossArea" parent="." instance=ExtResource( 11 )]
 position = Vector2( 515, 613 )

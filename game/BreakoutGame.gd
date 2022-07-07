@@ -29,8 +29,6 @@ var paddle_starting_y: float = 0.0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	scoreCounter.value = currentScore
-	#hook first ball up
-	$Paddle/Ball.connect("ball_collided", self, "_on_ball_collided")
 
 	bricks.connect("brickDestroyed", self, "_on_brick_destroyed")
 	bricks.connect("brick_damaged", self, "_on_brick_damaged")
@@ -87,11 +85,14 @@ func _on_ball_collided(ball: Ball, collision: KinematicCollision2D):
 
 
 func _on_paddle_ball_speedup_requested():
-	#only speedup not attached ball
-	if paddle.ball_attached:
+
+	var active_balls = _get_active_balls()
+
+	#no unattached balls to speedup
+	if paddle.ball_attached and active_balls.size() == 1:
 		return
 
-	for ball in _get_active_balls():
+	for ball in active_balls:
 		if ball.is_at_max_speed():
 			ball.stop_glowing()
 			continue
@@ -100,10 +101,13 @@ func _on_paddle_ball_speedup_requested():
 
 func _on_paddle_ball_speedup_started():
 
-	if paddle.ball_attached:
+	var active_balls = _get_active_balls()
+
+	#no unattached balls to speedup
+	if paddle.ball_attached and active_balls.size() == 1:
 		return
 	
-	for ball in _get_active_balls():
+	for ball in active_balls:
 		if ball.is_at_max_speed():
 			continue
 		ball.glow()
@@ -111,10 +115,13 @@ func _on_paddle_ball_speedup_started():
 
 func _on_paddle_ball_speedup_ended():
 
-	if paddle.ball_attached:
+	var active_balls = _get_active_balls()
+
+	#no unattached balls to speedup
+	if paddle.ball_attached and active_balls.size() == 1:
 		return
 	
-	for ball in _get_active_balls():
+	for ball in active_balls:
 		ball.stop_glowing()
 	
 
