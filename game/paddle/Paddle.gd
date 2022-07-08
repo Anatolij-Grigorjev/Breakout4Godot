@@ -31,6 +31,7 @@ var sprite_material
 
 var prev_direction: Vector2 = Vector2.ZERO
 var this_direction_time: float = 0.0
+var ball_drop_margin = 2.0
 
 var velocity: Vector2 = Vector2.ZERO
 var input_enabled = true
@@ -140,11 +141,13 @@ func _launch_ball():
 	ball_attached = false
 	if ballRef:
 		remove_child(ballRef)
-		ballRef.enable_collisions()
 		ballRef.reset_speed()
 		get_parent().add_child(ballRef)
-		ballRef.global_position = Vector2(global_position.x, global_position.y - 10)
+		ballRef.global_position = Vector2(global_position.x, global_position.y - ballRef.colliderSize.y - ball_drop_margin)
+		ballRef.enable_collisions()
 		ballRef = null
+		yield(get_tree().create_timer(0.5), "timeout")
+		print("position: %s | starting y: %s" % [position.y, get_parent().paddle_starting_y])
 
 
 func _ball_bounce_done():

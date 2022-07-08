@@ -23,11 +23,11 @@ var maxBallSpeed = maxSpeedCoef * baseSpeed
 
 var currentSpeed setget _set_current_speed_and_broadcast
 var currentSpinRadians
-
+var colliderSize: Vector2
 
 func _ready():
 	reset_speed()
-
+	colliderSize = Vector2.ONE * $CollisionShape2D.shape.radius * 2.0
 
 func reset_speed():
 	_set_current_speed_and_broadcast(baseSpeed)
