@@ -93,6 +93,9 @@ func ball_hit_at(global_hit_pos: Vector2, ball_speed_coef: float):
 func attach_ball(ball: Ball):
 	ballRef = ball
 	add_child(ballRef)
+	ballRef.disable_collisions()
+	ball.sprite.visible = false
+	ball.anim.play("appear")
 	ball_attached = true
 	_clamp_ball_on_paddle()
 
@@ -120,7 +123,6 @@ func _on_speedup_cooldown_done():
 
 func _clamp_ball_on_paddle():
 	ballRef.stop()
-	ballRef.disable_collisions()
 	ballRef.position = ballPosition.position
 
 
@@ -141,13 +143,13 @@ func _launch_ball():
 	ball_attached = false
 	if ballRef:
 		remove_child(ballRef)
-		ballRef.reset_speed()
 		get_parent().add_child(ballRef)
+		ballRef.reset_speed()
 		ballRef.global_position = Vector2(global_position.x, global_position.y - ballRef.colliderSize.y - ball_drop_margin)
 		ballRef.enable_collisions()
+		if not cooldownTimer.is_stopped():
+			ballRef.glow()
 		ballRef = null
-		yield(get_tree().create_timer(0.5), "timeout")
-		print("position: %s | starting y: %s" % [position.y, get_parent().paddle_starting_y])
 
 
 func _ball_bounce_done():

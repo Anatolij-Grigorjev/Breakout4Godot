@@ -4,8 +4,10 @@ const FlashPointsScn = preload("res://gui/ScoredPoints.tscn")
 const BallTrailScn = preload("res://ball/BallTrail.tscn")
 const BallScn = preload("res://ball/Ball.tscn")
 
-
 signal game_over(total_score)
+
+
+export(int) var starting_num_balls = 4
 
 
 onready var bg = $BG/Background
@@ -23,12 +25,13 @@ onready var ballLossArea = $BallLossArea
 var currentScore := 0
 
 var stageFinished = false
-var paddle_starting_y: float = 0.0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	scoreCounter.value = currentScore
+
+	livesCounter.numExtraBalls = starting_num_balls
 
 	bricks.connect("brickDestroyed", self, "_on_brick_destroyed")
 	bricks.connect("brick_damaged", self, "_on_brick_damaged")
@@ -39,7 +42,6 @@ func _ready():
 	paddle.connect("ball_speedup_started", self, "_on_paddle_ball_speedup_started")
 	paddle.connect("ball_speedup_ended", self, "_on_paddle_ball_speedup_ended")
 	paddle.connect("request_launch_ball", self, "_on_paddle_new_ball_requested")
-	paddle_starting_y = paddle.position.y
 
 
 func _process(delta):
@@ -56,10 +58,9 @@ func _reset_stage():
 		ball.queue_free()
 	
 	paddle.enable_control()
-	paddle.position.y = paddle_starting_y
 
 	scoreCounter.value = 0.0
-	livesCounter.numExtraBalls = 3
+	livesCounter.numExtraBalls = starting_num_balls
 
 	bricks.reset_bricks()
 
@@ -71,7 +72,6 @@ func _on_paddle_new_ball_requested():
 	livesCounter.numExtraBalls -= 1
 	var new_ball = _create_new_ball()
 	paddle.attach_ball(new_ball)
-	paddle.position.y = paddle_starting_y
 
 
 
@@ -184,7 +184,7 @@ func _add_scored_points_bubble(score_origin: Vector2, points: float):
 func _get_active_balls() -> Array:
 	return get_tree().get_nodes_in_group("ball")
 
-func _create_new_ball():
+func _create_new_ball() -> Ball:
 	var ball =  BallScn.instance()
 	ball.connect("ball_collided", self, "_on_ball_collided")
 	return ball

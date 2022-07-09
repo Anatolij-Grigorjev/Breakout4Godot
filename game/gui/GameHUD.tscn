@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://gui/BallSpeedIcon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://gui/AccumCounter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/LivesCounter.tscn" type="PackedScene" id=3]
 
@@ -26,7 +25,7 @@ anchor_bottom = 1.0
 margin_top = -50.0
 
 [node name="LivesHUD" type="HBoxContainer" parent="LowerHUD"]
-margin_right = 874.0
+margin_right = 1024.0
 margin_bottom = 50.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 6.0
@@ -44,12 +43,4 @@ margin_top = 10.0
 margin_right = 20.0
 margin_bottom = 50.0
 size_flags_stretch_ratio = 10.0
-
-[node name="SpeedHUD" type="HBoxContainer" parent="LowerHUD"]
-margin_left = 878.0
-margin_right = 1024.0
-margin_bottom = 50.0
-size_flags_horizontal = 3
-
-[node name="BallSpeedIcon" parent="LowerHUD/SpeedHUD" instance=ExtResource( 1 )]
-margin_bottom = 50.0
+numExtraBalls = 4
