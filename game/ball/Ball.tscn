@@ -210,6 +210,8 @@ min_value = -1.0
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
 [node name="Ball" type="KinematicBody2D" groups=["ball"]]
+collision_layer = 4
+collision_mask = 131
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

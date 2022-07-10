@@ -50,13 +50,19 @@ shake_dampen_coef = 0.25
 
 [node name="BarrierLeft" parent="." instance=ExtResource( 3 )]
 position = Vector2( -20, 0 )
+collision_layer = 128
+collision_mask = 6
 
 [node name="BarrierTop" parent="." instance=ExtResource( 3 )]
 position = Vector2( 450, -20 )
 rotation = 1.5708
+collision_layer = 128
+collision_mask = 6
 
 [node name="BarrierRight" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1044, 0 )
+collision_layer = 128
+collision_mask = 6
 
 [node name="ParticlesBattery" type="Node2D" parent="."]
 script = ExtResource( 6 )
@@ -77,6 +83,8 @@ base_speed = 300.0
 
 [node name="BallLossArea" parent="." instance=ExtResource( 11 )]
 position = Vector2( 515, 613 )
+collision_layer = 0
+collision_mask = 4
 
 [node name="GUI" type="CanvasLayer" parent="."]
 layer = 5

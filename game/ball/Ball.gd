@@ -40,12 +40,14 @@ func stop():
 	currentSpinRadians = 0
 
 
-func disable_collisions():
-	$CollisionShape2D.disabled = true
+func disable_paddle_collisions():
+	set_collision_mask_bit(1, false)
+	set_collision_layer_bit(2, false)
 
 
-func enable_collisions():
-	$CollisionShape2D.disabled = false
+func enable_paddle_collisions():
+	set_collision_mask_bit(1, true)
+	set_collision_layer_bit(2, true)
 
 
 func currentSpeedupCoef() -> float:
@@ -105,6 +107,7 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 		var paddle = collision.collider
 		paddle.ball_hit_at(collision.position, currentSpeedupCoef())
 		next_direction = (next_direction + paddle.velocity.normalized()).normalized()
+
 	
 	direction = _adjust_horizontal_bounce_direction(next_direction, collision.collider)
 		

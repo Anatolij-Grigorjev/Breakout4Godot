@@ -93,7 +93,7 @@ func ball_hit_at(global_hit_pos: Vector2, ball_speed_coef: float):
 func attach_ball(ball: Ball):
 	ballRef = ball
 	add_child(ballRef)
-	ballRef.disable_collisions()
+	ballRef.disable_paddle_collisions()
 	ball.sprite.visible = false
 	ball.anim.play("appear")
 	ball_attached = true
@@ -146,7 +146,7 @@ func _launch_ball():
 		get_parent().add_child(ballRef)
 		ballRef.reset_speed()
 		ballRef.global_position = Vector2(global_position.x, global_position.y - ballRef.colliderSize.y - ball_drop_margin)
-		ballRef.enable_collisions()
+		ballRef.enable_paddle_collisions()
 		if not cooldownTimer.is_stopped():
 			ballRef.glow()
 		ballRef = null

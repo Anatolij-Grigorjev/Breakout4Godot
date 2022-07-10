@@ -48,6 +48,8 @@ tracks/0/keys = {
 }
 
 [node name="Paddle" type="KinematicBody2D" groups=["paddle"]]
+collision_layer = 2
+collision_mask = 132
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
