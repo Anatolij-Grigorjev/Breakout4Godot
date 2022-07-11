@@ -36,12 +36,20 @@ var ball_drop_margin = 2.0
 var velocity: Vector2 = Vector2.ZERO
 var input_enabled = true
 
+var hit_on_bumper = false
+
 func _ready():
 	
 	sprite_material = $Sprite.material
 	cooldownTimer.wait_time = ball_speedup_cooldown
 	cooldownTimer.connect("timeout", self, "_on_speedup_cooldown_done")
 	tween.connect("tween_all_completed", self, "_ball_bounce_done")
+
+	$Sprite/LeftBumperArea.connect("body_entered", self, "_on_bumper_body_entered")
+	$Sprite/RightBumperArea.connect("body_entered", self, "_on_bumper_body_entered")
+	$Sprite/LeftBumperArea.connect("body_exited", self, "_on_bumper_body_exited")
+	$Sprite/RightBumperArea.connect("body_exited", self, "_on_bumper_body_exited")
+
 
 
 func disable_control():
@@ -85,9 +93,10 @@ func _process(delta: float):
 
 
 
-func ball_hit_at(global_hit_pos: Vector2, ball_speed_coef: float):
+func ball_hit_at(global_hit_pos: Vector2, ball_speed_coef: float) -> bool:
 	_prepare_and_run_bounce_reaction_tweens(ball_speed_coef)
 	paddle_hit_sparks.fire_hit_sparks(global_hit_pos, ball_speed_coef)
+	return hit_on_bumper
 
 
 func attach_ball(ball: Ball):
@@ -155,6 +164,16 @@ func _launch_ball():
 func _ball_bounce_done():
 	#reset sprite position fully after all bouncing done
 	$Sprite.position = Vector2.ZERO
+
+
+func _on_bumper_body_entered(body):
+	if body and body.is_in_group("ball"):
+		hit_on_bumper = true
+
+
+func _on_bumper_body_exited(body):
+	if body and body.is_in_group("ball"):
+		hit_on_bumper = false
 
 
 func _prepare_and_run_bounce_reaction_tweens(ball_speed_coef: float):
