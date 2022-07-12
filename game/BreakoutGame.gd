@@ -20,6 +20,7 @@ onready var cameraShake = $Camera2D/ScreenShake
 onready var scoreCounter = $GUI/GameHUD/ScoresHUD/AccumCounter
 onready var livesCounter = $GUI/GameHUD/LowerHUD/LivesHUD/MarginContainer/LivesCounter
 onready var gameEndMessage = $GUI/GameEndMessage
+onready var overlay = $GUI/Overlay
 onready var ballLossArea = $BallLossArea
 
 var currentScore := 0
@@ -154,6 +155,7 @@ func _on_bricksmap_cleared(cleared_bricks: int):
 
 
 func _show_stage_end_message(message: String):
+	overlay.get_node("AnimationPlayer").play("fade_in")
 	gameEndMessage.visible = true
 	gameEndMessage.get_node("HBoxContainer/Label").text = message
 	gameEndMessage.get_node("AnimationPlayer").play("show")
@@ -161,6 +163,7 @@ func _show_stage_end_message(message: String):
 
 func _hide_stage_end_message():
 	gameEndMessage.visible = false
+	overlay.get_node("AnimationPlayer").play("fade_out")
 
 
 func _get_points_for_brick_type(type: int) -> float:

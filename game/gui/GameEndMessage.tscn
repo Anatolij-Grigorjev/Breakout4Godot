@@ -19,6 +19,18 @@ expand_margin_bottom = 15.0
 
 [sub_resource type="Animation" id=1]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("HBoxContainer/Label:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "show"
@@ -34,6 +46,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( -1000, 300 ), Vector2( 0, 300 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("HBoxContainer/Label:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="GameEndMessage" type="Control"]
 anchor_right = 1.0
@@ -47,6 +71,7 @@ margin_bottom = 24.0
 alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer"]
+visible = false
 margin_left = 478.0
 margin_right = 546.0
 margin_bottom = 24.0
