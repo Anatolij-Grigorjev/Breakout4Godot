@@ -106,6 +106,7 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 	if collision.collider.is_in_group("paddle"):
 		var paddle = collision.collider
 		var hit_bumper = paddle.ball_hit_at(collision.position, currentSpeedupCoef())
+		print("hit bumper: %s | position: %s" % [hit_bumper, collision.position])
 		if hit_bumper:
 			next_direction = Vector2(next_direction.x, rand_range(0.5, 1))
 		else:

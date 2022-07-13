@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://paddle/paddle.png" type="Texture" id=1]
 [ext_resource path="res://paddle/Paddle.gd" type="Script" id=2]
@@ -14,12 +14,6 @@ shader_param/radius = 0.0
 shader = ExtResource( 5 )
 shader_param/outline_width = 0.0
 shader_param/outline_color = Color( 0, 0.882353, 1, 0.694118 )
-
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 7, 7.5 )
-
-[sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 6.75, 7.5 )
 
 [sub_resource type="Animation" id=7]
 length = 0.001
@@ -68,24 +62,6 @@ show_behind_parent = true
 material = SubResource( 5 )
 texture = ExtResource( 1 )
 
-[node name="LeftBumperArea" type="Area2D" parent="Sprite"]
-position = Vector2( -25, 0 )
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/LeftBumperArea"]
-position = Vector2( 0, 0.5 )
-shape = SubResource( 8 )
-
-[node name="RightBumperArea" type="Area2D" parent="Sprite"]
-position = Vector2( 25, 0 )
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/RightBumperArea"]
-position = Vector2( -0.25, 0.5 )
-shape = SubResource( 9 )
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -64, 4, -35, -7, 36, -7, 63, 4, 36, 8, -36, 8 )
 
@@ -101,3 +77,9 @@ position = Vector2( 0, -24 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 7 )
 anims/glow = SubResource( 6 )
+
+[node name="LeftBumperEnd" type="Position2D" parent="."]
+position = Vector2( -36, -7 )
+
+[node name="RightBumperStart" type="Position2D" parent="."]
+position = Vector2( 36, -7 )
