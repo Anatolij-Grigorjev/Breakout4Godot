@@ -194,7 +194,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 1.6 ),
 "transitions": PoolRealArray( 0.5, 1, 0.535887 ),
 "update": 0,
-"values": [ 0.0, 2.5, 0.1 ]
+"values": [ 0.0, 3.5, 0.01 ]
 }
 
 [sub_resource type="Curve" id=8]

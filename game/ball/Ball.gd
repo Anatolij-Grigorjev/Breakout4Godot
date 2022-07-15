@@ -79,7 +79,7 @@ func _set_current_speed_and_broadcast(new_speed_val: float):
 	if new_speed_val == currentSpeed:
 		return
 	currentSpeed = new_speed_val
-	var high_speed_prc = currentSpeedupCoef() - (maxSpeedCoef - 1.0)
+	var high_speed_prc = currentSpeedupCoef()# - (maxSpeedCoef - 1.0)
 	sprite.material.set_shader_param("radius", max(0.0, high_speed_prc))
 	emit_signal("ball_speed_changed", self)
 
