@@ -105,12 +105,8 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 	
 	if collision.collider.is_in_group("paddle"):
 		var paddle = collision.collider
-		var hit_bumper = paddle.ball_hit_at(collision.position, currentSpeedupCoef())
-		print("hit bumper: %s | position: %s" % [hit_bumper, collision.position])
-		if hit_bumper:
-			next_direction = direction.bounce(Vector2.RIGHT)
-		else:
-			next_direction = (next_direction + paddle.velocity.normalized()).normalized()
+		paddle.ball_hit_at(collision.position, currentSpeedupCoef())
+		next_direction = (next_direction + paddle.velocity.normalized()).normalized()
 
 	
 	direction = _adjust_horizontal_bounce_direction(next_direction, collision.collider)
