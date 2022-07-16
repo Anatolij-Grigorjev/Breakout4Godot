@@ -92,7 +92,11 @@ func _process(delta: float):
 func ball_hit_at(global_hit_pos: Vector2, ball_speed_coef: float):
 	_prepare_and_run_bounce_reaction_tweens(ball_speed_coef)
 	paddle_hit_sparks.fire_hit_sparks(global_hit_pos, ball_speed_coef)
-
+	
+	return (
+		global_hit_pos.x < leftBumperEndPos.global_position.x 
+		or global_hit_pos.x > rightBumperStartPos.global_position.x
+	)
 
 
 

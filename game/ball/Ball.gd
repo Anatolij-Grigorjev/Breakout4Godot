@@ -105,7 +105,10 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 	
 	if collision.collider.is_in_group("paddle"):
 		var paddle = collision.collider
-		paddle.ball_hit_at(collision.position, currentSpeedupCoef())
+		var ball_hit_paddle_bumper = paddle.ball_hit_at(collision.position, currentSpeedupCoef())
+		#if ball hits slanted bumper on way down it will keep going down and roll off paddle
+		if ball_hit_paddle_bumper and next_direction.y > 0.0:
+			next_direction.y *= -1
 		next_direction = (next_direction + paddle.velocity.normalized()).normalized()
 
 	
