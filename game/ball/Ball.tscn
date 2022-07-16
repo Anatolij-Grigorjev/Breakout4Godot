@@ -10,7 +10,7 @@
 
 [sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 3 )
-shader_param/radius = 1.0
+shader_param/radius = 0.0
 
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 4 )
