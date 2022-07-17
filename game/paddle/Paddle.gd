@@ -1,11 +1,16 @@
 extends KinematicBody2D
 
+
+const AfterImageScn = preload("res://paddle/AfterImage.tscn")
+
+
 signal request_launch_ball
 signal ball_speedup_requested
 signal ball_speedup_started
 signal ball_speedup_ended
 
 export(float) var base_speed: float = 150.0
+export(float) var shift_distance: float = 75.0
 
 # acceleration added over seconds of consistent movement in same direction
 export(float) var acceleration: float = 150.0
@@ -73,6 +78,8 @@ func _process(delta: float):
 		_ensure_speedup_cooldown_active()
 	else:
 		_stop_speedup_cooldown()
+	if input_enabled and Input.is_action_just_pressed("paddle_shift"):
+		_shift_paddle_in_direction(direction)
 	
 	
 	if direction == prev_direction:
@@ -92,7 +99,7 @@ func _process(delta: float):
 func ball_hit_at(global_hit_pos: Vector2, ball_speed_coef: float):
 	_prepare_and_run_bounce_reaction_tweens(ball_speed_coef)
 	paddle_hit_sparks.fire_hit_sparks(global_hit_pos, ball_speed_coef)
-	
+
 	return (
 		global_hit_pos.x < leftBumperEndPos.global_position.x 
 		or global_hit_pos.x > rightBumperStartPos.global_position.x
@@ -108,6 +115,22 @@ func attach_ball(ball: Ball):
 	ball.anim.play("appear")
 	ball_attached = true
 	_clamp_ball_on_paddle()
+
+
+
+func _shift_paddle_in_direction(direction: Vector2):
+	if direction.x == 0:
+		return
+	_spawn_after_image()
+	move_and_collide(direction * shift_distance)
+
+
+
+func _spawn_after_image():
+	var instance = AfterImageScn.instance()
+	get_parent().add_child(instance)
+	instance.global_position = global_position
+	
 
 
 func _ensure_speedup_cooldown_active():
