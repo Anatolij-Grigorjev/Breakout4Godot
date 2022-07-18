@@ -28,7 +28,7 @@ var currentScore := 0
 var stageFinished = false
 
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	scoreCounter.value = currentScore
 
@@ -136,7 +136,7 @@ func _on_ball_fallen(ball):
 	if (livesCounter.numExtraBalls <= 0):
 		emit_signal("game_over", scoreCounter.value)
 		ball.stop()
-		_show_stage_end_message("GAME OVER\nSCORE: " + str(scoreCounter.value))
+		_show_stage_end_message("GAME OVER :(\nSCORE: " + str(scoreCounter.value))
 		paddle.disable_control()
 		stageFinished = true
 	else:
@@ -151,7 +151,7 @@ func _on_bricksmap_cleared(cleared_bricks: int):
 	for ball in _get_active_balls():
 		ball.currentSpeed = 0.0
 	paddle.disable_control()
-	_show_stage_end_message("SUCCESS\nSCORE: " + str(scoreCounter.value))
+	_show_stage_end_message("!!!SUCCESS!!!\nSCORE: " + str(scoreCounter.value))
 
 
 func _show_stage_end_message(message: String):
@@ -168,7 +168,7 @@ func _hide_stage_end_message():
 
 func _get_points_for_brick_type(type: int) -> float:
 	var base_points = bricks.get_points_for_brick_type(type)
-	return base_points # * ball.currentSpeedupCoef()
+	return base_points
 
 
 func _fire_collision_particles(collision: KinematicCollision2D):
