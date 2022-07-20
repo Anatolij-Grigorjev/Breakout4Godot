@@ -4,6 +4,9 @@ const FlashPointsScn = preload("res://gui/ScoredPoints.tscn")
 const BallTrailScn = preload("res://ball/BallTrail.tscn")
 const BallScn = preload("res://ball/Ball.tscn")
 
+#powerups
+const PowerupPointsScn = preload("res://drops/PowerupPoints.tscn")
+
 signal game_over(total_score)
 
 
@@ -125,6 +128,19 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 	var brick_origin_pos = bricks.map_to_world(tileIdx) + bricks.position
 	_add_scored_points_bubble(brick_origin_pos, brickPoints)
 	scoreCounter.value += brickPoints
+
+	if (randf() >= 0.5):
+		var points = PowerupPointsScn.instance()
+		add_child(points)
+		points.global_position = brick_origin_pos
+		points.fall_rate = 100.0
+		points.connect("points_collected", self, "_on_paddle_collected_points")
+		points.start()
+
+
+
+func _on_paddle_collected_points(amount: float):
+	scoreCounter.value += amount
 
 
 func _on_ball_fallen(ball):
