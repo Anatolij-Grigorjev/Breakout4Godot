@@ -11,6 +11,20 @@ signal game_over(total_score)
 
 
 export(int) var starting_num_balls = 4
+export(Dictionary) var brick_drops_probabilities := {
+	0: {
+		PowerupPointsScn: 0.15
+	},
+	2: {
+		PowerupPointsScn: 0.25
+	},
+	3: {
+		PowerupPointsScn: 0.25
+	},
+	4: {
+		PowerupPointsScn: 0.25
+	}
+}
 
 
 onready var bg = $BG/Background
@@ -129,13 +143,36 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 	_add_scored_points_bubble(brick_origin_pos, brickPoints)
 	scoreCounter.value += brickPoints
 
-	if (randf() >= 0.5):
-		var points = PowerupPointsScn.instance()
-		add_child(points)
-		points.global_position = brick_origin_pos
-		points.fall_rate = 100.0
-		points.connect("points_collected", self, "_on_paddle_collected_points")
-		points.start()
+	_process_drop_powerup(type, brick_origin_pos)
+
+	
+
+func _process_drop_powerup(brick_type, start_global_pos):
+
+	if not brick_drops_probabilities.has(brick_type):
+		return
+
+	var type_probs_maps = Utils.nvl(brick_drops_probabilities[brick_type], {})
+
+	for DropScn in type_probs_maps:
+		var threshold = Utils.nvl(type_probs_maps[DropScn], 0.0)
+		var roll = randf()
+		if roll < threshold:
+			_start_drop_of_scene(DropScn, start_global_pos)
+			return
+	return
+
+
+func _start_drop_of_scene(Scn, global_pos):
+	var drop = Scn.instance()
+	add_child(drop)
+	drop.global_position = global_pos
+	drop.fall_rate = 100.0
+	#specific to points for now
+	if Scn == PowerupPointsScn:
+		drop.connect("points_collected", self, "_on_paddle_collected_points")
+		drop.start()
+		
 
 
 
