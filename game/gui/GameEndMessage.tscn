@@ -31,6 +31,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("HBoxContainer/Label:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1000, 300 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "show"
@@ -72,9 +84,10 @@ alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 visible = false
-margin_left = 478.0
-margin_right = 546.0
-margin_bottom = 24.0
+margin_left = -1000.0
+margin_top = 300.0
+margin_right = -932.0
+margin_bottom = 324.0
 custom_colors/font_color = Color( 0.0313726, 0.0117647, 0.403922, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_styles/normal = SubResource( 3 )

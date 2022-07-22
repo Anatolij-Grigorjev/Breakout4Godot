@@ -140,10 +140,12 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 	var brickPoints = _get_points_for_brick_type(type)
 	# brick position is relative to tilemap parent
 	var brick_origin_pos = bricks.map_to_world(tileIdx) + bricks.position
-	_add_scored_points_bubble(brick_origin_pos, brickPoints)
+	var global_brick_center = brick_origin_pos + bricks.cell_size / 2
+
+	_add_scored_points_bubble(global_brick_center, brickPoints)
 	scoreCounter.value += brickPoints
 
-	_process_drop_powerup(type, brick_origin_pos)
+	_process_drop_powerup(type, global_brick_center)
 
 	
 
@@ -178,6 +180,7 @@ func _start_drop_of_scene(Scn, global_pos):
 
 func _on_paddle_collected_points(amount: float):
 	scoreCounter.value += amount
+	_add_scored_points_bubble(paddle.global_position - Vector2(0, 15), amount)
 
 
 func _on_ball_fallen(ball):
@@ -217,6 +220,7 @@ func _show_stage_end_message(message: String):
 func _hide_stage_end_message():
 	gameEndMessage.visible = false
 	overlay.get_node("AnimationPlayer").play("fade_out")
+	gameEndMessage.get_node("AnimationPlayer").play("RESET")
 
 
 func _get_points_for_brick_type(type: int) -> float:
