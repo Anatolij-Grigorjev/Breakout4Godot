@@ -6,6 +6,7 @@ const BallScn = preload("res://ball/Ball.tscn")
 
 #powerups
 const PowerupPointsScn = preload("res://drops/PowerupPoints.tscn")
+const PowerupExtraBallScn = preload("res://drops/PowerupExtraBall.tscn")
 
 signal game_over(total_score)
 
@@ -13,16 +14,20 @@ signal game_over(total_score)
 export(int) var starting_num_balls = 4
 export(Dictionary) var brick_drops_probabilities := {
 	0: {
-		PowerupPointsScn: 0.15
+		PowerupPointsScn: 0.15,
+		PowerupExtraBallScn: 0.05
 	},
 	2: {
-		PowerupPointsScn: 0.25
+		PowerupPointsScn: 0.25,
+		PowerupExtraBallScn: 0.1
 	},
 	3: {
-		PowerupPointsScn: 0.25
+		PowerupPointsScn: 0.25,
+		PowerupExtraBallScn: 0.1
 	},
 	4: {
-		PowerupPointsScn: 0.25
+		PowerupPointsScn: 0.25,
+		PowerupExtraBallScn: 0.1
 	}
 }
 
@@ -170,17 +175,29 @@ func _start_drop_of_scene(Scn, global_pos):
 	add_child(drop)
 	drop.global_position = global_pos
 	drop.fall_rate = 100.0
-	#specific to points for now
+	#specific to poweruptype
 	if Scn == PowerupPointsScn:
 		drop.connect("points_collected", self, "_on_paddle_collected_points")
-		drop.start()
+	if Scn == PowerupExtraBallScn:
+		drop.connect("extra_ball_collected", self, "_on_paddle_collected_extra_ball")
+
+	drop.start()
 		
 
+
+func _on_paddle_collected_extra_ball():
+	livesCounter.numExtraBalls += 1
+	_glow_paddle()
 
 
 func _on_paddle_collected_points(amount: float):
 	scoreCounter.value += amount
 	_add_scored_points_bubble(paddle.global_position - Vector2(0, 15), amount)
+	_glow_paddle()
+
+
+func _glow_paddle():
+	paddle.get_node("AnimationPlayer").play("glow_once")
 
 
 func _on_ball_fallen(ball):
