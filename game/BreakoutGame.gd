@@ -12,24 +12,6 @@ signal game_over(total_score)
 
 
 export(int) var starting_num_balls = 4
-export(Dictionary) var brick_drops_probabilities := {
-	0: {
-		PowerupPointsScn: 0.15,
-		PowerupExtraBallScn: 0.05
-	},
-	2: {
-		PowerupPointsScn: 0.25,
-		PowerupExtraBallScn: 0.1
-	},
-	3: {
-		PowerupPointsScn: 0.25,
-		PowerupExtraBallScn: 0.1
-	},
-	4: {
-		PowerupPointsScn: 0.25,
-		PowerupExtraBallScn: 0.1
-	}
-}
 
 
 onready var bg = $BG/Background
@@ -50,6 +32,11 @@ var currentScore := 0
 var stageFinished = false
 
 
+var dropConfigPoints: ScenePowerupConfig
+var dropConfigExtraBall: ScenePowerupConfig
+
+var powerup_configs = []
+
 
 func _ready():
 	scoreCounter.value = currentScore
@@ -65,6 +52,14 @@ func _ready():
 	paddle.connect("ball_speedup_started", self, "_on_paddle_ball_speedup_started")
 	paddle.connect("ball_speedup_ended", self, "_on_paddle_ball_speedup_ended")
 	paddle.connect("request_launch_ball", self, "_on_paddle_new_ball_requested")
+
+	dropConfigPoints = ScenePowerupConfig.new(PowerupPointsScn, {
+		0: 0.15, 2: 0.25, 3: 0.25, 4: 0.25
+	})
+	dropConfigExtraBall = ScenePowerupConfig.new(PowerupExtraBallScn, {
+		0: 0.05, 2: 0.1, 3: 0.1, 4: 0.1
+	})
+	powerup_configs = [dropConfigPoints, dropConfigExtraBall]
 
 
 func _process(delta):
@@ -156,17 +151,11 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 
 func _process_drop_powerup(brick_type, start_global_pos):
 
-	if not brick_drops_probabilities.has(brick_type):
-		return
-
-	var type_probs_maps = Utils.nvl(brick_drops_probabilities[brick_type], {})
-
-	for DropScn in type_probs_maps:
-		var threshold = Utils.nvl(type_probs_maps[DropScn], 0.0)
-		var roll = randf()
-		if roll < threshold:
-			_start_drop_of_scene(DropScn, start_global_pos)
+	for dropConfig in powerup_configs:
+		if dropConfig.should_drop_for_brick(brick_type):
+			_start_drop_of_scene(dropConfig.PowerupScn, start_global_pos)
 			return
+
 	return
 
 
