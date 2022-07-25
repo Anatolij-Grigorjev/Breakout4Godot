@@ -1,5 +1,6 @@
 tool
 extends Node2D
+class_name PowerupBase
 
 
 export(float) var fall_rate = 150.0

@@ -22,5 +22,15 @@ func should_drop_for_brick(brick_type: int) -> bool:
     var probability = Utils.nvl(brick_type_probabilities[brick_type], 0.0)
     return randf() < probability
 
+
 func reset():
     caught_in_scene = 0
+
+
+func start_drop_at_pos(global_position: Vector2) -> PowerupBase:
+    var drop = PowerupScn.instance()
+    drop.global_position = global_position
+    drop.fall_rate = 100.0
+    drop.start()
+
+    return drop

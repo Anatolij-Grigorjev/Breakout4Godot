@@ -153,24 +153,24 @@ func _process_drop_powerup(brick_type, start_global_pos):
 
 	for dropConfig in powerup_configs:
 		if dropConfig.should_drop_for_brick(brick_type):
-			_start_drop_of_scene(dropConfig.PowerupScn, start_global_pos)
+			_start_drop_of_scene(dropConfig, start_global_pos)
 			return
 
 	return
 
 
-func _start_drop_of_scene(Scn, global_pos):
-	var drop = Scn.instance()
+func _start_drop_of_scene(drop_config: ScenePowerupConfig, global_pos: Vector2):
+
+	var drop = drop_config.start_drop_at_pos(global_pos)
+
 	add_child(drop)
-	drop.global_position = global_pos
-	drop.fall_rate = 100.0
+	
 	#specific to poweruptype
-	if Scn == PowerupPointsScn:
+	if drop_config.PowerupScn == PowerupPointsScn:
 		drop.connect("points_collected", self, "_on_paddle_collected_points")
-	if Scn == PowerupExtraBallScn:
+	if drop_config.PowerupScn == PowerupExtraBallScn:
 		drop.connect("extra_ball_collected", self, "_on_paddle_collected_extra_ball")
 
-	drop.start()
 		
 
 

@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://tools/ParticlesBattery.gd"
 }, {
+"base": "Node2D",
+"class": "PowerupBase",
+"language": "GDScript",
+"path": "res://drops/PowerupBase.gd"
+}, {
 "base": "Reference",
 "class": "ScenePowerupConfig",
 "language": "GDScript",
@@ -61,6 +66,7 @@ _global_script_class_icons={
 "BricksMap": "",
 "CameraShakeDampener": "",
 "ParticlesBattery": "",
+"PowerupBase": "",
 "ScenePowerupConfig": "",
 "TTL": "",
 "Utils": ""
