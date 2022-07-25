@@ -55,10 +55,10 @@ func _ready():
 
 	dropConfigPoints = ScenePowerupConfig.new(PowerupPointsScn, {
 		0: 0.15, 2: 0.25, 3: 0.25, 4: 0.25
-	})
+	}, 100)
 	dropConfigExtraBall = ScenePowerupConfig.new(PowerupExtraBallScn, {
 		0: 0.05, 2: 0.1, 3: 0.1, 4: 0.1
-	})
+	}, 1)
 	powerup_configs = [dropConfigPoints, dropConfigExtraBall]
 
 
@@ -79,6 +79,8 @@ func _reset_stage():
 
 	scoreCounter.value = 0.0
 	livesCounter.numExtraBalls = starting_num_balls
+	for drop_config in powerup_configs:
+		drop_config.reset()
 
 	bricks.reset_bricks()
 
@@ -151,8 +153,9 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 
 func _process_drop_powerup(brick_type, start_global_pos):
 
+
 	for dropConfig in powerup_configs:
-		if dropConfig.should_drop_for_brick(brick_type):
+		if dropConfig.can_spawn() and dropConfig.should_drop_for_brick(brick_type):
 			_start_drop_of_scene(dropConfig, start_global_pos)
 			return
 
@@ -177,12 +180,14 @@ func _start_drop_of_scene(drop_config: ScenePowerupConfig, global_pos: Vector2):
 func _on_paddle_collected_extra_ball():
 	livesCounter.numExtraBalls += 1
 	_glow_paddle()
+	dropConfigExtraBall.caught_in_scene += 1
 
 
 func _on_paddle_collected_points(amount: float):
 	scoreCounter.value += amount
 	_add_scored_points_bubble(paddle.global_position - Vector2(0, 15), amount)
 	_glow_paddle()
+	dropConfigPoints.caught_in_scene += 1
 
 
 func _glow_paddle():
