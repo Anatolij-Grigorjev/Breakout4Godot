@@ -37,8 +37,6 @@ var dropConfigExtraBall: ScenePowerupConfig
 
 var powerup_configs = []
 
-var score_drops_positions = []
-
 
 func _ready():
 	scoreCounter.value = currentScore
@@ -61,21 +59,7 @@ func _ready():
 	dropConfigExtraBall = ScenePowerupConfig.new(PowerupExtraBallScn, {
 		0: 0.05, 2: 0.1, 3: 0.1, 4: 0.1
 	}, 1)
-	score_drops_positions = _assign_score_drops_positions(10)
-	print("score drops in cells: ", score_drops_positions)
-	powerup_configs = [dropConfigExtraBall]
-
-
-func _assign_score_drops_positions(num_drops: int) -> Array:
-
-	var basic_tile_pos = []
-	for tileIdx in bricks.get_used_cells():
-		if bricks.get_cellv(tileIdx) == 0:
-			basic_tile_pos.append(tileIdx)
-	
-	basic_tile_pos.shuffle()
-	basic_tile_pos = basic_tile_pos.slice(0, num_drops - 1)
-	return basic_tile_pos
+	powerup_configs = [dropConfigPoints, dropConfigExtraBall]
 
 
 func _process(delta):
@@ -163,25 +147,22 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 	_add_scored_points_bubble(global_brick_center, brickPoints)
 	scoreCounter.value += brickPoints
 
-	_process_drop_powerup(type, tileIdx, global_brick_center)
+	_process_drop_powerup(type, global_brick_center)
 
 	
 
-func _process_drop_powerup(brick_type: int, tileIdx: Vector2, start_global_pos: Vector2):
+func _process_drop_powerup(brick_type, start_global_pos):
 
-	if tileIdx in score_drops_positions:
-		_start_drop_of_config(dropConfigPoints, start_global_pos)
-		return
 
 	for dropConfig in powerup_configs:
 		if dropConfig.can_spawn() and dropConfig.should_drop_for_brick(brick_type):
-			_start_drop_of_config(dropConfig, start_global_pos)
+			_start_drop_of_scene(dropConfig, start_global_pos)
 			return
 
 	return
 
 
-func _start_drop_of_config(drop_config: ScenePowerupConfig, global_pos: Vector2):
+func _start_drop_of_scene(drop_config: ScenePowerupConfig, global_pos: Vector2):
 
 	var drop = drop_config.start_drop_at_pos(global_pos)
 
