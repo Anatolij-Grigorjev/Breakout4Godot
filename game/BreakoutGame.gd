@@ -179,18 +179,18 @@ func _start_drop_of_scene(drop_config: ScenePowerupConfig, global_pos: Vector2):
 
 func _on_paddle_collected_extra_ball():
 	livesCounter.numExtraBalls += 1
-	_glow_paddle()
+	_glow_paddle_collected_drop()
 	dropConfigExtraBall.caught_in_scene += 1
 
 
 func _on_paddle_collected_points(amount: float):
 	scoreCounter.value += amount
 	_add_scored_points_bubble(paddle.global_position - Vector2(0, 15), amount)
-	_glow_paddle()
+	_glow_paddle_collected_drop()
 	dropConfigPoints.caught_in_scene += 1
 
 
-func _glow_paddle():
+func _glow_paddle_collected_drop():
 	paddle.get_node("AnimationPlayer").play("glow_once")
 
 

@@ -10,7 +10,7 @@ onready var sprite: Sprite = $Sprite
 onready var hit_ball_sparks: ParticlesBattery = $ParticlesBattery
 
 export(float) var bounceSpeedupCoef: float = 1.1
-export(float) var maxSpeedCoef: float = 2.0
+export(float) var maxSpeedCoef: float = 10.0
 
 export(float) var baseSpeed: float = 145
 export(float) var baseSpinDegrees: float = 360.0
