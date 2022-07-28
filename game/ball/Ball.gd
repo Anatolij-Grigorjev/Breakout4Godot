@@ -8,9 +8,10 @@ onready var anim: AnimationPlayer = $AnimationPlayer
 onready var glow_anim: AnimationPlayer = $GlowAnimationPlayer
 onready var sprite: Sprite = $Sprite
 onready var hit_ball_sparks: ParticlesBattery = $ParticlesBattery
+onready var coef_label: Label = $Label
 
 export(float) var bounceSpeedupCoef: float = 1.1
-export(float) var maxSpeedCoef: float = 10.0
+export(float) var maxSpeedCoef: float = 3.0
 
 export(float) var baseSpeed: float = 145
 export(float) var baseSpinDegrees: float = 360.0
@@ -67,12 +68,17 @@ func _process(delta: float):
 func glow():
 	glow_anim.play("glow")
 	$CPUParticles2D.emitting = true
+	coef_label.visible = true
+	coef_label.get_node("AnimationPlayer").play("raising")
 
 
 func stop_glowing():
 	glow_anim.stop()
 	$CPUParticles2D.emitting = false
 	$Sprite/GlowFX.material.set_shader_param("outline_width", 0.0)
+	coef_label.get_node("AnimationPlayer").stop()
+	yield(get_tree().create_timer(1.2), "timeout")
+	coef_label.visible = false
 
 
 func _set_current_speed_and_broadcast(new_speed_val: float):
@@ -80,6 +86,7 @@ func _set_current_speed_and_broadcast(new_speed_val: float):
 		return
 	currentSpeed = new_speed_val
 	var high_speed_prc = currentSpeedupCoef()
+	coef_label.text = "x%.1f" % high_speed_prc
 	sprite.material.set_shader_param("radius", max(0.0, high_speed_prc))
 	emit_signal("ball_speed_changed", self)
 
