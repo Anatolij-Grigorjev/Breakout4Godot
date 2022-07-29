@@ -111,7 +111,7 @@ func _on_paddle_ball_speedup_requested():
 		if ball.is_at_max_speed() or paddle.ballRef == ball:
 			ball.stop_glowing()
 			continue
-		ball.speedup_ball()
+		ball.speedup_ball_by_amount(ball.speed_additive_for_coef(1.01))
 
 
 func _on_paddle_ball_speedup_started():

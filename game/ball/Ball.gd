@@ -10,17 +10,17 @@ onready var sprite: Sprite = $Sprite
 onready var hit_ball_sparks: ParticlesBattery = $ParticlesBattery
 onready var coef_label: Label = $Label
 
-export(float) var bounceSpeedupCoef: float = 1.1
+export(float) var bounceSpeedupCoef: float = 1.05
 export(float) var maxSpeedCoef: float = 3.0
 
-export(float) var baseSpeed: float = 145
+export(float) var baseSpeed: float = 145.0
 export(float) var baseSpinDegrees: float = 360.0
 export(Vector2) var direction := Vector2.DOWN
 
-var baseSpinRadians = deg2rad(baseSpinDegrees)
-var speedAdditive = baseSpeed * bounceSpeedupCoef - baseSpeed
-var spinAdditive = baseSpinRadians * bounceSpeedupCoef - baseSpinRadians
-var maxBallSpeed = maxSpeedCoef * baseSpeed
+var baseSpinRadians: float = deg2rad(baseSpinDegrees)
+var bounce_speed_additive: float = speed_additive_for_coef(bounceSpeedupCoef)
+var spinAdditive: float = baseSpinRadians * bounceSpeedupCoef - baseSpinRadians
+var maxBallSpeed: float = maxSpeedCoef * baseSpeed
 
 var currentSpeed setget _set_current_speed_and_broadcast
 var currentSpinRadians
@@ -59,6 +59,12 @@ func is_at_max_speed() -> bool:
 	return currentSpeed == maxBallSpeed
 
 
+# an amount of speed that shoud be added to ball in absolute speed units,
+# expressed as coefficient of base ball speed (above 1.00)
+func speed_additive_for_coef(coef: float) -> float:
+	return baseSpeed * coef - baseSpeed
+
+
 func _process(delta: float):
 	var collision: KinematicCollision2D = move_and_collide(direction * currentSpeed * delta)
 	sprite.rotate(currentSpinRadians * delta)
@@ -86,7 +92,7 @@ func _set_current_speed_and_broadcast(new_speed_val: float):
 		return
 	currentSpeed = new_speed_val
 	var high_speed_prc = currentSpeedupCoef()
-	coef_label.text = "x%.1f" % high_speed_prc
+	coef_label.text = "x%.2f" % high_speed_prc
 	sprite.material.set_shader_param("radius", max(0.0, high_speed_prc))
 	emit_signal("ball_speed_changed", self)
 
@@ -125,7 +131,11 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 
 
 func speedup_ball():
-	_set_current_speed_and_broadcast(clamp(currentSpeed + speedAdditive, baseSpeed, baseSpeed * maxSpeedCoef))
+	speedup_ball_by_amount(bounce_speed_additive)
+
+
+func speedup_ball_by_amount(speedup_amount: float):
+	_set_current_speed_and_broadcast(clamp(currentSpeed + speedup_amount, baseSpeed, baseSpeed * maxSpeedCoef))
 	currentSpinRadians = clamp(currentSpinRadians + spinAdditive * currentSpeedupCoef(), baseSpinRadians, baseSpinRadians * 2.0 * maxSpeedCoef)
 
 
