@@ -7,8 +7,10 @@ const BallScn = preload("res://ball/Ball.tscn")
 #powerups
 const PowerupPointsScn = preload("res://drops/PowerupPoints.tscn")
 const PowerupExtraBallScn = preload("res://drops/PowerupExtraBall.tscn")
+const PowerupSpeedupBallScn = preload("res://drops//PowerupSpeedupBall.tscn")
 
 signal game_over(total_score)
+
 
 
 export(int) var starting_num_balls = 4
@@ -34,6 +36,7 @@ var stageFinished = false
 
 var dropConfigPoints: ScenePowerupConfig
 var dropConfigExtraBall: ScenePowerupConfig
+var dropConfigSpeedupBall: ScenePowerupConfig
 
 var powerup_configs = []
 
@@ -56,10 +59,13 @@ func _ready():
 	dropConfigPoints = ScenePowerupConfig.new(PowerupPointsScn, {
 		0: 0.15, 2: 0.25, 3: 0.25, 4: 0.25
 	}, 100)
+	dropConfigSpeedupBall = ScenePowerupConfig.new(PowerupSpeedupBallScn, {
+		0: 0.1, 2: 0.15, 3: 0.15, 4: 0.15
+	}, 100)
 	dropConfigExtraBall = ScenePowerupConfig.new(PowerupExtraBallScn, {
-		0: 0.05, 2: 0.1, 3: 0.1, 4: 0.1
+		0: 0.05, 2: 0.07, 3: 0.07, 4: 0.07
 	}, 1)
-	powerup_configs = [dropConfigPoints, dropConfigExtraBall]
+	powerup_configs = [dropConfigPoints, dropConfigSpeedupBall, dropConfigExtraBall]
 
 
 func _process(delta):
@@ -165,7 +171,7 @@ func _process_drop_powerup(brick_type, start_global_pos):
 func _start_drop_of_scene(drop_config: ScenePowerupConfig, global_pos: Vector2):
 
 	var drop = drop_config.start_drop_at_pos(global_pos)
-
+	
 	add_child(drop)
 	
 	#specific to poweruptype
@@ -173,21 +179,34 @@ func _start_drop_of_scene(drop_config: ScenePowerupConfig, global_pos: Vector2):
 		drop.connect("points_collected", self, "_on_paddle_collected_points")
 	if drop_config.PowerupScn == PowerupExtraBallScn:
 		drop.connect("extra_ball_collected", self, "_on_paddle_collected_extra_ball")
+	if drop_config.PowerupScn == PowerupSpeedupBallScn:
+		drop.connect("speedup_ball_collected", self, "_on_paddle_collected_ball_speedup")
 
-		
+
+
+func _on_paddle_collected_ball_speedup(speedup_coef: float):
+
+	for ball in _get_active_balls():
+		ball.speedup_ball_by_amount(ball.speed_additive_for_coef(speedup_coef))
+	_add_flashing_text_above_paddle(paddle.global_position - Vector2(0, 15), "x%s" % speedup_coef)
+	_collected_drop_of_config(dropConfigSpeedupBall)
+
 
 
 func _on_paddle_collected_extra_ball():
 	livesCounter.numExtraBalls += 1
-	_glow_paddle_collected_drop()
-	dropConfigExtraBall.caught_in_scene += 1
+	_collected_drop_of_config(dropConfigExtraBall)
 
 
 func _on_paddle_collected_points(amount: float):
 	scoreCounter.value += amount
 	_add_scored_points_bubble(paddle.global_position - Vector2(0, 15), amount)
+	_collected_drop_of_config(dropConfigPoints)
+
+
+func _collected_drop_of_config(drop_config: ScenePowerupConfig):
 	_glow_paddle_collected_drop()
-	dropConfigPoints.caught_in_scene += 1
+	drop_config.caught_in_scene += 1
 
 
 func _glow_paddle_collected_drop():
@@ -246,9 +265,16 @@ func _fire_collision_particles(collision: KinematicCollision2D):
 
 
 func _add_scored_points_bubble(score_origin: Vector2, points: float):
+	_add_flashing_text_above_paddle(
+		score_origin - Vector2(-5, 15), 
+		"+%s" % int(points)
+	)
+
+
+func _add_flashing_text_above_paddle(global_position: Vector2, text: String):
 	var flashPoints = FlashPointsScn.instance()
-	flashPoints.global_position = score_origin - Vector2(-5, 15)
-	flashPoints.text = "+%s" % int(points)
+	flashPoints.global_position = global_position
+	flashPoints.text = text
 	add_child(flashPoints)
 
 

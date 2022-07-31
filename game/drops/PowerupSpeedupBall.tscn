@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://drops/PowerupBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ball/ball.png" type="Texture" id=2]
+[ext_resource path="res://gui/increase_arrow.png" type="Texture" id=3]
+[ext_resource path="res://drops/PowerupSpeedupBall.gd" type="Script" id=4]
+
+[node name="PowerupSpeedupBall" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="Sprite" index="0"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+
+[node name="arrow" type="Sprite" parent="Sprite" index="1"]
+position = Vector2( 5, -3.55271e-15 )
+scale = Vector2( -0.591275, 0.505943 )
+texture = ExtResource( 3 )

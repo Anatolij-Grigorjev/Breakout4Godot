@@ -1,4 +1,4 @@
-extends "res://drops/PowerupBase.gd"
+extends PowerupBase
 
 
 signal extra_ball_collected
