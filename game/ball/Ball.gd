@@ -78,6 +78,12 @@ func glow():
 	coef_label.get_node("AnimationPlayer").play("raising")
 
 
+func glow_once():
+	glow()
+	yield(get_tree().create_timer(coef_label.get_node("AnimationPlayer").get_animation("raising").length), "timeout")
+	stop_glowing()
+
+
 func stop_glowing():
 	glow_anim.stop()
 	$CPUParticles2D.emitting = false

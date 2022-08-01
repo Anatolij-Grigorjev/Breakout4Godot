@@ -60,7 +60,7 @@ func _ready():
 		0: 0.15, 2: 0.25, 3: 0.25, 4: 0.25
 	}, 100)
 	dropConfigSpeedupBall = ScenePowerupConfig.new(PowerupSpeedupBallScn, {
-		0: 0.1, 2: 0.15, 3: 0.15, 4: 0.15
+		0: 0.5, 2: 0.15, 3: 0.15, 4: 0.15
 	}, 100)
 	dropConfigExtraBall = ScenePowerupConfig.new(PowerupExtraBallScn, {
 		0: 0.05, 2: 0.07, 3: 0.07, 4: 0.07
@@ -186,10 +186,12 @@ func _start_drop_of_scene(drop_config: ScenePowerupConfig, global_pos: Vector2):
 
 func _on_paddle_collected_ball_speedup(speedup_coef: float):
 
-	for ball in _get_active_balls():
-		ball.speedup_ball_by_amount(ball.speed_additive_for_coef(speedup_coef))
 	_add_flashing_text_above_paddle(paddle.global_position - Vector2(0, 15), "x%s" % speedup_coef)
 	_collected_drop_of_config(dropConfigSpeedupBall)
+	for ball in _get_active_balls():
+		ball.glow_once()
+		ball.speedup_ball_by_amount(ball.speed_additive_for_coef(speedup_coef))
+		
 
 
 
