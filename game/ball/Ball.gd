@@ -72,7 +72,7 @@ func _process(delta: float):
 		
 
 func glow():
-	glow_anim.play("glow")
+	glow_anim.play("glow_blue")
 	$CPUParticles2D.emitting = true
 	coef_label.visible = true
 	coef_label.get_node("AnimationPlayer").play("raising")
@@ -84,12 +84,26 @@ func glow_once():
 	stop_glowing()
 
 
+func glow_red():
+	glow_anim.play("glow_red")
+	$CPUParticles2DRed.emitting = true
+	coef_label.visible = true
+	coef_label.get_node("AnimationPlayer").play("lowering")
+
+
+func glow_once_red():
+	glow_red()
+	yield(get_tree().create_timer(coef_label.get_node("AnimationPlayer").get_animation("lowering").length), "timeout")
+	stop_glowing()
+
+
 func stop_glowing():
 	glow_anim.stop()
 	$CPUParticles2D.emitting = false
+	$CPUParticles2DRed.emitting = false
 	$Sprite/GlowFX.material.set_shader_param("outline_width", 0.0)
 	coef_label.get_node("AnimationPlayer").stop()
-	yield(get_tree().create_timer(1.2), "timeout")
+	yield(get_tree().create_timer(1.0), "timeout")
 	coef_label.visible = false
 
 

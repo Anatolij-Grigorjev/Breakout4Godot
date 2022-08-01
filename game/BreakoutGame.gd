@@ -8,6 +8,7 @@ const BallScn = preload("res://ball/Ball.tscn")
 const PowerupPointsScn = preload("res://drops/PowerupPoints.tscn")
 const PowerupExtraBallScn = preload("res://drops/PowerupExtraBall.tscn")
 const PowerupSpeedupBallScn = preload("res://drops//PowerupSpeedupBall.tscn")
+const PowerupSlowdownBallScn = preload("res://drops//PowerupSlowdownBall.tscn")
 
 signal game_over(total_score)
 
@@ -37,6 +38,7 @@ var stageFinished = false
 var dropConfigPoints: ScenePowerupConfig
 var dropConfigExtraBall: ScenePowerupConfig
 var dropConfigSpeedupBall: ScenePowerupConfig
+var dropConfigSlowdownBall: ScenePowerupConfig
 
 var powerup_configs = []
 
@@ -57,15 +59,18 @@ func _ready():
 	paddle.connect("request_launch_ball", self, "_on_paddle_new_ball_requested")
 
 	dropConfigPoints = ScenePowerupConfig.new(PowerupPointsScn, {
-		0: 0.15, 2: 0.25, 3: 0.25, 4: 0.25
+		0: 0.1, 2: 0.25, 3: 0.25, 4: 0.25
 	}, 100)
 	dropConfigSpeedupBall = ScenePowerupConfig.new(PowerupSpeedupBallScn, {
-		0: 0.5, 2: 0.15, 3: 0.15, 4: 0.15
+		0: 0.1, 2: 0.15, 3: 0.15, 4: 0.15
+	}, 100)
+	dropConfigSlowdownBall = ScenePowerupConfig.new(PowerupSlowdownBallScn, {
+		0: 0.1, 2: 0.15, 3: 0.15, 4: 0.15
 	}, 100)
 	dropConfigExtraBall = ScenePowerupConfig.new(PowerupExtraBallScn, {
 		0: 0.05, 2: 0.07, 3: 0.07, 4: 0.07
 	}, 1)
-	powerup_configs = [dropConfigPoints, dropConfigSpeedupBall, dropConfigExtraBall]
+	powerup_configs = [dropConfigPoints, dropConfigSpeedupBall, dropConfigSlowdownBall, dropConfigExtraBall]
 
 
 func _process(delta):
@@ -181,6 +186,8 @@ func _start_drop_of_scene(drop_config: ScenePowerupConfig, global_pos: Vector2):
 		drop.connect("extra_ball_collected", self, "_on_paddle_collected_extra_ball")
 	if drop_config.PowerupScn == PowerupSpeedupBallScn:
 		drop.connect("speedup_ball_collected", self, "_on_paddle_collected_ball_speedup")
+	if drop_config.PowerupScn == PowerupSlowdownBallScn:
+		drop.connect("slowdown_ball_collected", self, "_on_paddle_collected_ball_slowdown")
 
 
 
@@ -192,6 +199,14 @@ func _on_paddle_collected_ball_speedup(speedup_coef: float):
 		ball.glow_once()
 		ball.speedup_ball_by_amount(ball.speed_additive_for_coef(speedup_coef))
 		
+
+func _on_paddle_collected_ball_slowdown(slowdown_coef: float):
+
+	_add_flashing_text_above_paddle(paddle.global_position - Vector2(0, 15), "x%s" % slowdown_coef)
+	_collected_drop_of_config(dropConfigSlowdownBall)
+	for ball in _get_active_balls():
+		ball.glow_once_red()
+		ball.speedup_ball_by_amount(-ball.speed_additive_for_coef(slowdown_coef))
 
 
 
