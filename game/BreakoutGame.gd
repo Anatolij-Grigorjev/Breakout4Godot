@@ -162,6 +162,11 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 
 	
 
+func _on_paddle_collected_drop():
+	_glow_paddle_collected_drop()
+	# drop_config.caught_in_scene += 1
+
+
 func _process_drop_powerup(brick_type, start_global_pos):
 
 
@@ -175,9 +180,8 @@ func _process_drop_powerup(brick_type, start_global_pos):
 
 func _start_drop_of_scene(drop_config: ScenePowerupConfig, global_pos: Vector2):
 
-	var drop = drop_config.start_drop_at_pos(global_pos)
-	
-	add_child(drop)
+	var drop = drop_config.new_drop_at_pos(global_pos)
+	drop.start_in_stage(self)
 	
 	#specific to poweruptype
 	if drop_config.PowerupScn == PowerupPointsScn:
@@ -194,7 +198,6 @@ func _start_drop_of_scene(drop_config: ScenePowerupConfig, global_pos: Vector2):
 func _on_paddle_collected_ball_speedup(speedup_coef: float):
 
 	_add_flashing_text_above_paddle(paddle.global_position - Vector2(0, 15), "x%s" % speedup_coef)
-	_collected_drop_of_config(dropConfigSpeedupBall)
 	for ball in _get_active_balls():
 		ball.glow_once()
 		ball.speedup_ball_by_amount(ball.speed_additive_for_coef(speedup_coef))
@@ -203,7 +206,6 @@ func _on_paddle_collected_ball_speedup(speedup_coef: float):
 func _on_paddle_collected_ball_slowdown(slowdown_coef: float):
 
 	_add_flashing_text_above_paddle(paddle.global_position - Vector2(0, 15), "x%s" % slowdown_coef)
-	_collected_drop_of_config(dropConfigSlowdownBall)
 	for ball in _get_active_balls():
 		ball.glow_once_red()
 		ball.speedup_ball_by_amount(-ball.speed_additive_for_coef(slowdown_coef))
@@ -212,18 +214,12 @@ func _on_paddle_collected_ball_slowdown(slowdown_coef: float):
 
 func _on_paddle_collected_extra_ball():
 	livesCounter.numExtraBalls += 1
-	_collected_drop_of_config(dropConfigExtraBall)
 
 
 func _on_paddle_collected_points(amount: float):
 	scoreCounter.value += amount
 	_add_scored_points_bubble(paddle.global_position - Vector2(0, 15), amount)
-	_collected_drop_of_config(dropConfigPoints)
-
-
-func _collected_drop_of_config(drop_config: ScenePowerupConfig):
-	_glow_paddle_collected_drop()
-	drop_config.caught_in_scene += 1
+	
 
 
 func _glow_paddle_collected_drop():

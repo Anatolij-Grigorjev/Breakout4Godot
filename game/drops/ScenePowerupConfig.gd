@@ -27,10 +27,9 @@ func reset():
     caught_in_scene = 0
 
 
-func start_drop_at_pos(global_position: Vector2) -> PowerupBase:
+func new_drop_at_pos(global_position: Vector2) -> PowerupBase:
     var drop = PowerupScn.instance()
     drop.global_position = global_position
     drop.fall_rate = 100.0
-    drop.start()
 
     return drop

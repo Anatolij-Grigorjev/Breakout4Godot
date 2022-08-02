@@ -3,13 +3,18 @@ extends Node2D
 class_name PowerupBase
 
 
+signal drop_collected()
+
 export(float) var fall_rate = 150.0
 
 var should_move = false
 
 
-func start():
+func start_in_stage(game_stage):
 	should_move = true
+	game_stage.add_child(self)
+	connect("drop_collected", game_stage, "_on_paddle_collected_drop")
+
 
 
 func _process(delta):
@@ -18,11 +23,13 @@ func _process(delta):
 
 
 
-func _on_Area2D_body_entered(body:Node):
+func _on_Area2D_body_entered(body: Node2D):
 
 	if not body.is_in_group("paddle"):
 		return
 	
+	emit_signal("drop_collected")
+
 	_paddle_collected_powerup()
 	queue_free()
 
