@@ -5,6 +5,7 @@
 
 [node name="PowerupPoints" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+collect_points = 0.0
 
 [node name="Label" type="Label" parent="Sprite" index="0"]
 margin_left = -16.0

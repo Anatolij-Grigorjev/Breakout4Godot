@@ -3,9 +3,10 @@ extends Node2D
 class_name PowerupBase
 
 
-signal drop_collected()
+signal drop_collected(points)
 
 export(float) var fall_rate = 150.0
+export(float) var collect_points = 300.0
 
 var should_move = false
 
@@ -28,7 +29,7 @@ func _on_Area2D_body_entered(body: Node2D):
 	if not body.is_in_group("paddle"):
 		return
 	
-	emit_signal("drop_collected")
+	emit_signal("drop_collected", collect_points)
 
 	_paddle_collected_powerup()
 	queue_free()

@@ -55,7 +55,7 @@ func _ready():
 	var dropConfigPoints = ScenePowerupConfig.new(PowerupPointsScn, self, "_should_points_drop")
 	var dropConfigSpeedupBall = ScenePowerupConfig.new(PowerupSpeedupBallScn, self, "_should_speedup_drop")
 	var dropConfigSlowdownBall = ScenePowerupConfig.new(PowerupSlowdownBallScn, self, "_should_slowdown_drop")
-	var dropConfigExtraBall = ScenePowerupConfig.new(PowerupExtraBallScn, self)
+	var dropConfigExtraBall = ScenePowerupConfig.new(PowerupExtraBallScn, self, "_should_extra_ball_drop")
 
 	powerup_configs = [
 		dropConfigPoints, 
@@ -65,7 +65,7 @@ func _ready():
 	]
 
 
-func _should_points_drop(_brick_type: int) -> bool:
+func _should_points_drop(brick_type: int) -> bool:
 	return randf() < 0.12
 
 
@@ -75,8 +75,8 @@ func _should_speedup_drop(brick_type: int) -> bool:
 	for ball in stage_balls:
 		var speedupDiff = ball.currentSpeedupCoef() - 1.0
 		var speed_to_probability_coef = max_probability / (ball.maxSpeedCoef - 1.0)
+		#if not probable for this ball (is at max speed), then skip
 		var probability = max_probability - speedupDiff * speed_to_probability_coef
-		#if not probably for this ball (is at max speed), then skip
 		if probability < 0.001:
 			continue
 		else:
@@ -91,14 +91,21 @@ func _should_slowdown_drop(brick_type: int) -> bool:
 	for ball in stage_balls:
 		var speedupDiff = ball.currentSpeedupCoef() - 1.0
 		var speed_to_probability_coef = max_probability / (ball.maxSpeedCoef - 1.0)
-		var probability = abs(speedupDiff * speed_to_probability_coef - max_probability)
-		#if not probably for this ball (is at lowest speed), then skip
+		#if not probable for this ball (is at lowest speed), then skip
+		var probability = speedupDiff * speed_to_probability_coef
 		if probability < 0.001:
 			continue
 		else:
 			return randf() < probability
 
 	return false
+
+
+func _should_extra_ball_drop(brick_type: int) -> bool:
+	var num_balls = livesCounter.numExtraBalls
+	if num_balls > 1:
+		return false
+	return randf() < 0.07
 
 
 func _process(delta):
@@ -187,12 +194,13 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 
 	
 
-func _on_paddle_collected_drop():
+func _on_paddle_collected_drop(drop_points: float):
 	_glow_paddle_collected_drop()
+	if drop_points > 0:
+		_on_paddle_collected_points(drop_points)
 
 
 func _process_drop_powerup(brick_type, start_global_pos):
-
 
 	for dropConfig in powerup_configs:
 		if (dropConfig as ScenePowerupConfig).should_drop_for_brick(brick_type):
@@ -221,7 +229,10 @@ func _start_drop_of_scene(drop_config: ScenePowerupConfig, global_pos: Vector2):
 
 func _on_paddle_collected_ball_speedup(speedup_coef: float):
 
-	_add_flashing_text_above_paddle(paddle.global_position - Vector2(0, 15), "x%s" % speedup_coef)
+	if paddle.ball_attached:
+		return
+		
+	_add_flashing_text_above_paddle(paddle.global_position - Vector2(0, 15), "+x%s" % speedup_coef)
 	for ball in _get_active_balls():
 		ball.glow_once()
 		ball.speedup_ball_by_amount(ball.speed_additive_for_coef(speedup_coef))
@@ -229,7 +240,10 @@ func _on_paddle_collected_ball_speedup(speedup_coef: float):
 
 func _on_paddle_collected_ball_slowdown(slowdown_coef: float):
 
-	_add_flashing_text_above_paddle(paddle.global_position - Vector2(0, 15), "x%s" % slowdown_coef)
+	if paddle.ball_attached:
+		return
+
+	_add_flashing_text_above_paddle(paddle.global_position - Vector2(0, 15), "-x%s" % slowdown_coef)
 	for ball in _get_active_balls():
 		ball.glow_once_red()
 		ball.speedup_ball_by_amount(-ball.speed_additive_for_coef(slowdown_coef))
@@ -242,7 +256,7 @@ func _on_paddle_collected_extra_ball():
 
 func _on_paddle_collected_points(amount: float):
 	scoreCounter.value += amount
-	_add_scored_points_bubble(paddle.global_position - Vector2(0, 15), amount)
+	_add_scored_points_bubble(paddle.global_position - Vector2(-15, 15), amount)
 	
 
 
