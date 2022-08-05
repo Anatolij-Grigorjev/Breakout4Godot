@@ -232,7 +232,7 @@ func _on_paddle_collected_ball_speedup(speedup_coef: float):
 	if paddle.ball_attached:
 		return
 		
-	_add_flashing_text_above_paddle(paddle.global_position - Vector2(0, 15), "+x%s" % speedup_coef)
+	_add_flashing_text_above_paddle(paddle.global_position - Vector2(-50, 15), "+x%s" % speedup_coef)
 	for ball in _get_active_balls():
 		ball.glow_once()
 		ball.speedup_ball_by_amount(ball.speed_additive_for_coef(speedup_coef))
@@ -243,7 +243,7 @@ func _on_paddle_collected_ball_slowdown(slowdown_coef: float):
 	if paddle.ball_attached:
 		return
 
-	_add_flashing_text_above_paddle(paddle.global_position - Vector2(0, 15), "-x%s" % slowdown_coef)
+	_add_flashing_text_above_paddle(paddle.global_position - Vector2(-50, 15), "-x%s" % slowdown_coef)
 	for ball in _get_active_balls():
 		ball.glow_once_red()
 		ball.speedup_ball_by_amount(-ball.speed_additive_for_coef(slowdown_coef))
@@ -256,7 +256,7 @@ func _on_paddle_collected_extra_ball():
 
 func _on_paddle_collected_points(amount: float):
 	scoreCounter.value += amount
-	_add_scored_points_bubble(paddle.global_position - Vector2(-15, 15), amount)
+	_add_scored_points_bubble(paddle.global_position, amount)
 	
 
 
@@ -317,7 +317,7 @@ func _fire_collision_particles(collision: KinematicCollision2D):
 
 func _add_scored_points_bubble(score_origin: Vector2, points: float):
 	_add_flashing_text_above_paddle(
-		score_origin - Vector2(-5, 15), 
+		score_origin - Vector2(0, 15), 
 		"+%s" % int(points)
 	)
 
