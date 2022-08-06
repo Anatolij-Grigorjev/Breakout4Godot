@@ -26,6 +26,7 @@ var currentSpeed setget _set_current_speed_and_broadcast
 var currentSpinRadians
 var colliderSize: Vector2
 
+
 func _ready():
 	reset_speed()
 	colliderSize = Vector2.ONE * $CollisionShape2D.shape.radius * 2.0
@@ -71,39 +72,28 @@ func _process(delta: float):
 	_handle_potential_collision(collision)
 		
 
-func glow():
-	glow_anim.play("glow_blue")
-	$CPUParticles2D.emitting = true
-	coef_label.visible = true
-	coef_label.get_node("AnimationPlayer").play("raising")
-
-
-func glow_once():
-	glow()
-	yield(get_tree().create_timer(coef_label.get_node("AnimationPlayer").get_animation("raising").length), "timeout")
-	stop_glowing()
+func glow_blue():
+	_glow_with_particles_and_label("glow_blue", $CPUParticles2DBlue, "raising")
 
 
 func glow_red():
-	glow_anim.play("glow_red")
-	$CPUParticles2DRed.emitting = true
+	_glow_with_particles_and_label("glow_red", $CPUParticles2DRed, "lowering")
+
+
+func _glow_with_particles_and_label(glow_anim_name, particles_node, label_anim_name):
+	glow_anim.play(glow_anim_name)
+	particles_node.emitting = true
 	coef_label.visible = true
-	coef_label.get_node("AnimationPlayer").play("lowering")
+	coef_label.get_node("AnimationPlayer").play(label_anim_name)
 
 
-func glow_once_red():
-	glow_red()
-	yield(get_tree().create_timer(coef_label.get_node("AnimationPlayer").get_animation("lowering").length), "timeout")
-	stop_glowing()
 
-
-func stop_glowing():
+## called by animation track to end glowing
+func _stop_glowing():
 	glow_anim.stop()
-	$CPUParticles2D.emitting = false
+	$CPUParticles2DBlue.emitting = false
 	$CPUParticles2DRed.emitting = false
 	$Sprite/GlowFX.material.set_shader_param("outline_width", 0.0)
-	coef_label.get_node("AnimationPlayer").stop()
-	yield(get_tree().create_timer(1.0), "timeout")
 	coef_label.visible = false
 
 
@@ -131,6 +121,7 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 		hit_ball_sparks.fireNextParticleSystem(collision.position)
 	
 	if collision.collider.is_in_group("bricks"):
+		glow_blue()
 		speedup_ball()
 		anim.play("hit-squish")
 		var tilemap: BricksMap = collision.collider as BricksMap

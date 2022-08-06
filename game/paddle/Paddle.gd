@@ -27,7 +27,6 @@ export(float) var ball_speedup_cooldown = 0.25
 onready var paddle_hit_sparks = $PaddleHitSparks
 onready var tween: Tween = $Tween
 onready var ballPosition: Position2D = $BallPosition
-onready var cooldownTimer: Timer = $Timer
 onready var leftBumperEndPos: Position2D = $LeftBumperEnd
 onready var rightBumperStartPos: Position2D = $RightBumperStart
 
@@ -47,8 +46,6 @@ var input_enabled = true
 func _ready():
 	
 	sprite_material = $Sprite.material
-	cooldownTimer.wait_time = ball_speedup_cooldown
-	cooldownTimer.connect("timeout", self, "_on_speedup_cooldown_done")
 	tween.connect("tween_all_completed", self, "_ball_bounce_done")
 
 
@@ -69,15 +66,13 @@ func _process(delta: float):
 		direction.x = -1
 	if input_enabled and Input.is_action_pressed("paddle_right"):
 		direction.x = 1
+
 	if input_enabled and Input.is_action_just_released("paddle_launch_ball"):
 		if ball_attached:
 			_launch_ball()
 		else:
 			emit_signal("request_launch_ball")
-	if input_enabled and Input.is_action_pressed("paddle_ball_speedup"):
-		_ensure_speedup_cooldown_active()
-	else:
-		_stop_speedup_cooldown()
+
 	if input_enabled and Input.is_action_just_pressed("paddle_shift"):
 		_shift_paddle_in_direction(direction)
 	
@@ -130,28 +125,6 @@ func _spawn_after_image():
 	var instance = AfterImageScn.instance()
 	get_parent().add_child(instance)
 	instance.global_position = global_position
-	
-
-
-func _ensure_speedup_cooldown_active():
-	if cooldownTimer.is_stopped():
-		cooldownTimer.start()
-		$AnimationPlayer.play("glow")
-		$Sprite/GlowFX.show_behind_parent = false
-		emit_signal("ball_speedup_started")
-
-
-func _stop_speedup_cooldown():
-	if not cooldownTimer.is_stopped():
-		cooldownTimer.stop()
-		$AnimationPlayer.stop()
-		$Sprite/GlowFX.material.set_shader_param("outline_width", 0.0)
-		$Sprite/GlowFX.show_behind_parent = true
-		emit_signal("ball_speedup_ended")
-
-
-func _on_speedup_cooldown_done():
-	emit_signal("ball_speedup_requested")
 
 
 func _clamp_ball_on_paddle():
@@ -180,8 +153,6 @@ func _launch_ball():
 		ballRef.reset_speed()
 		ballRef.global_position = Vector2(global_position.x, global_position.y - ballRef.colliderSize.y - ball_drop_margin)
 		ballRef.enable_paddle_collisions()
-		if not cooldownTimer.is_stopped():
-			ballRef.glow()
 		ballRef = null
 
 

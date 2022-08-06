@@ -47,9 +47,6 @@ func _ready():
 	bricks.connect("map_cleared", self, "_on_bricksmap_cleared")
 	ballLossArea.connect("ball_fell", self, "_on_ball_fallen")
 
-	paddle.connect("ball_speedup_requested", self, "_on_paddle_ball_speedup_requested")
-	paddle.connect("ball_speedup_started", self, "_on_paddle_ball_speedup_started")
-	paddle.connect("ball_speedup_ended", self, "_on_paddle_ball_speedup_ended")
 	paddle.connect("request_launch_ball", self, "_on_paddle_new_ball_requested")
 
 	var dropConfigPoints = ScenePowerupConfig.new(PowerupPointsScn, self, "_should_points_drop")
@@ -144,35 +141,6 @@ func _on_ball_collided(ball: Ball, collision: KinematicCollision2D):
 		cameraShake.beginShake()
 		_fire_collision_particles(collision)
 		bg.do_pulse(ball.currentSpeedupCoef())
-
-
-func _on_paddle_ball_speedup_requested():
-
-	var active_balls = _get_active_balls()
-
-	for ball in active_balls:
-		if ball.is_at_max_speed() or paddle.ballRef == ball:
-			ball.stop_glowing()
-			continue
-		ball.speedup_ball_by_amount(ball.speed_additive_for_coef(1.01))
-
-
-func _on_paddle_ball_speedup_started():
-
-	var active_balls = _get_active_balls()
-	
-	for ball in active_balls:
-		if ball.is_at_max_speed() or paddle.ballRef == ball:
-			continue
-		ball.glow()
-
-
-func _on_paddle_ball_speedup_ended():
-
-	var active_balls = _get_active_balls()
-	
-	for ball in active_balls:
-		ball.stop_glowing()
 	
 
 
@@ -234,7 +202,7 @@ func _on_paddle_collected_ball_speedup(speedup_coef: float):
 		
 	_add_flashing_text_above_paddle(paddle.global_position - Vector2(-50, 15), "+x%s" % speedup_coef)
 	for ball in _get_active_balls():
-		ball.glow_once()
+		ball.glow_blue()
 		ball.speedup_ball_by_amount(ball.speed_additive_for_coef(speedup_coef))
 		
 
@@ -245,7 +213,7 @@ func _on_paddle_collected_ball_slowdown(slowdown_coef: float):
 
 	_add_flashing_text_above_paddle(paddle.global_position - Vector2(-50, 15), "-x%s" % slowdown_coef)
 	for ball in _get_active_balls():
-		ball.glow_once_red()
+		ball.glow_red()
 		ball.speedup_ball_by_amount(-ball.speed_additive_for_coef(slowdown_coef))
 
 
