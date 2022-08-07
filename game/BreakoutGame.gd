@@ -38,6 +38,7 @@ var powerup_configs = []
 
 
 func _ready():
+	
 	scoreCounter.value = currentScore
 
 	livesCounter.numExtraBalls = starting_num_balls
@@ -138,7 +139,8 @@ func _on_paddle_new_ball_requested():
 func _on_ball_collided(ball: Ball, collision: KinematicCollision2D):
 	
 	if (collision.collider.is_in_group("bricks")):
-		cameraShake.beginShake()
+		var speed_shake_coef = 1.0
+		cameraShake.beginShake(0.2, 15 * speed_shake_coef, 10 * speed_shake_coef, 1)
 		_fire_collision_particles(collision)
 		bg.do_pulse(ball.currentSpeedupCoef())
 	
