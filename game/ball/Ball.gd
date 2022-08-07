@@ -9,6 +9,7 @@ onready var glow_anim: AnimationPlayer = $GlowAnimationPlayer
 onready var sprite: Sprite = $Sprite
 onready var hit_ball_sparks: ParticlesBattery = $ParticlesBattery
 onready var coef_label: Label = $Label
+onready var coef_label_anim: AnimationPlayer = $Label/AnimationPlayer
 
 export(float) var bounceSpeedupCoef: float = 1.05
 export(float) var maxSpeedCoef: float = 3.0
@@ -84,7 +85,9 @@ func _glow_with_particles_and_label(glow_anim_name, particles_node, label_anim_n
 	glow_anim.play(glow_anim_name)
 	particles_node.emitting = true
 	coef_label.visible = true
-	coef_label.get_node("AnimationPlayer").play(label_anim_name)
+	if coef_label_anim.is_playing():
+		coef_label_anim.stop()
+	coef_label_anim.play(label_anim_name)
 
 
 
