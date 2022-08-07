@@ -152,7 +152,7 @@ func speedup_ball():
 
 func speedup_ball_by_amount(speedup_amount: float):
 	_set_current_speed_and_broadcast(clamp(currentSpeed + speedup_amount, baseSpeed, baseSpeed * maxSpeedCoef))
-	currentSpinRadians = clamp(currentSpinRadians + spinAdditive * currentSpeedupCoef(), baseSpinRadians, baseSpinRadians * 2.0 * maxSpeedCoef)
+	currentSpinRadians = clamp(baseSpinRadians + spinAdditive * currentSpeedupCoef(), baseSpinRadians, baseSpinRadians * 2.0 * maxSpeedCoef)
 
 
 func _adjust_horizontal_bounce_direction(original_direction: Vector2, collider: Node2D) -> Vector2:
