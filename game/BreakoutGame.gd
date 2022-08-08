@@ -183,17 +183,8 @@ func _process_drop_powerup(brick_type, start_global_pos):
 func _start_drop_of_scene(drop_config: ScenePowerupConfig, global_pos: Vector2):
 
 	var drop = drop_config.new_drop_at_pos(global_pos)
+	#triggers signal connection to named method
 	drop.start_in_stage(self)
-	
-	#specific to poweruptype
-	if drop_config.PowerupScn == PowerupPointsScn:
-		drop.connect("points_collected", self, "_on_paddle_collected_points")
-	if drop_config.PowerupScn == PowerupExtraBallScn:
-		drop.connect("extra_ball_collected", self, "_on_paddle_collected_extra_ball")
-	if drop_config.PowerupScn == PowerupSpeedupBallScn:
-		drop.connect("speedup_ball_collected", self, "_on_paddle_collected_ball_speedup")
-	if drop_config.PowerupScn == PowerupSlowdownBallScn:
-		drop.connect("slowdown_ball_collected", self, "_on_paddle_collected_ball_slowdown")
 
 
 
