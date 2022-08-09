@@ -192,11 +192,19 @@ func _on_paddle_collected_ball_speedup(speedup_coef: float):
 
 	if paddle.ball_attached:
 		return
-		
-	_add_flashing_text_above_paddle(paddle.global_position - Vector2(-50, 15), "+%s%%" % ((speedup_coef * 100.0) - 100.0))
-	for ball in _get_active_balls():
+
+	var active_balls = _get_active_balls()
+	for ball_idx in range(active_balls.size()):
+		var ball = active_balls[ball_idx]
 		ball.glow_blue()
-		ball.speedup_ball_by_amount(ball.speed_additive_for_coef(speedup_coef))
+		var additive = ball.speed_additive_for_coef(speedup_coef)
+		var prev_ball_speed = ball.currentSpeed
+		ball.speedup_ball_by_amount(additive)
+		var additive_prc = abs(100.0 - (ball.currentSpeed * 100.0 / max(prev_ball_speed, 0.001)))
+		_add_flashing_text_above_paddle(
+			paddle.global_position - Vector2(-50 - 50 * ball_idx, 15), "+%01d%%" % additive_prc
+		)
+
 		
 
 func _on_paddle_collected_ball_slowdown(slowdown_coef: float):
@@ -204,10 +212,17 @@ func _on_paddle_collected_ball_slowdown(slowdown_coef: float):
 	if paddle.ball_attached:
 		return
 
-	_add_flashing_text_above_paddle(paddle.global_position - Vector2(-50, 15), "-%s%%" % ((slowdown_coef * 100.0) - 100.0))
-	for ball in _get_active_balls():
+	var active_balls = _get_active_balls()
+	for ball_idx in range(active_balls.size()):
+		var ball = active_balls[ball_idx]
 		ball.glow_red()
-		ball.speedup_ball_by_amount(-ball.speed_additive_for_coef(slowdown_coef))
+		var additive = ball.speed_additive_for_coef(slowdown_coef)
+		var prev_ball_speed = ball.currentSpeed
+		ball.speedup_ball_by_amount(-additive)
+		var additive_prc = abs(100.0 - (ball.currentSpeed * 100.0 / max(prev_ball_speed, 0.001)))
+		_add_flashing_text_above_paddle(
+			paddle.global_position - Vector2(-50 - 50 * ball_idx, 15), "-%01d%%" % additive_prc
+		)
 
 
 
