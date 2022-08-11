@@ -10,6 +10,14 @@ const PowerupExtraBallScn = preload("res://drops/PowerupExtraBall.tscn")
 const PowerupSpeedupBallScn = preload("res://drops//PowerupSpeedupBall.tscn")
 const PowerupSlowdownBallScn = preload("res://drops//PowerupSlowdownBall.tscn")
 
+
+#breaking shouts
+const BreakShoutTemplate1 = preload("res://bricks/BreakShout1.tscn")
+var break_templates = [
+	BreakShoutTemplate1
+]
+var break_words = ["BOOM!!!", "WHAM!!!", "WHACK!!!", "KAPOW!!!"]
+
 signal game_over(total_score)
 
 
@@ -161,6 +169,7 @@ func _on_brick_destroyed(type: int, tileIdx: Vector2):
 	scoreCounter.value += brickPoints
 
 	_process_drop_powerup(type, global_brick_center)
+	_add_random_shout_at(global_brick_center)
 
 	
 
@@ -289,6 +298,17 @@ func _fire_collision_particles(collision: KinematicCollision2D):
 	var particlesPos = collision.position - (collision.normal * 10)
 	var particlesRotation = collision.normal.angle()
 	ballSmokes.fireNextParticleSystem(particlesPos, particlesRotation)
+
+
+func _add_random_shout_at(shout_origin: Vector2):
+
+	var shout_template = Utils.randomElement(break_templates) as PackedScene
+	var new_shout = shout_template.instance()
+	new_shout.get_node("Sprite/Label").text = Utils.randomElement(break_words)
+	new_shout.global_position = shout_origin
+	add_child(new_shout)
+
+
 
 
 func _add_scored_points_bubble(score_origin: Vector2, points: float):

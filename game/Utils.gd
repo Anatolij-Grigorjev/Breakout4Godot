@@ -188,6 +188,12 @@ static func getFirst(arr: Array):
 		return null
 	return arr[0] 
 	
+
+static func randomElement(arr: Array):
+	if (arr == null or arr.empty()):
+		return null
+	return arr[rand_range(0, arr.size())]
+
 	
 """
 Find first node belonging to specified group in specified scene tree
