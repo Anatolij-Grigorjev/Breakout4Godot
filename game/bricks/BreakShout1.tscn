@@ -70,3 +70,5 @@ uppercase = true
 autoplay = "appear"
 anims/RESET = SubResource( 2 )
 anims/appear = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
