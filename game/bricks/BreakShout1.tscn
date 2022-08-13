@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://bricks/shout_template1.png" type="Texture" id=1]
+[ext_resource path="res://bricks/BreakShout.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -47,6 +48,7 @@ tracks/1/keys = {
 }
 
 [node name="BreakShout1" type="Node2D"]
+script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -61,7 +63,7 @@ rect_pivot_offset = Vector2( 31.5, 10 )
 custom_colors/font_color = Color( 0.101961, 0, 1, 0.694118 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "BOOM!!!"
+text = "<!!!>"
 align = 1
 valign = 1
 uppercase = true
