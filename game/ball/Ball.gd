@@ -128,7 +128,7 @@ func _handle_potential_collision(collision: KinematicCollision2D):
 		speedup_ball()
 		anim.play("hit-squish")
 		var tilemap: BricksMap = collision.collider as BricksMap
-		tilemap.bricks_hit_at(collision.position, collision.normal)
+		tilemap.bricks_hit_at_by_ball(self, collision.position, collision.normal)
 	
 	if collision.collider.is_in_group("paddle"):
 		var paddle = collision.collider

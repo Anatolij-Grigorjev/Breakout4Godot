@@ -4,7 +4,7 @@ class_name BricksMap
 const BrickBoomScn = preload("res://bricks/BrickExplode.tscn")
 
 
-signal brickDestroyed(brickType, brickPos)
+signal brick_destroyed(ball, brickType, brickPos)
 signal brick_damaged(brick_pos, hit_type, new_type)
 signal map_cleared(num_bricks)
 
@@ -37,16 +37,16 @@ func _process(delta):
 	if Input.is_action_just_released("debug1"):
 		var first_used_cell = get_used_cells()[0]
 		var rand_normal = Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0))
-		_hit_brick_at_idx(first_used_cell, rand_normal)
+		_hit_brick_at_idx_by_ball(Utils.getFirstTreeNodeInGroup(get_tree(), "ball"), first_used_cell, rand_normal)
 
 
 func get_points_for_brick_type(type: int) -> float:
 	return points_for_brick_of_type[type]
 
 
-func bricks_hit_at(global_hit_pos: Vector2, hit_normal: Vector2):
+func bricks_hit_at_by_ball(ball, global_hit_pos: Vector2, hit_normal: Vector2):
 	var tile_idx: Vector2 = world_to_map(to_local(global_hit_pos))
-	_hit_brick_at_idx(tile_idx, hit_normal)
+	_hit_brick_at_idx_by_ball(ball, tile_idx, hit_normal)
 
 
 func reset_bricks():
@@ -54,7 +54,7 @@ func reset_bricks():
 		set_cellv(saved_pos, Utils.nvl(initial_bricks_snapshot[saved_pos], INVALID_CELL))
 	
 
-func _hit_brick_at_idx(tile_idx: Vector2, hit_normal: Vector2):
+func _hit_brick_at_idx_by_ball(ball, tile_idx: Vector2, hit_normal: Vector2):
 	var tile_type_at_idx = get_cellv(tile_idx)
 	if (tile_type_at_idx == TileMap.INVALID_CELL):
 		return
@@ -62,7 +62,7 @@ func _hit_brick_at_idx(tile_idx: Vector2, hit_normal: Vector2):
 	var next_brick_type = _get_next_brick_type(tile_type_at_idx)
 	_build_hidden_boom_at_tile_idx(tile_idx).explode(hit_normal)
 	if next_brick_type == TileMap.INVALID_CELL:
-		emit_signal("brickDestroyed", tile_type_at_idx, tile_idx)
+		emit_signal("brick_destroyed", ball, tile_type_at_idx, tile_idx)
 	else:
 		emit_signal("brick_damaged", tile_idx, tile_type_at_idx, next_brick_type)
 

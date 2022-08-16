@@ -51,7 +51,7 @@ func _ready():
 
 	livesCounter.numExtraBalls = starting_num_balls
 
-	bricks.connect("brickDestroyed", self, "_on_brick_destroyed")
+	bricks.connect("brick_destroyed", self, "_on_brick_destroyed")
 	bricks.connect("brick_damaged", self, "_on_brick_damaged")
 	bricks.connect("map_cleared", self, "_on_bricksmap_cleared")
 	ballLossArea.connect("ball_fell", self, "_on_ball_fallen")
@@ -158,9 +158,9 @@ func _on_brick_damaged(tile_idx: Vector2, old_type: int, new_type: int):
 	print("brick at %s changed type: %s -> %s" % [tile_idx, old_type, new_type])
 
 
-func _on_brick_destroyed(type: int, tileIdx: Vector2):
+func _on_brick_destroyed(ball: Ball, type: int, tileIdx: Vector2):
 
-	var brickPoints = _get_points_for_brick_type(type)
+	var brickPoints = _get_points_for_brick_type(ball, type)
 	# brick position is relative to tilemap parent
 	var brick_origin_pos = bricks.map_to_world(tileIdx) + bricks.position
 	var global_brick_center = brick_origin_pos + bricks.cell_size / 2
@@ -289,9 +289,8 @@ func _hide_stage_end_message():
 	gameEndMessage.get_node("AnimationPlayer").play("RESET")
 
 
-func _get_points_for_brick_type(type: int) -> float:
-	var base_points = bricks.get_points_for_brick_type(type)
-	return base_points
+func _get_points_for_brick_type(ball: Ball, type: int) -> float:
+	return bricks.get_points_for_brick_type(type) * ball.currentSpeedupCoef()
 
 
 func _fire_collision_particles(collision: KinematicCollision2D):
