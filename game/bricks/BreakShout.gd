@@ -1,7 +1,7 @@
 extends Node2D
 
 
-const SHOUT_TRAVEL_BASE = 15
+const SHOUT_TRAVEL_BASE = 20
 
 var text: String
 var direction: Vector2 = Vector2.ZERO
@@ -16,7 +16,7 @@ func _ready():
 		$Sprite, 'position', 
 		Vector2.ZERO, Vector2.ONE * shout_travel_amount,
 		0.3, 
-		Tween.TRANS_QUAD, Tween.EASE_OUT
+		Tween.TRANS_QUART, Tween.EASE_OUT
 	)
 	tween.start()
 

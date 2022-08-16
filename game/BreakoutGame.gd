@@ -16,7 +16,7 @@ const BreakShoutTemplate1 = preload("res://bricks/BreakShout1.tscn")
 var break_templates = [
 	BreakShoutTemplate1
 ]
-var break_words = ["BOOM!!!", "WHAM!!!", "WHACK!!!", "KAPOW!!!", "OOF!!!", "POWER!!!"]
+var break_words = ["SLAY!!!", "WHAM!!!", "WHACK!!!", "KAPOW!!!", "OOF!!!", "YASS!!!"]
 
 signal game_over(total_score)
 
