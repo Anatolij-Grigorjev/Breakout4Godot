@@ -2,7 +2,7 @@
 Attach as child to node that is supposed to react to camera shake by a custom amount of own shaking
 the shake dampening coefficient describes how much of the shake is compensated by own movements,
 where 
-0 meaning no dampening - antural shake response, 
+0 meaning no compensation - natural shake response, 
 1 meaning total compensation - node will stand still while others shake around it
 -1 meaning overcompensation by shake amount - node shakes 2x more violently than others around it
 """

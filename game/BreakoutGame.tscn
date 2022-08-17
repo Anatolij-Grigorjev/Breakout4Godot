@@ -47,7 +47,7 @@ points_for_brick_of_type = {
 [node name="CameraShakeDampener" type="Node2D" parent="BricksMap"]
 script = ExtResource( 14 )
 camera_node_path = NodePath("../../Camera2D")
-shake_dampen_coef = 0.25
+shake_dampen_coef = 0.5
 
 [node name="BarrierLeft" parent="." instance=ExtResource( 3 )]
 position = Vector2( -20, 0 )

@@ -27,6 +27,7 @@ export(int) var starting_num_balls = 4
 
 onready var bg = $BG/Background
 onready var bricks = $BricksMap
+onready var bricks_shake_dampener = $BricksMap/CameraShakeDampener
 onready var paddle = $Paddle
 onready var ballSmokes = $ParticlesBattery
 onready var camera = $Camera2D
@@ -39,6 +40,7 @@ onready var overlay = $GUI/Overlay
 onready var ballLossArea = $BallLossArea
 
 var currentScore := 0
+var base_bricks_shake_dampen_coef := 0.5
 
 var stageFinished = false
 
@@ -132,6 +134,8 @@ func _reset_stage():
 	scoreCounter.value = 0.0
 	livesCounter.numExtraBalls = starting_num_balls
 	bricks.reset_bricks()
+	bricks_shake_dampener.shake_dampen_coef = base_bricks_shake_dampen_coef
+
 
 
 func _on_paddle_new_ball_requested():
@@ -151,7 +155,13 @@ func _on_ball_collided(ball: Ball, collision: KinematicCollision2D):
 		cameraShake.beginShake(0.2, 15 * speed_shake_coef, 10 * speed_shake_coef, 1)
 		_fire_collision_particles(collision)
 		bg.do_pulse(ball.currentSpeedupCoef())
-	
+
+
+
+func _on_ball_speed_changed(ball: Ball):
+	var ball_speed_coef_completeness = ball.currentSpeedupCoef() / max(0.1, ball.maxSpeedCoef)
+	bricks_shake_dampener.shake_dampen_coef = base_bricks_shake_dampen_coef - ball_speed_coef_completeness
+
 
 
 func _on_brick_damaged(tile_idx: Vector2, old_type: int, new_type: int):
@@ -336,4 +346,5 @@ func _get_active_balls() -> Array:
 func _create_new_ball() -> Ball:
 	var ball =  BallScn.instance()
 	ball.connect("ball_collided", self, "_on_ball_collided")
+	ball.connect("ball_speed_changed", self, "_on_ball_speed_changed")
 	return ball
