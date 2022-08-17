@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 13.0
 
-[node name="PowerupBase" type="Node2D"]
+[node name="PowerupBase" type="Node2D" groups=["drop"]]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

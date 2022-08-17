@@ -257,10 +257,8 @@ func _on_ball_fallen(ball):
 		return
 	if (livesCounter.numExtraBalls <= 0):
 		emit_signal("game_over", scoreCounter.value)
-		ball.stop()
+		_stop_current_stage_activity()
 		_show_stage_end_message("GAME OVER :(\nSCORE: " + str(scoreCounter.value))
-		paddle.disable_control()
-		stageFinished = true
 	else:
 		livesCounter.numExtraBalls -= 1
 		remove_child(ball)
@@ -269,11 +267,18 @@ func _on_ball_fallen(ball):
 
 func _on_bricksmap_cleared(cleared_bricks: int):
 	print("cleared brickmap with %s bricks" % cleared_bricks)
+	_stop_current_stage_activity()
+	_show_stage_end_message("!!!SUCCESS!!!\nSCORE: " + str(scoreCounter.value))
+
+
+func _stop_current_stage_activity():
 	stageFinished = true
 	for ball in _get_active_balls():
 		ball.currentSpeed = 0.0
+	for drop in get_tree().get_nodes_in_group("drop"):
+		drop.queue_free()
 	paddle.disable_control()
-	_show_stage_end_message("!!!SUCCESS!!!\nSCORE: " + str(scoreCounter.value))
+
 
 
 func _show_stage_end_message(message: String):
