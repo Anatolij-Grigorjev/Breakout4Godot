@@ -24,7 +24,8 @@ func setTotalValue(newTotal: float):
 	if ($Tween):
 		
 		var valueDiffference = abs(value - prevScore)
-		var incrementTimeSeconds = valueDiffference / visualIncrementPerSecond
+		#tween in at most 3 seconds
+		var incrementTimeSeconds = min(valueDiffference / visualIncrementPerSecond, 3.0)
 		$Tween.remove_all()
 		$Tween.interpolate_method(
 			self, "_setLabelTo",
