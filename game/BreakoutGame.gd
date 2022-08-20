@@ -3,6 +3,7 @@ extends Node2D
 const FlashPointsScn = preload("res://gui/ScoredPoints.tscn")
 const BallTrailScn = preload("res://ball/BallTrail.tscn")
 const BallScn = preload("res://ball/Ball.tscn")
+const CameraShakeDampenerScn = preload("res://tools/CameraShakeDampener.tscn")
 
 #powerups
 const PowerupPointsScn = preload("res://drops/PowerupPoints.tscn")
@@ -23,11 +24,11 @@ signal game_over(total_score)
 
 
 export(int) var starting_num_balls = 4
+export(PackedScene) var bricksScn
+export(String) var bricks_config_filepath
 
 
 onready var bg = $BG/Background
-onready var bricks = $BricksMap
-onready var bricks_shake_dampener = $BricksMap/CameraShakeDampener
 onready var paddle = $Paddle
 onready var ballSmokes = $ParticlesBattery
 onready var camera = $Camera2D
@@ -47,11 +48,18 @@ var stageFinished = false
 var powerup_configs = []
 
 
+var bricks: Node2D
+var bricks_shake_dampener: Node2D
+
+
 func _ready():
 	
 	scoreCounter.value = currentScore
 
 	livesCounter.numExtraBalls = starting_num_balls
+
+	bricks = _build_and_configure_stage_bricks(bricksScn, bricks_config_filepath)
+	bricks_shake_dampener = _attach_shake_dampener_to_bricks(bricks, CameraShakeDampenerScn)
 
 	bricks.connect("brick_destroyed", self, "_on_brick_destroyed")
 	bricks.connect("brick_damaged", self, "_on_brick_damaged")
@@ -71,6 +79,32 @@ func _ready():
 		dropConfigSlowdownBall, 
 		dropConfigExtraBall
 	]
+
+	_reset_stage()
+
+
+
+func _build_and_configure_stage_bricks(bricksScn: PackedScene, bricks_config_filepath: String) -> Node2D:
+	var new_bricks = bricksScn.instance()
+	var configs_map = Utils.file2JSON(bricks_config_filepath)
+
+	new_bricks.brick_type_transitions = configs_map.brick_type_transitions
+	new_bricks.points_for_brick_of_type = configs_map.points_for_brick_of_type
+
+	add_child_below_node(camera, new_bricks)
+	new_bricks.position = Vector2(configs_map.starting_pos.x, configs_map.starting_pos.y)
+
+	return new_bricks
+
+
+func _attach_shake_dampener_to_bricks(bricks: Node2D, DampenerScn: PackedScene) -> Node2D:
+
+	var new_dampener = DampenerScn.instance()
+	new_dampener.camera_node_path = camera.get_path()
+	
+	bricks.add_child(new_dampener)
+
+	return new_dampener
 
 
 func _should_points_drop(brick_type: int) -> bool:

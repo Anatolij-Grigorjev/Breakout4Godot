@@ -27,7 +27,7 @@ func _ready():
 	total_num_bricks = get_used_cells().size()
 	#replace arrays with "fun" wrappers
 	for type in brick_type_transitions:
-		types_transition_map[type] = ArrayFunRandom.new(brick_type_transitions[type], -1)
+		types_transition_map[type.to_int()] = ArrayFunRandom.new(brick_type_transitions[type], -1)
 	#build initial snapshot
 	for cell_idx in get_used_cells():
 		initial_bricks_snapshot[cell_idx] = get_cellv(cell_idx)
@@ -41,7 +41,7 @@ func _process(delta):
 
 
 func get_points_for_brick_type(type: int) -> float:
-	return points_for_brick_of_type[type]
+	return points_for_brick_of_type[str(type)]
 
 
 func bricks_hit_at_by_ball(ball, global_hit_pos: Vector2, hit_normal: Vector2):

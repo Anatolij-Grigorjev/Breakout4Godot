@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://gui/GameHUD.tscn" type="PackedScene" id=1]
 [ext_resource path="res://bricks/BricksMap.tscn" type="PackedScene" id=2]
@@ -11,11 +11,12 @@
 [ext_resource path="res://paddle/Paddle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://gui/Overlay.tscn" type="PackedScene" id=10]
 [ext_resource path="res://BallLossArea.tscn" type="PackedScene" id=11]
-[ext_resource path="res://tools/CameraShakeDampener.gd" type="Script" id=14]
 [ext_resource path="res://gui/GameEndMessage.tscn" type="PackedScene" id=15]
 
 [node name="BreakoutGame" type="Node2D"]
 script = ExtResource( 5 )
+bricksScn = ExtResource( 2 )
+bricks_config_filepath = "res://bricks/bricks_map_config.json"
 
 [node name="BG" type="CanvasLayer" parent="."]
 layer = -10
@@ -27,27 +28,6 @@ position = Vector2( 508, 298 )
 current = true
 
 [node name="ScreenShake" parent="Camera2D" instance=ExtResource( 7 )]
-
-[node name="BricksMap" parent="." instance=ExtResource( 2 )]
-position = Vector2( 110, 65 )
-brick_type_transitions = {
-0: [  ],
-1: [ 2, 3, 4 ],
-2: [  ],
-3: [  ],
-4: [  ]
-}
-points_for_brick_of_type = {
-0: 540.0,
-2: 750.0,
-3: 735.0,
-4: 741.0
-}
-
-[node name="CameraShakeDampener" type="Node2D" parent="BricksMap"]
-script = ExtResource( 14 )
-camera_node_path = NodePath("../../Camera2D")
-shake_dampen_coef = 0.5
 
 [node name="BarrierLeft" parent="." instance=ExtResource( 3 )]
 position = Vector2( -20, 0 )
