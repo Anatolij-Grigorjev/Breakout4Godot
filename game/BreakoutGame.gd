@@ -17,7 +17,7 @@ const BreakShoutTemplate1 = preload("res://bricks/BreakShout1.tscn")
 var break_templates = [
 	BreakShoutTemplate1
 ]
-var break_words = ["SLAY!!!", "WHAM!!!", "WHACK!!!", "KAPOW!!!", "OOF!!!", "YASS!!!"]
+var break_words = ArrayFunRandom.new(["SLAY!!!", "WHAM!!!", "WHACK!!!", "KAPOW!!!", "OOF!!!", "YASS!!!"], "OK!!!", 2)
 
 signal game_over(total_score)
 
@@ -352,7 +352,7 @@ func _add_random_shout_at(shout_origin: Vector2):
 
 	var shout_template = Utils.randomElement(break_templates) as PackedScene
 	var new_shout = shout_template.instance()
-	new_shout.text = Utils.randomElement(break_words)
+	new_shout.text = break_words.get_fun_random()
 	new_shout.global_position = shout_origin
 	new_shout.direction = Utils.randomPoint(-1, 1)
 	add_child(new_shout)

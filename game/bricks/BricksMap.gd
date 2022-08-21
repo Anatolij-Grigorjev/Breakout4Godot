@@ -9,11 +9,11 @@ signal brick_damaged(brick_pos, hit_type, new_type)
 signal map_cleared(num_bricks)
 
 export(Dictionary) var brick_type_transitions = {
-	1: [0],
-	0: [-1]
+	"1": [0],
+	"0": [-1]
 }
 export(Dictionary) var points_for_brick_of_type = { 
-	0: 540.0 
+	"0": 540.0 
 }
 
 var types_transition_map = {}
