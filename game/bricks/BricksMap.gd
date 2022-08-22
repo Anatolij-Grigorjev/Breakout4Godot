@@ -24,6 +24,9 @@ var initial_bricks_snapshot = {}
 
 
 func _ready():
+	#any brickmap is in bricks group
+	add_to_group("bricks")
+	
 	total_num_bricks = get_used_cells().size()
 	#replace arrays with "fun" wrappers
 	for type in brick_type_transitions:

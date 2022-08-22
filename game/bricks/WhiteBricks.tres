@@ -1,30 +1,40 @@
-[gd_scene load_steps=11 format=2]
+[gd_resource type="TileSet" load_steps=12 format=2]
 
 [ext_resource path="res://bricks/bricks_spritesheet.png" type="Texture" id=1]
-[ext_resource path="res://bricks/BricksMap.gd" type="Script" id=2]
-[ext_resource path="res://shaders/sprite_outline.shader" type="Shader" id=3]
 
-[sub_resource type="ShaderMaterial" id=3]
-shader = ExtResource( 3 )
-shader_param/outline_width = 1.0
-shader_param/outline_color = null
+[sub_resource type="OccluderPolygon2D" id=9]
+cull_mode = 1
+polygon = PoolVector2Array( 62.193, 30.0534, 2.27441, 30.0534, 2.27441, 2.11292, 62.193, 2.11292 )
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
 points = PoolVector2Array( 62.2288, 30.1521, 2.22507, 30.1521, 2.22507, 2.22507, 62.2288, 2.22507 )
 
+[sub_resource type="OccluderPolygon2D" id=10]
+cull_mode = 1
+polygon = PoolVector2Array( 62.193, 29.4109, 2.43591, 29.4109, 2.43591, 2.11646, 62.193, 2.11646 )
+
 [sub_resource type="ConvexPolygonShape2D" id=5]
 points = PoolVector2Array( 62.2288, 29.7041, 2.56154, 29.7041, 2.56154, 2.33785, 62.2288, 2.33785 )
+
+[sub_resource type="OccluderPolygon2D" id=11]
+polygon = PoolVector2Array( 2.75893, 4.68699, 2.75893, 4.52547, 2.11292, 16.6384, 6.47356, 18.415, 2.75893, 19.5455, 2.27441, 28.4283, 29.5688, 29.7203, 31.8299, 21.1605, 35.06, 28.1053, 61.8699, 29.5588, 62.6775, 6.46355, 58.8013, 8.88613, 55.7327, 2.58741, 10.1882, 2.1029, 14.3873, 10.1782 )
 
 [sub_resource type="ConvexPolygonShape2D" id=6]
 points = PoolVector2Array( 10.076, 2.09674, 40.2462, 2.09674, 57.294, 2.43321, 58.5277, 8.26537, 62.0045, 6.3587, 61.8924, 29.9116, 33.9654, 29.6873, 32.956, 24.1916, 30.3764, 25.8739, 30.825, 30.0237, 2.11292, 30.1359, 2.33723, 16.9014, 2.44939, 4.11557 )
 
+[sub_resource type="OccluderPolygon2D" id=12]
+polygon = PoolVector2Array( 2.59743, 2.08846, 56.2173, 1.76544, 61.7085, 5.80309, 61.8699, 29.5444, 56.5403, 29.3829, 53.1487, 20.8231, 51.2106, 29.5444, 36.9981, 29.0599, 28.7613, 25.8298, 23.9162, 28.7369, 2.43591, 29.7059 )
+
 [sub_resource type="ConvexPolygonShape2D" id=7]
 points = PoolVector2Array( 55.9481, 2.52087, 62.1167, 5.88557, 62.2288, 30.1114, 55.3873, 29.5506, 53.9293, 23.9428, 50.901, 24.2793, 51.4618, 30.1114, 35.6477, 29.4385, 33.8532, 27.0832, 28.2454, 27.0832, 25.8901, 29.8871, 2.44939, 29.3263, 2.44939, 2.74519 )
+
+[sub_resource type="OccluderPolygon2D" id=13]
+polygon = PoolVector2Array( 5.82753, 2.43114, 29.0843, 2.10812, 32.1529, 3.56168, 41.1973, 3.72318, 61.0624, 1.94662, 62.193, 26.4955, 58.3168, 29.7256, 23.9162, 29.7256, 22.9471, 21.0043, 18.5865, 29.7256, 3.88947, 29.4026, 2.43591, 25.5264, 2.11292, 6.46878 )
 
 [sub_resource type="ConvexPolygonShape2D" id=8]
 points = PoolVector2Array( 6.15055, 2.1844, 30.0399, 2.63303, 40.3583, 4.53969, 39.4611, 1.96008, 62.0045, 1.84793, 61.6681, 27.8683, 59.4249, 29.9992, 22.0768, 29.7749, 23.8713, 27.3075, 21.1795, 26.8589, 19.6093, 30.3357, 3.57095, 30.1114, 2.11292, 28.6534, 2.22507, 6.67067 )
 
-[sub_resource type="TileSet" id=1]
+[resource]
 0/name = "bricks_spritesheet.png 0"
 0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
@@ -34,7 +44,7 @@ points = PoolVector2Array( 6.15055, 2.1844, 30.0399, 2.63303, 40.3583, 4.53969, 
 0/autotile/icon_coordinate = Vector2( 0, 0 )
 0/autotile/tile_size = Vector2( 64, 32 )
 0/autotile/spacing = 0
-0/autotile/occluder_map = [  ]
+0/autotile/occluder_map = [ Vector2( 0, 0 ), SubResource( 9 ) ]
 0/autotile/navpoly_map = [  ]
 0/autotile/priority_map = [  ]
 0/autotile/z_index_map = [  ]
@@ -60,6 +70,7 @@ points = PoolVector2Array( 6.15055, 2.1844, 30.0399, 2.63303, 40.3583, 4.53969, 
 1/region = Rect2( 0, 32, 64, 32 )
 1/tile_mode = 0
 1/occluder_offset = Vector2( 0, 0 )
+1/occluder = SubResource( 10 )
 1/navigation_offset = Vector2( 0, 0 )
 1/shape_offset = Vector2( 0, 0 )
 1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -81,6 +92,7 @@ points = PoolVector2Array( 6.15055, 2.1844, 30.0399, 2.63303, 40.3583, 4.53969, 
 2/region = Rect2( 0, 64, 64, 32 )
 2/tile_mode = 0
 2/occluder_offset = Vector2( 0, 0 )
+2/occluder = SubResource( 11 )
 2/navigation_offset = Vector2( 0, 0 )
 2/shape_offset = Vector2( 0, 0 )
 2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -102,6 +114,7 @@ points = PoolVector2Array( 6.15055, 2.1844, 30.0399, 2.63303, 40.3583, 4.53969, 
 3/region = Rect2( 0, 96, 64, 32 )
 3/tile_mode = 0
 3/occluder_offset = Vector2( 0, 0 )
+3/occluder = SubResource( 12 )
 3/navigation_offset = Vector2( 0, 0 )
 3/shape_offset = Vector2( 0, 0 )
 3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -123,6 +136,7 @@ points = PoolVector2Array( 6.15055, 2.1844, 30.0399, 2.63303, 40.3583, 4.53969, 
 4/region = Rect2( 0, 128, 64, 32 )
 4/tile_mode = 0
 4/occluder_offset = Vector2( 0, 0 )
+4/occluder = SubResource( 13 )
 4/navigation_offset = Vector2( 0, 0 )
 4/shape_offset = Vector2( 0, 0 )
 4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -137,11 +151,3 @@ points = PoolVector2Array( 6.15055, 2.1844, 30.0399, 2.63303, 40.3583, 4.53969, 
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 4/z_index = 0
-
-[node name="BricksMap" type="TileMap" groups=["bricks"]]
-material = SubResource( 3 )
-tile_set = SubResource( 1 )
-cell_size = Vector2( 64, 32 )
-format = 1
-tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 65536, 0, 0, 65547, 0, 0, 131072, 0, 0, 131074, 1610612737, 0, 131081, 1, 0, 131083, 0, 0, 196608, 0, 0, 196611, 1610612737, 0, 196616, 1, 0, 196619, 0, 0, 262144, 0, 0, 262148, 1610612737, 0, 262151, 1, 0, 262155, 0, 0, 327680, 0, 0, 327684, 1610612737, 0, 327685, 1610612737, 0, 327686, 1610612737, 0, 327687, 1610612737, 0, 327691, 0, 0, 393216, 0, 0, 393227, 0, 0, 458752, 0, 0, 458763, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0 )
-script = ExtResource( 2 )
