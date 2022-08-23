@@ -50,6 +50,9 @@ var powerup_configs = []
 
 var bricks: Node2D
 var bricks_shake_dampener: Node2D
+var points_for_brick_of_type = { 
+	"0": 540.0 
+}
 
 
 func _ready():
@@ -85,15 +88,15 @@ func _ready():
 
 
 func _build_and_configure_stage_bricks(bricksScn: PackedScene, bricks_config_filepath: String) -> Node2D:
-	var new_bricks = bricksScn.instance()
 	var configs_map = Utils.file2JSON(bricks_config_filepath)
-
+	
+	var new_bricks = bricksScn.instance()
 	new_bricks.brick_type_transitions = configs_map.brick_type_transitions
-	new_bricks.points_for_brick_of_type = configs_map.points_for_brick_of_type
-
 	add_child_below_node(camera, new_bricks)
 	new_bricks.position = Vector2(configs_map.starting_pos.x, configs_map.starting_pos.y)
-
+	
+	points_for_brick_of_type = configs_map.points_for_brick_of_type
+	
 	return new_bricks
 
 
@@ -338,8 +341,9 @@ func _hide_stage_end_message():
 	gameEndMessage.get_node("AnimationPlayer").play("RESET")
 
 
+
 func _get_points_for_brick_type(ball: Ball, type: int) -> float:
-	return bricks.get_points_for_brick_type(type) * ball.currentSpeedupCoef()
+	return Utils.nvl(points_for_brick_of_type[type], 0) * ball.currentSpeedupCoef()
 
 
 func _fire_collision_particles(collision: KinematicCollision2D):

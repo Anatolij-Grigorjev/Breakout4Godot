@@ -12,9 +12,7 @@ export(Dictionary) var brick_type_transitions = {
 	"1": [0],
 	"0": [-1]
 }
-export(Dictionary) var points_for_brick_of_type = { 
-	"0": 540.0 
-}
+
 
 var types_transition_map = {}
 var total_num_bricks: int = 0
@@ -26,7 +24,7 @@ var initial_bricks_snapshot = {}
 func _ready():
 	#any brickmap is in bricks group
 	add_to_group("bricks")
-	
+
 	total_num_bricks = get_used_cells().size()
 	#replace arrays with "fun" wrappers
 	for type in brick_type_transitions:
@@ -41,10 +39,6 @@ func _process(delta):
 		var first_used_cell = get_used_cells()[0]
 		var rand_normal = Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0))
 		_hit_brick_at_idx_by_ball(Utils.getFirstTreeNodeInGroup(get_tree(), "ball"), first_used_cell, rand_normal)
-
-
-func get_points_for_brick_type(type: int) -> float:
-	return points_for_brick_of_type[str(type)]
 
 
 func bricks_hit_at_by_ball(ball, global_hit_pos: Vector2, hit_normal: Vector2):
