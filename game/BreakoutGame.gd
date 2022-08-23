@@ -343,7 +343,7 @@ func _hide_stage_end_message():
 
 
 func _get_points_for_brick_type(ball: Ball, type: int) -> float:
-	return Utils.nvl(points_for_brick_of_type[type], 0) * ball.currentSpeedupCoef()
+	return Utils.nvl(points_for_brick_of_type[str(type)], 0) * ball.currentSpeedupCoef()
 
 
 func _fire_collision_particles(collision: KinematicCollision2D):
