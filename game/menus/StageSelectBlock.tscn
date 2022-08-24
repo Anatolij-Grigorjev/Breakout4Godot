@@ -1,0 +1,50 @@
+[gd_scene format=2]
+
+[node name="StageSelectBlock" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 15
+custom_constants/margin_top = 15
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 1009.0
+margin_bottom = 585.0
+
+[node name="StageTitle" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+margin_right = 994.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "STAGE TITLE"
+align = 1
+valign = 1
+
+[node name="ViewportContainer" type="ViewportContainer" parent="Panel/MarginContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 994.0
+margin_bottom = 570.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="Panel/MarginContainer/VBoxContainer/ViewportContainer"]
+size = Vector2( 800, 600 )
+size_override_stretch = true
+transparent_bg = true
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_target_update_mode = 0
+gui_disable_input = true
+gui_snap_controls_to_pixels = false
