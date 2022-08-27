@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://menus/StageSelectBlock.gd" type="Script" id=1]
+[ext_resource path="res://bricks/BricksMapVase.tscn" type="PackedScene" id=2]
 
 [node name="StageSelectBlock" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+stage_bricks = ExtResource( 2 )
 
 [node name="Panel" type="Panel" parent="."]
 anchor_right = 1.0
@@ -27,22 +29,24 @@ margin_bottom = 585.0
 
 [node name="StageTitle" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 margin_right = 994.0
-margin_bottom = 14.0
+margin_bottom = 56.0
 size_flags_horizontal = 3
+size_flags_vertical = 7
 text = "STAGE TITLE"
 align = 1
 valign = 1
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Panel/MarginContainer/VBoxContainer"]
-margin_top = 18.0
+margin_top = 60.0
 margin_right = 994.0
 margin_bottom = 570.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 9.0
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="Panel/MarginContainer/VBoxContainer/ViewportContainer"]
-size = Vector2( 800, 600 )
+size = Vector2( 994, 510 )
 size_override_stretch = true
 transparent_bg = true
 handle_input_locally = false

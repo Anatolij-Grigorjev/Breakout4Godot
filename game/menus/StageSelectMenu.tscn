@@ -1,8 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://menus/StageSelectBlock.tscn" type="PackedScene" id=1]
-[ext_resource path="res://bricks/BricksMapSmile.tscn" type="PackedScene" id=2]
-[ext_resource path="res://bricks/BricksMapVase.tscn" type="PackedScene" id=3]
 
 [node name="StageSelectMenu" type="Control"]
 anchor_right = 1.0
@@ -20,30 +18,43 @@ custom_constants/margin_top = 20
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 20
 
-[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 1004.0
 margin_bottom = 580.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 2
 
-[node name="StageSelectBlock" parent="Panel/MarginContainer/GridContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 490.0
-margin_bottom = 560.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-stage_bricks = ExtResource( 2 )
+[node name="SelectStageLbl" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+margin_right = 984.0
+margin_bottom = 92.0
+size_flags_vertical = 7
+text = "SELECT STAGE"
+align = 1
+valign = 1
+uppercase = true
 
-[node name="StageSelectBlock2" parent="Panel/MarginContainer/GridContainer" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 494.0
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer"]
+margin_top = 96.0
 margin_right = 984.0
 margin_bottom = 560.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-stage_bricks = ExtResource( 3 )
+size_flags_stretch_ratio = 5.0
+columns = 2
+
+[node name="StageSelectBlock" parent="Panel/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 490.0
+margin_bottom = 464.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StageSelectBlock2" parent="Panel/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 494.0
+margin_right = 984.0
+margin_bottom = 464.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
