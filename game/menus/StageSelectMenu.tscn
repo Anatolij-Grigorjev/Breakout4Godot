@@ -27,7 +27,7 @@ margin_bottom = 580.0
 
 [node name="SelectStageLbl" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 margin_right = 984.0
-margin_bottom = 92.0
+margin_bottom = 61.0
 size_flags_vertical = 7
 text = "SELECT STAGE"
 align = 1
@@ -35,28 +35,53 @@ valign = 1
 uppercase = true
 
 [node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer"]
-margin_top = 96.0
+margin_top = 65.0
 margin_right = 984.0
 margin_bottom = 560.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 5.0
+size_flags_stretch_ratio = 8.0
 columns = 2
 
 [node name="StageSelectBlock" parent="Panel/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 490.0
-margin_bottom = 464.0
+margin_bottom = 245.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stage_bricks = ExtResource( 2 )
+stage_title = "Crooked Smile"
 
 [node name="StageSelectBlock2" parent="Panel/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 494.0
 margin_right = 984.0
-margin_bottom = 464.0
+margin_bottom = 245.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+stage_title = "V is for Vase"
+
+[node name="StageSelectBlock3" parent="Panel/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 249.0
+margin_right = 490.0
+margin_bottom = 494.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stage_bricks = null
+stage_title = "LOCKED"
+
+[node name="StageSelectBlock4" parent="Panel/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 494.0
+margin_top = 249.0
+margin_right = 984.0
+margin_bottom = 494.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stage_bricks = null
+stage_title = "Locked"

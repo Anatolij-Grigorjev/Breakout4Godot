@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://menus/StageSelectBlock.gd" type="Script" id=1]
 [ext_resource path="res://bricks/BricksMapVase.tscn" type="PackedScene" id=2]
+[ext_resource path="res://asset_lib_icon.png" type="Texture" id=3]
 
 [node name="StageSelectBlock" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 stage_bricks = ExtResource( 2 )
+stage_title = "<No comment>"
 
 [node name="Panel" type="Panel" parent="."]
 anchor_right = 1.0
@@ -35,6 +37,7 @@ size_flags_vertical = 7
 text = "STAGE TITLE"
 align = 1
 valign = 1
+uppercase = true
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Panel/MarginContainer/VBoxContainer"]
 margin_top = 60.0
@@ -55,3 +58,11 @@ usage = 0
 render_target_update_mode = 3
 gui_disable_input = true
 gui_snap_controls_to_pixels = false
+
+[node name="LockedTexture" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 3 )
+expand = true
