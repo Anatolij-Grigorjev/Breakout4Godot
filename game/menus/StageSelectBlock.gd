@@ -14,7 +14,7 @@ func _ready():
 	if stage_bricks:
 		var instance = stage_bricks.instance()
 		preview_window.add_child(instance)
-		_center_in_viewport(preview_window, instance)
+		call_deferred("_center_in_viewport", preview_window, instance)
 	
 
 func _center_in_viewport(viewport: Viewport, bricks: BricksMap):
