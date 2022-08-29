@@ -4,6 +4,8 @@ shows one brickmap
 """
 extends Control
 
+const BallScn = preload("res://ball/Ball.tscn")
+
 export(PackedScene) var stage_bricks
 export(String) var stage_title setget _set_title_label
 
@@ -16,15 +18,17 @@ onready var barrier_right = $Panel/MarginContainer/VBoxContainer/ViewportContain
 onready var barrier_top = $Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport/BarrierTop
 onready var barrier_bottom = $Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport/BarrierBottom
 
+var bricks: BricksMap
+var ball: Ball
 
 func _ready():
 	_set_title_label(stage_title)
 	if not stage_bricks:
 		return
-	var instance = stage_bricks.instance()
+	bricks = stage_bricks.instance()
 	placeholder_graphic.queue_free()
-	preview_window.add_child(instance)
-	call_deferred("_center_in_viewport", preview_window, instance)
+	preview_window.add_child(bricks)
+	call_deferred("_center_in_viewport", preview_window, bricks)
 	
 
 func _center_in_viewport(viewport: Viewport, bricks: BricksMap):
@@ -42,7 +46,32 @@ func _center_in_viewport(viewport: Viewport, bricks: BricksMap):
 	barrier_top.position.y = -10
 	barrier_right.position.x = viewport_size.x + 10
 	barrier_bottom.position.y = viewport_size.y + 10
+
+
+func _clear_ball():
+	if ball:
+		ball.queue_free()
+
+
+func reset_view():
+	_clear_ball()
+	bricks.reset_bricks()
+
+
+func launch_ball():
+	_clear_ball()
+	ball = BallScn.instance()
+	preview_window.add_child(ball)
+	ball.direction = Utils.randomPoint(1.0, 1.0)
+	ball.speedup_ball_by_amount(ball.speed_additive_for_coef(5.0))
 	
+
+func _process(delta):
+	if Input.is_action_just_released("debug1"):
+		if ball:
+			reset_view()
+		else:
+			launch_ball()
 
 
 func _get_bricks_scale_factor(viewport: Viewport, bricks: BricksMap) -> float:
