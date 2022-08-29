@@ -11,6 +11,11 @@ onready var preview_window: Viewport = $Panel/MarginContainer/VBoxContainer/View
 onready var stage_title_lbl: Label = $Panel/MarginContainer/VBoxContainer/StageTitle
 onready var placeholder_graphic: TextureRect = $Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport/LockedTexture
 
+onready var barrier_left = $Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport/BarrierLeft
+onready var barrier_right = $Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport/BarrierRight
+onready var barrier_top = $Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport/BarrierTop
+onready var barrier_bottom = $Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport/BarrierBottom
+
 
 func _ready():
 	_set_title_label(stage_title)
@@ -32,16 +37,20 @@ func _center_in_viewport(viewport: Viewport, bricks: BricksMap):
 	bricks.global_position = viewport_size / 2 - bricks_size / 2
 	#aligned to vertical top
 	bricks.global_position.y = 10
-	print("bricks_orig_size=%s|\nscale_factor=%s|\nbricks_size=%s|\nviewport_size=%s|\nbricks_pos=%s|" % [
-		bricks_orig_size, scale_factor, bricks_size, viewport_size, bricks.global_position
-	])
+	#place barriers
+	barrier_left.position.x = -10
+	barrier_top.position.y = -10
+	barrier_right.position.x = viewport_size.x + 10
+	barrier_bottom.position.y = viewport_size.y + 10
+	
 
 
 func _get_bricks_scale_factor(viewport: Viewport, bricks: BricksMap) -> float:
 	var viewport_size = viewport.get_visible_rect().size
 	var bricks_size = bricks.get_used_rect().size * bricks.cell_size
 
-	return min(viewport_size.x / bricks_size.x, viewport_size.y / bricks_size.y)
+	#slightly smaller than viewport
+	return min(viewport_size.x / bricks_size.x, viewport_size.y / bricks_size.y) * 0.9
 
 
 

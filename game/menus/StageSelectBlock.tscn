@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://menus/StageSelectBlock.gd" type="Script" id=1]
 [ext_resource path="res://bricks/BricksMapVase.tscn" type="PackedScene" id=2]
 [ext_resource path="res://asset_lib_icon.png" type="Texture" id=3]
+[ext_resource path="res://Barrier.tscn" type="PackedScene" id=4]
 
 [node name="StageSelectBlock" type="Control"]
 anchor_right = 1.0
@@ -66,3 +67,19 @@ margin_right = 40.0
 margin_bottom = 40.0
 texture = ExtResource( 3 )
 expand = true
+
+[node name="BarrierLeft" parent="Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport" instance=ExtResource( 4 )]
+position = Vector2( -10, 0 )
+
+[node name="BarrierRight" parent="Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport" instance=ExtResource( 4 )]
+position = Vector2( -10, 0 )
+
+[node name="BarrierTop" parent="Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport" instance=ExtResource( 4 )]
+position = Vector2( 10, -10 )
+rotation = 1.5708
+scale = Vector2( 1, 2 )
+
+[node name="BarrierBottom" parent="Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport" instance=ExtResource( 4 )]
+position = Vector2( 10, -10 )
+rotation = 1.5708
+scale = Vector2( 1, 2 )
