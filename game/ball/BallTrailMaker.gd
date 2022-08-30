@@ -17,6 +17,8 @@ func _ready():
 func _on_trail_gen_timeout():
 
 	var ball_trail = ball_trail_scene.instance()
+	#make sure trail is of same size as ball
+	ball_trail.scale = ball.scale
 	ball_trail.global_position = ball.global_position
 	ball.get_parent().add_child(ball_trail)
 

@@ -51,6 +51,7 @@ margin_bottom = 245.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stage_bricks = ExtResource( 2 )
+ball_position = Vector2( 25, 25 )
 stage_title = "Crooked Smile"
 
 [node name="StageSelectBlock2" parent="Panel/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 1 )]
@@ -61,6 +62,7 @@ margin_right = 984.0
 margin_bottom = 245.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+ball_position = Vector2( 25, 25 )
 stage_title = "V is for Vase"
 
 [node name="StageSelectBlock3" parent="Panel/MarginContainer/VBoxContainer/GridContainer" instance=ExtResource( 1 )]
