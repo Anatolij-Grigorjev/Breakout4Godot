@@ -27,6 +27,8 @@ func _ready():
 	_set_title_label(stage_title)
 	if not stage_bricks:
 		return
+	$TouchPanel.connect("mouse_entered", self, "_on_Panel_mouse_entered")
+	$TouchPanel.connect("mouse_exited", self, "_on_Panel_mouse_exited")
 	bricks = stage_bricks.instance()
 	placeholder_graphic.queue_free()
 	preview_window.add_child(bricks)
@@ -60,12 +62,12 @@ func _clear_ball():
 		ball.queue_free()
 
 
-func reset_view():
+func _reset_view():
 	_clear_ball()
 	bricks.reset_bricks()
 
 
-func launch_ball():
+func _launch_ball():
 	_clear_ball()
 	ball = BallScn.instance()
 	preview_window.add_child(ball)
@@ -74,13 +76,6 @@ func launch_ball():
 	ball.direction = Utils.randomPoint(1.0, 1.0)
 	ball.speedup_ball_by_amount(ball.speed_additive_for_coef(5.0))
 	
-
-func _process(delta):
-	if bricks and Input.is_action_just_released("debug1"):
-		if ball:
-			reset_view()
-		else:
-			launch_ball()
 
 
 func _get_bricks_scale_factor(viewport: Viewport, bricks: BricksMap) -> float:
@@ -97,3 +92,12 @@ func _set_title_label(title: String):
 	var lbl = $Panel/MarginContainer/VBoxContainer/StageTitle
 	if lbl:
 		lbl.text = title
+
+
+func _on_Panel_mouse_entered():
+	if not ball:
+		_launch_ball()
+
+func _on_Panel_mouse_exited():
+	if ball:
+		_reset_view()

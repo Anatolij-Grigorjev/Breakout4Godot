@@ -97,3 +97,8 @@ scale = Vector2( 1, 2 )
 position = Vector2( 10, -10 )
 rotation = 1.5708
 scale = Vector2( 1, 2 )
+
+[node name="TouchPanel" type="Panel" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
