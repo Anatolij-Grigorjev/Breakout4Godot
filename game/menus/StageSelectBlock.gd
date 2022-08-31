@@ -76,7 +76,7 @@ func launch_ball():
 	
 
 func _process(delta):
-	if Input.is_action_just_released("debug1"):
+	if bricks and Input.is_action_just_released("debug1"):
 		if ball:
 			reset_view()
 		else:
