@@ -24,6 +24,11 @@ var ball: Ball
 var elements_scale_factor: float = 1.0
 
 func _ready():
+	#create duplicate of own style when several instances present and animation is possible
+	$Panel.set("custom_styles/panel", $Panel.get("custom_styles/panel").duplicate(true))
+	#center pivot for scale animations
+	$Panel.rect_pivot_offset = $Panel.rect_size / 2
+
 	_set_title_label(stage_title)
 	if not stage_bricks:
 		return
@@ -58,7 +63,7 @@ func _position_barriers_in_viewport(viewport: Viewport):
 
 
 func _clear_ball():
-	if ball:
+	if is_instance_valid(ball):
 		ball.queue_free()
 
 
@@ -95,9 +100,9 @@ func _set_title_label(title: String):
 
 
 func _on_Panel_mouse_entered():
-	if not ball:
+	if not is_instance_valid(ball):
 		_launch_ball()
 
 func _on_Panel_mouse_exited():
-	if ball:
+	if is_instance_valid(ball):
 		_reset_view()
