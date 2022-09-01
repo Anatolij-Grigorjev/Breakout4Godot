@@ -100,9 +100,11 @@ func _set_title_label(title: String):
 
 
 func _on_Panel_mouse_entered():
+	$AnimationPlayer.queue("hover")
 	if not is_instance_valid(ball):
 		_launch_ball()
 
 func _on_Panel_mouse_exited():
+	$AnimationPlayer.queue("unfocus")
 	if is_instance_valid(ball):
 		_reset_view()
