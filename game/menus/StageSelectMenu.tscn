@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://menus/StageSelectBlock.tscn" type="PackedScene" id=1]
-[ext_resource path="res://bricks/BricksMapSmile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://bricks/BricksMapVase.tscn" type="PackedScene" id=3]
 
 [node name="StageSelectMenu" type="Control"]
 anchor_right = 1.0
@@ -52,7 +52,6 @@ margin_right = 484.0
 margin_bottom = 240.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-stage_bricks = ExtResource( 2 )
 ball_position = Vector2( 250, 25 )
 stage_title = "Crooked Smile"
 
@@ -64,6 +63,7 @@ margin_right = 983.0
 margin_bottom = 240.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+stage_bricks = ExtResource( 3 )
 ball_position = Vector2( 25, 25 )
 stage_title = "V is for Vase"
 

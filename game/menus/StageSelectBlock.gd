@@ -5,6 +5,7 @@ shows one brickmap
 extends Control
 
 const BallScn = preload("res://ball/Ball.tscn")
+const SelectPaddleScn = preload("res://menus/SelectStagePaddle.tscn")
 
 export(PackedScene) var stage_bricks
 export(Vector2) var ball_position = Vector2.ZERO
@@ -22,6 +23,8 @@ onready var barrier_bottom = $Panel/MarginContainer/VBoxContainer/ViewportContai
 var bricks: BricksMap
 var ball: Ball
 var elements_scale_factor: float = 1.0
+
+var stage_focused = false
 
 func _ready():
 	#create duplicate of own style when several instances present and animation is possible
@@ -62,6 +65,11 @@ func _position_barriers_in_viewport(viewport: Viewport):
 	barrier_bottom.position.y = viewport_size.y + 10
 
 
+func _process(delta):
+	if Input.is_action_just_pressed("ui_accept") and stage_focused:
+		_select_stage()
+
+
 func _clear_ball():
 	if is_instance_valid(ball):
 		ball.queue_free()
@@ -69,6 +77,7 @@ func _clear_ball():
 
 func _reset_view():
 	_clear_ball()
+	yield(get_tree(), "idle_frame")
 	bricks.reset_bricks()
 
 
@@ -100,11 +109,31 @@ func _set_title_label(title: String):
 
 
 func _on_Panel_mouse_entered():
+	stage_focused = true
 	$AnimationPlayer.queue("hover")
 	if not is_instance_valid(ball):
 		_launch_ball()
 
 func _on_Panel_mouse_exited():
+	stage_focused = false
 	$AnimationPlayer.queue("unfocus")
 	if is_instance_valid(ball):
 		_reset_view()
+
+
+func _select_stage():
+	var paddle = _fire_selection_paddle()
+	$AnimationPlayer.play("select")
+
+	yield(paddle.get_node("AnimationPlayer"), "animation_finished")
+	print("Stage selected! This one: %s" % self.stage_title)
+
+
+func _fire_selection_paddle() -> Node2D:
+	var paddle = SelectPaddleScn.instance()
+	preview_window.add_child(paddle)
+	paddle.scale *= elements_scale_factor
+	var viewport_size = preview_window.get_visible_rect().size
+	paddle.position = Vector2(viewport_size.x / 2, viewport_size.y - 20)
+
+	return paddle

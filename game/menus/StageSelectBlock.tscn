@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://menus/StageSelectBlock.gd" type="Script" id=1]
-[ext_resource path="res://bricks/BricksMapVase.tscn" type="PackedScene" id=2]
+[ext_resource path="res://bricks/BricksMapSmile.tscn" type="PackedScene" id=2]
 [ext_resource path="res://asset_lib_icon.png" type="Texture" id=3]
 [ext_resource path="res://Barrier.tscn" type="PackedScene" id=4]
 
@@ -72,6 +72,35 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 0.287175, 1 ),
 "update": 0,
 "values": [ Color( 0.952941, 0.960784, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "select"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Panel:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.574349, 1 ),
+"update": 0,
+"values": [ Vector2( 1.1, 1.1 ), Vector2( 0.9, 0.9 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Panel:custom_styles/panel:border_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.287175, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0.768627, 0.960784, 1 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -191,4 +220,5 @@ anchor_bottom = 1.0
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
 anims/hover = SubResource( 3 )
+anims/select = SubResource( 5 )
 anims/unfocus = SubResource( 4 )
