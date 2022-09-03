@@ -97,7 +97,7 @@ func _get_bricks_scale_factor(viewport: Viewport, bricks: BricksMap) -> float:
 	var bricks_size = bricks.get_used_rect().size * bricks.cell_size
 
 	#slightly smaller than viewport
-	return min(viewport_size.x / bricks_size.x, viewport_size.y / bricks_size.y) * 0.9
+	return min(viewport_size.x / bricks_size.x, viewport_size.y / bricks_size.y) * 0.8
 
 
 
@@ -134,6 +134,6 @@ func _fire_selection_paddle() -> Node2D:
 	preview_window.add_child(paddle)
 	paddle.scale *= elements_scale_factor
 	var viewport_size = preview_window.get_visible_rect().size
-	paddle.position = Vector2(viewport_size.x / 2, viewport_size.y - 20)
+	paddle.position = Vector2(viewport_size.x / 2, viewport_size.y - 10)
 
 	return paddle
