@@ -7,6 +7,8 @@ extends Control
 const BallScn = preload("res://ball/Ball.tscn")
 const SelectPaddleScn = preload("res://menus/SelectStagePaddle.tscn")
 
+signal selected_stage_ready(stage)
+
 export(PackedScene) var stage_bricks
 export(Vector2) var ball_position = Vector2.ZERO
 export(String) var stage_title setget _set_title_label
@@ -14,6 +16,7 @@ export(String) var stage_title setget _set_title_label
 onready var preview_window: Viewport = $Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport
 onready var stage_title_lbl: Label = $Panel/MarginContainer/VBoxContainer/StageTitle
 onready var placeholder_graphic: TextureRect = $Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport/LockedTexture
+onready var anim = $AnimationPlayer
 
 onready var barrier_left = $Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport/BarrierLeft
 onready var barrier_right = $Panel/MarginContainer/VBoxContainer/ViewportContainer/Viewport/BarrierRight
@@ -110,23 +113,27 @@ func _set_title_label(title: String):
 
 func _on_Panel_mouse_entered():
 	stage_focused = true
-	$AnimationPlayer.queue("hover")
+	anim.queue("hover")
 	if not is_instance_valid(ball):
 		_launch_ball()
 
 func _on_Panel_mouse_exited():
 	stage_focused = false
-	$AnimationPlayer.queue("unfocus")
+	anim.queue("unfocus")
 	if is_instance_valid(ball):
 		_reset_view()
 
 
 func _select_stage():
+	$TouchPanel.disconnect("mouse_entered", self, "_on_Panel_mouse_entered")
+	$TouchPanel.disconnect("mouse_exited", self, "_on_Panel_mouse_exited")
 	var paddle = _fire_selection_paddle()
-	$AnimationPlayer.play("select")
+	anim.play("select")
 
 	yield(paddle.get_node("AnimationPlayer"), "animation_finished")
-	print("Stage selected! This one: %s" % self.stage_title)
+	ball.stop()
+
+	emit_signal("selected_stage_ready", self)
 
 
 func _fire_selection_paddle() -> Node2D:
