@@ -129,10 +129,9 @@ func _select_stage():
 	$TouchPanel.disconnect("mouse_exited", self, "_on_Panel_mouse_exited")
 	var paddle = _fire_selection_paddle()
 	anim.play("select")
-
-	yield(paddle.get_node("AnimationPlayer"), "animation_finished")
+	var anim_length = paddle.get_node("AnimationPlayer").get_animation("appear").length
+	yield(get_tree().create_timer(anim_length - 0.2), "timeout")
 	ball.stop()
-
 	emit_signal("selected_stage_ready", self)
 
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://menus/StageSelectBlock.gd" type="Script" id=1]
 [ext_resource path="res://bricks/BricksMapSmile.tscn" type="PackedScene" id=2]
-[ext_resource path="res://asset_lib_icon.png" type="Texture" id=3]
+[ext_resource path="res://bricks/shout_template1.png" type="Texture" id=3]
 [ext_resource path="res://Barrier.tscn" type="PackedScene" id=4]
 
 [sub_resource type="StyleBoxFlat" id=1]

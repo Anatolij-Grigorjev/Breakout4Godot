@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://menus/StageSelectBlock.tscn" type="PackedScene" id=1]
 [ext_resource path="res://menus/StageSelectMenu.gd" type="Script" id=2]
 [ext_resource path="res://bricks/BricksMapVase.tscn" type="PackedScene" id=3]
 [ext_resource path="res://tools/FadeToBlack.tscn" type="PackedScene" id=4]
+[ext_resource path="res://tools/CameraShake.tscn" type="PackedScene" id=5]
 
 [node name="StageSelectMenu" type="Control"]
 anchor_right = 1.0
@@ -96,3 +97,9 @@ stage_title = "Locked"
 [node name="Tween" type="Tween" parent="."]
 
 [node name="FadeToBlack" parent="." instance=ExtResource( 4 )]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 515, 300 )
+current = true
+
+[node name="ScreenShake" parent="Camera2D" instance=ExtResource( 5 )]
