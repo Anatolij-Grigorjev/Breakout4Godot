@@ -13,6 +13,9 @@ export(Dictionary) var brick_type_transitions = {
 	"0": [-1]
 }
 
+onready var battery: ParticlesBattery = $ParticlesBattery
+onready var timer: Timer = $Timer
+
 
 var types_transition_map = {}
 var total_num_bricks: int = 0
@@ -33,12 +36,15 @@ func _ready():
 	for cell_idx in get_used_cells():
 		initial_bricks_snapshot[cell_idx] = get_cellv(cell_idx)
 	
+	
 
 func _process(delta):
 	if Input.is_action_just_released("debug1"):
 		var first_used_cell = get_used_cells()[0]
 		var rand_normal = Vector2(rand_range(-1.0, 1.0), rand_range(-1.0, 1.0))
 		_hit_brick_at_idx_by_ball(Utils.getFirstTreeNodeInGroup(get_tree(), "ball"), first_used_cell, rand_normal)
+	if Input.is_action_just_released("debug2"):
+		reapper_bricks()	
 
 
 func bricks_hit_at_by_ball(ball, global_hit_pos: Vector2, hit_normal: Vector2):
@@ -46,9 +52,22 @@ func bricks_hit_at_by_ball(ball, global_hit_pos: Vector2, hit_normal: Vector2):
 	_hit_brick_at_idx_by_ball(ball, tile_idx, hit_normal)
 
 
+func reapper_bricks():
+	_clear_bricks()
+	for saved_pos in initial_bricks_snapshot:
+		battery.fireNextParticleSystem(to_global(map_to_world(saved_pos) + cell_size / 2))
+		timer.start()
+		yield(timer, "timeout")
+		set_cellv(saved_pos, Utils.nvl(initial_bricks_snapshot[saved_pos], INVALID_CELL))
+
+
 func reset_bricks():
 	for saved_pos in initial_bricks_snapshot:
 		set_cellv(saved_pos, Utils.nvl(initial_bricks_snapshot[saved_pos], INVALID_CELL))
+
+
+func _clear_bricks():
+	clear()
 	
 
 func _hit_brick_at_idx_by_ball(ball, tile_idx: Vector2, hit_normal: Vector2):

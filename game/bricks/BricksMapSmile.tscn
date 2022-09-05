@@ -1,13 +1,26 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://bricks/WhiteBricks.tres" type="TileSet" id=1]
 [ext_resource path="res://bricks/BricksMap.gd" type="Script" id=2]
 [ext_resource path="res://shaders/sprite_outline.shader" type="Shader" id=3]
+[ext_resource path="res://tools/ParticlesBattery.gd" type="Script" id=4]
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 3 )
 shader_param/outline_width = 1.0
 shader_param/outline_color = null
+
+[sub_resource type="Curve" id=5]
+max_value = 2.0
+_data = [ Vector2( 0, 2 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.446177 ), -4.80631, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0.720588, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Curve" id=7]
+min_value = -1.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
 [node name="BricksMapSmile" type="TileMap"]
 material = SubResource( 3 )
@@ -16,3 +29,130 @@ cell_size = Vector2( 64, 32 )
 format = 1
 tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 65536, 0, 0, 65547, 0, 0, 131072, 0, 0, 131074, 1610612737, 0, 131081, 1, 0, 131083, 0, 0, 196608, 0, 0, 196611, 1610612737, 0, 196616, 1, 0, 196619, 0, 0, 262144, 0, 0, 262148, 1610612737, 0, 262151, 1, 0, 262155, 0, 0, 327680, 0, 0, 327684, 1610612737, 0, 327685, 1610612737, 0, 327686, 1610612737, 0, 327687, 1610612737, 0, 327691, 0, 0, 393216, 0, 0, 393227, 0, 0, 458752, 0, 0, 458763, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0 )
 script = ExtResource( 2 )
+
+[node name="ParticlesBattery" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="ParticlesBattery"]
+position = Vector2( -12, 0 )
+emitting = false
+amount = 40
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 125.0
+linear_accel = 75.0
+linear_accel_random = 0.5
+radial_accel = 50.0
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 8 )
+hue_variation_curve = SubResource( 7 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="ParticlesBattery"]
+position = Vector2( -12, 0 )
+emitting = false
+amount = 40
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 125.0
+linear_accel = 75.0
+linear_accel_random = 0.5
+radial_accel = 50.0
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 8 )
+hue_variation_curve = SubResource( 7 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="ParticlesBattery"]
+position = Vector2( -12, 0 )
+emitting = false
+amount = 40
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 125.0
+linear_accel = 75.0
+linear_accel_random = 0.5
+radial_accel = 50.0
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 8 )
+hue_variation_curve = SubResource( 7 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CPUParticles2D4" type="CPUParticles2D" parent="ParticlesBattery"]
+position = Vector2( -12, 0 )
+emitting = false
+amount = 40
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 125.0
+linear_accel = 75.0
+linear_accel_random = 0.5
+radial_accel = 50.0
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 8 )
+hue_variation_curve = SubResource( 7 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CPUParticles2D5" type="CPUParticles2D" parent="ParticlesBattery"]
+position = Vector2( -12, 0 )
+emitting = false
+amount = 40
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 125.0
+linear_accel = 75.0
+linear_accel_random = 0.5
+radial_accel = 50.0
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 8 )
+hue_variation_curve = SubResource( 7 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CPUParticles2D6" type="CPUParticles2D" parent="ParticlesBattery"]
+position = Vector2( -12, 0 )
+emitting = false
+amount = 40
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 125.0
+linear_accel = 75.0
+linear_accel_random = 0.5
+radial_accel = 50.0
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 8 )
+hue_variation_curve = SubResource( 7 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true

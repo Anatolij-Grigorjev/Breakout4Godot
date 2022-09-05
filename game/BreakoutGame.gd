@@ -170,7 +170,7 @@ func _reset_stage():
 
 	scoreCounter.value = 0.0
 	livesCounter.numExtraBalls = starting_num_balls
-	bricks.reset_bricks()
+	bricks.reapper_bricks()
 	bricks_shake_dampener.shake_dampen_coef = base_bricks_shake_dampen_coef
 
 

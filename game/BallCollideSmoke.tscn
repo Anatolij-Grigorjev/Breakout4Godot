@@ -4,7 +4,7 @@
 max_value = 2.0
 _data = [ Vector2( 0, 2 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.446177 ), -4.80631, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id=8]
 offsets = PoolRealArray( 0.720588, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
@@ -26,5 +26,5 @@ linear_accel = 75.0
 linear_accel_random = 0.5
 radial_accel = 50.0
 scale_amount_curve = SubResource( 5 )
-color_ramp = SubResource( 3 )
+color_ramp = SubResource( 8 )
 hue_variation_curve = SubResource( 7 )

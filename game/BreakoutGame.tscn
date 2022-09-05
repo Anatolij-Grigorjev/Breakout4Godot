@@ -1,6 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://gui/GameHUD.tscn" type="PackedScene" id=1]
+[ext_resource path="res://bricks/BricksMapSmile.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Barrier.tscn" type="PackedScene" id=3]
 [ext_resource path="res://BallCollideSmoke.tscn" type="PackedScene" id=4]
 [ext_resource path="res://BreakoutGame.gd" type="Script" id=5]
@@ -10,13 +11,12 @@
 [ext_resource path="res://paddle/Paddle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://gui/Overlay.tscn" type="PackedScene" id=10]
 [ext_resource path="res://BallLossArea.tscn" type="PackedScene" id=11]
-[ext_resource path="res://bricks/BricksMapVase.tscn" type="PackedScene" id=12]
 [ext_resource path="res://gui/GameEndMessage.tscn" type="PackedScene" id=15]
 
 [node name="BreakoutGame" type="Node2D"]
 script = ExtResource( 5 )
-bricksScn = ExtResource( 12 )
-bricks_config_filepath = "res://bricks/bmc_vase.json"
+bricksScn = ExtResource( 2 )
+bricks_config_filepath = "res://bricks/bmc_smile.json"
 
 [node name="BG" type="CanvasLayer" parent="."]
 layer = -10
