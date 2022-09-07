@@ -54,7 +54,9 @@ func bricks_hit_at_by_ball(ball, global_hit_pos: Vector2, hit_normal: Vector2):
 
 func reapper_bricks():
 	_clear_bricks()
-	for saved_pos in initial_bricks_snapshot:
+	var random_positions = initial_bricks_snapshot.keys().duplicate()
+	random_positions.shuffle()
+	for saved_pos in random_positions:
 		battery.fireNextParticleSystem(to_global(map_to_world(saved_pos) + cell_size / 2))
 		timer.start()
 		yield(timer, "timeout")
