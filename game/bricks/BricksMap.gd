@@ -7,6 +7,7 @@ const BrickBoomScn = preload("res://bricks/BrickExplode.tscn")
 signal brick_destroyed(ball, brickType, brickPos)
 signal brick_damaged(brick_pos, hit_type, new_type)
 signal map_cleared(num_bricks)
+signal bricks_appeared
 
 export(Dictionary) var brick_type_transitions = {
 	"1": [0],
@@ -52,15 +53,20 @@ func bricks_hit_at_by_ball(ball, global_hit_pos: Vector2, hit_normal: Vector2):
 	_hit_brick_at_idx_by_ball(ball, tile_idx, hit_normal)
 
 
+const MAX_NUM_BLINKS = 10
 func reapper_bricks():
 	_clear_bricks()
 	var random_positions = initial_bricks_snapshot.keys().duplicate()
 	random_positions.shuffle()
-	for saved_pos in random_positions:
-		battery.fireNextParticleSystem(to_global(map_to_world(saved_pos) + cell_size / 2))
+	var bricks_per_blink = random_positions.size() / MAX_NUM_BLINKS
+	for idx in range(0, random_positions.size(), bricks_per_blink):
+		for iter_idx in range(idx, idx + bricks_per_blink):
+			var saved_pos = random_positions[iter_idx]
+			battery.fireNextParticleSystem(to_global(map_to_world(saved_pos) + cell_size / 2))
+			set_cellv(saved_pos, Utils.nvl(initial_bricks_snapshot[saved_pos], INVALID_CELL))
 		timer.start()
 		yield(timer, "timeout")
-		set_cellv(saved_pos, Utils.nvl(initial_bricks_snapshot[saved_pos], INVALID_CELL))
+	emit_signal("bricks_appeared")
 
 
 func reset_bricks():
