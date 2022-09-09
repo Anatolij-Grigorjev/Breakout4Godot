@@ -83,6 +83,8 @@ func _ready():
 		dropConfigSlowdownBall, 
 		dropConfigExtraBall
 	]
+	var fade_anim = $FadeToBlack/AnimationPlayer
+	fade_anim.play("unfade_from_black")
 
 	_reset_stage()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://gui/GameHUD.tscn" type="PackedScene" id=1]
 [ext_resource path="res://bricks/BricksMapSmile.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://paddle/Paddle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://gui/Overlay.tscn" type="PackedScene" id=10]
 [ext_resource path="res://BallLossArea.tscn" type="PackedScene" id=11]
+[ext_resource path="res://tools/FadeToBlack.tscn" type="PackedScene" id=12]
 [ext_resource path="res://gui/GameEndMessage.tscn" type="PackedScene" id=15]
 
 [node name="BreakoutGame" type="Node2D"]
@@ -76,3 +77,7 @@ layer = 5
 
 [node name="GameEndMessage" parent="GUI" instance=ExtResource( 15 )]
 visible = false
+
+[node name="FadeToBlack" parent="." instance=ExtResource( 12 )]
+
+[editable path="FadeToBlack"]
