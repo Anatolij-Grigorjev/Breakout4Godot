@@ -10,8 +10,6 @@ func _ready():
 
 
 func _on_stage_selection_ready(stage: Control):
-	$Camera2D/ScreenShake.beginShake(0.3, 18, 25)
-	yield($Camera2D/ScreenShake, "shake_ended")
 	_start_fade_all_except(stage)
 	_tween_stage_to_center(stage)
 	yield(tween, "tween_all_completed")

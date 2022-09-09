@@ -4,6 +4,7 @@ const FlashPointsScn = preload("res://gui/ScoredPoints.tscn")
 const BallTrailScn = preload("res://ball/BallTrail.tscn")
 const BallScn = preload("res://ball/Ball.tscn")
 const CameraShakeDampenerScn = preload("res://tools/CameraShakeDampener.tscn")
+const SelectPaddleScn = preload("res://menus/SelectStagePaddle.tscn")
 
 #powerups
 const PowerupPointsScn = preload("res://drops/PowerupPoints.tscn")
@@ -160,18 +161,35 @@ func _process(delta):
 
 
 func _reset_stage():
+	paddle.disable_control()
+	paddle.visible = false
 	stageFinished = false
 	_hide_stage_end_message()
 
 	for ball in _get_active_balls():
 		ball.queue_free()
-	
-	paddle.enable_control()
-
+		
 	scoreCounter.value = 0.0
 	livesCounter.numExtraBalls = starting_num_balls
-	bricks.reapper_bricks()
 	bricks_shake_dampener.shake_dampen_coef = base_bricks_shake_dampen_coef
+
+	bg.keep_pulsing(3.0)
+	bricks.reapper_bricks()
+	yield(bricks, "bricks_appeared")
+	bg.stop_pulsing()
+	var paddle_select = _throw_paddle_to_stage(paddle.position)
+	yield(paddle_select.get_node("AnimationPlayer"), "animation_finished")
+	paddle_select.queue_free()
+	paddle.enable_control()
+	paddle.visible = true
+
+
+func _throw_paddle_to_stage(position: Vector2) -> Node2D:
+	var thrown = SelectPaddleScn.instance()
+	add_child(thrown)
+	thrown.position = position
+
+	return thrown
 
 
 

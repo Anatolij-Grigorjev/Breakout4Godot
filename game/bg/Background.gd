@@ -6,9 +6,6 @@ onready var bgTexture = $TextureRect
 
 var base_pulse_duration: float = 0.25
 
-func _ready():
-	pass # Replace with function body.
-
 
 func do_pulse(max_intensity: float):
 	pulser.stop_all()
@@ -19,3 +16,12 @@ func do_pulse(max_intensity: float):
 		base_pulse_duration * min(2.0, max_intensity), Tween.TRANS_QUAD, Tween.EASE_OUT
 	)
 	pulser.start() 
+
+
+func keep_pulsing(intensity: float):
+	pulser.repeat = true
+	do_pulse(intensity)
+
+
+func stop_pulsing():
+	pulser.repeat = false
