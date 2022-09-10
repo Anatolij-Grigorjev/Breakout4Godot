@@ -55,6 +55,7 @@ margin_right = 484.0
 margin_bottom = 240.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+bricks_config_path = "res://bricks/bmc_smile.json"
 ball_position = Vector2( 250, 25 )
 stage_title = "Crooked Smile"
 
@@ -67,6 +68,7 @@ margin_bottom = 240.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stage_bricks = ExtResource( 3 )
+bricks_config_path = "res://bricks/bmc_vase.json"
 ball_position = Vector2( 25, 25 )
 stage_title = "V is for Vase"
 

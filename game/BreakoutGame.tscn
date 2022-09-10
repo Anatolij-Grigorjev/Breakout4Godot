@@ -79,5 +79,3 @@ layer = 5
 visible = false
 
 [node name="FadeToBlack" parent="." instance=ExtResource( 12 )]
-
-[editable path="FadeToBlack"]

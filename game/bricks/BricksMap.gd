@@ -61,9 +61,10 @@ func reapper_bricks():
 	var bricks_per_blink = random_positions.size() / MAX_NUM_BLINKS
 	for idx in range(0, random_positions.size(), bricks_per_blink):
 		for iter_idx in range(idx, idx + bricks_per_blink):
-			var saved_pos = random_positions[iter_idx]
-			battery.fireNextParticleSystem(to_global(map_to_world(saved_pos) + cell_size / 2))
-			set_cellv(saved_pos, Utils.nvl(initial_bricks_snapshot[saved_pos], INVALID_CELL))
+			if iter_idx < random_positions.size():
+				var saved_pos = random_positions[iter_idx]
+				battery.fireNextParticleSystem(to_global(map_to_world(saved_pos) + cell_size / 2))
+				set_cellv(saved_pos, Utils.nvl(initial_bricks_snapshot[saved_pos], INVALID_CELL))
 		timer.start()
 		yield(timer, "timeout")
 	emit_signal("bricks_appeared")

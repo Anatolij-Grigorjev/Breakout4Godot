@@ -10,6 +10,7 @@ const SelectPaddleScn = preload("res://menus/SelectStagePaddle.tscn")
 signal selected_stage_ready(stage)
 
 export(PackedScene) var stage_bricks
+export(String) var bricks_config_path
 export(Vector2) var ball_position = Vector2.ZERO
 export(String) var stage_title setget _set_title_label
 

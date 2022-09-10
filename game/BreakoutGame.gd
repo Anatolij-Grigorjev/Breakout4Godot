@@ -40,6 +40,7 @@ onready var livesCounter = $GUI/GameHUD/LowerHUD/LivesHUD/MarginContainer/LivesC
 onready var gameEndMessage = $GUI/GameEndMessage
 onready var overlay = $GUI/Overlay
 onready var ballLossArea = $BallLossArea
+onready var fader = $FadeToBlack
 
 var currentScore := 0
 var base_bricks_shake_dampen_coef := 0.5
@@ -57,7 +58,10 @@ var points_for_brick_of_type = {
 
 
 func _ready():
-	
+
+	fader.layer = 99
+	fader.get_node("ColorRect").visible = true
+
 	scoreCounter.value = currentScore
 
 	livesCounter.numExtraBalls = starting_num_balls
@@ -83,7 +87,8 @@ func _ready():
 		dropConfigSlowdownBall, 
 		dropConfigExtraBall
 	]
-	var fade_anim = $FadeToBlack/AnimationPlayer
+	
+	var fade_anim = fader.get_node("AnimationPlayer")
 	fade_anim.play("unfade_from_black")
 
 	_reset_stage()
