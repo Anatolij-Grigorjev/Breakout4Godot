@@ -18,10 +18,11 @@ enum CHANGES {
 # the values should be lists of Vector2 positions to be 
 # used in the movement of the brick. First position should be same as key. 
 # Ex:
+# ```
 # {
 #	(0;0): [(0;0), (0;1), (0;2)]
 # }
-#
+# ```
 export(Dictionary) var brick_positions_sequences := {} 
 export(CHANGES) var positions_change_mode = CHANGES.CYCLE
 export(float) var position_time := 1.0
@@ -65,17 +66,16 @@ func _on_frametime_end():
 func _advance_cycle_positions(brick_initial_pos: Vector2, sequence: Array, cycle_pos: int):
 
 	var current_tile_pos = sequence[cycle_pos]
-	var current_tile_type = brickmap.get_cellv(current_tile_pos)
-	if current_tile_type == TileMap.INVALID_CELL:
-		return
-
 	var next_pos = cycle_pos + 1
 	# advancing through some middle positions - just advance
 	if sequence.size() > next_pos:
+		cycles_steps[brick_initial_pos] = next_pos
 		var new_position = sequence[next_pos]
-		brickmap.set_cellv(new_position, current_tile_type)
+		brickmap.swap_bricks(current_tile_pos, new_position)
+		
 	#final position, change mode determines where they go from here
 	elif sequence.size() == next_pos:
 		#for now just alwasy cycle
 		cycles_steps[brick_initial_pos] = 0
-		brickmap.set_cellv(brick_initial_pos, current_tile_type)
+		brickmap.swap_bricks(current_tile_pos, brick_initial_pos)
+		

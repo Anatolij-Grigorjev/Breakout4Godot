@@ -75,6 +75,13 @@ func reset_bricks():
 		set_cellv(saved_pos, Utils.nvl(initial_bricks_snapshot[saved_pos], INVALID_CELL))
 
 
+func swap_bricks(pos1: Vector2, pos2: Vector2):
+	var source_tile_type = get_cellv(pos1)
+	var target_tile_type = get_cellv(pos2)
+	set_cellv(pos1, target_tile_type)
+	set_cellv(pos2, source_tile_type)
+
+
 func _clear_bricks():
 	clear()
 	
