@@ -57,14 +57,17 @@ func _configure_timer():
 func _on_frametime_end():
 	# advance positions
 	for brick_initial_pos in brick_positions_sequences:
-		var sequence = brick_positions_sequences[brick_initial_pos]
-		var cycle_pos = cycles_steps[brick_initial_pos]
+		var sequence = Utils.nvl(brick_positions_sequences[brick_initial_pos], [])
+		var cycle_pos = Utils.nvl(cycles_steps[brick_initial_pos], 0)
 
 		_advance_cycle_positions(brick_initial_pos, sequence, cycle_pos)
 
 
 func _advance_cycle_positions(brick_initial_pos: Vector2, sequence: Array, cycle_pos: int):
-
+	#empty sequence, no advance
+	if not sequence:
+		return
+	
 	var current_tile_pos = sequence[cycle_pos]
 	var next_pos = cycle_pos + 1
 	# advancing through some middle positions - just advance
@@ -75,7 +78,12 @@ func _advance_cycle_positions(brick_initial_pos: Vector2, sequence: Array, cycle
 		
 	#final position, change mode determines where they go from here
 	elif sequence.size() == next_pos:
-		#for now just alwasy cycle
-		cycles_steps[brick_initial_pos] = 0
-		brickmap.swap_bricks(current_tile_pos, brick_initial_pos)
+		if positions_change_mode == CHANGES.CYCLE:
+			cycles_steps[brick_initial_pos] = 0
+			brickmap.swap_bricks(current_tile_pos, brick_initial_pos)
+		elif positions_change_mode == CHANGES.SEQUENCE:
+			#animation over
+			timer.stop()
+		
+
 		
