@@ -1,13 +1,78 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://bg/bg_tile2.png" type="Texture" id=1]
 [ext_resource path="res://shaders/glow_sprite.shader" type="Shader" id=2]
 [ext_resource path="res://bg/Background.gd" type="Script" id=3]
+[ext_resource path="res://bg/RotatingBrick.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
 shader_param/radius = 0.0
 shader_param/amount = 1.0
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "carousel"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 360.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "carousel"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 360.0, 0.0 ]
+}
 
 [node name="Background" type="Control" groups=["bg"]]
 anchor_right = 1.0
@@ -23,3 +88,59 @@ expand = true
 stretch_mode = 2
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Bricks" type="Control" parent="."]
+margin_left = -268.0
+margin_top = 5.0
+margin_right = -268.0
+margin_bottom = 5.0
+rect_pivot_offset = Vector2( 509, 299 )
+
+[node name="RotatingBrick" parent="Bricks" instance=ExtResource( 4 )]
+position = Vector2( 304, 304 )
+
+[node name="RotatingBrick2" parent="Bricks" instance=ExtResource( 4 )]
+position = Vector2( 723, 302 )
+
+[node name="RotatingBrick3" parent="Bricks" instance=ExtResource( 4 )]
+position = Vector2( 505, 505 )
+
+[node name="RotatingBrick4" parent="Bricks" instance=ExtResource( 4 )]
+position = Vector2( 505, 100 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Bricks"]
+autoplay = "carousel"
+anims/RESET = SubResource( 3 )
+anims/carousel = SubResource( 2 )
+
+[node name="Bricks2" type="Control" parent="."]
+margin_left = 263.0
+margin_top = 2.0
+margin_right = 263.0
+margin_bottom = 2.0
+rect_pivot_offset = Vector2( 509, 299 )
+
+[node name="RotatingBrick" parent="Bricks2" instance=ExtResource( 4 )]
+position = Vector2( 304, 304 )
+
+[node name="RotatingBrick2" parent="Bricks2" instance=ExtResource( 4 )]
+position = Vector2( 723, 302 )
+
+[node name="RotatingBrick3" parent="Bricks2" instance=ExtResource( 4 )]
+position = Vector2( 505, 505 )
+
+[node name="RotatingBrick4" parent="Bricks2" instance=ExtResource( 4 )]
+position = Vector2( 505, 100 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Bricks2"]
+autoplay = "carousel"
+anims/RESET = SubResource( 4 )
+anims/carousel = SubResource( 5 )
+
+[node name="RotatingBrick5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 240, 309 )
+rotation = 1.74846e-07
+
+[node name="RotatingBrick6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 776, 306 )
+rotation = 1.74846e-07
