@@ -5,7 +5,7 @@
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 2 )
-shader_param/outline_width = 3.0
+shader_param/outline_width = 1.0
 shader_param/outline_color = null
 
 [sub_resource type="Animation" id=1]
@@ -43,7 +43,7 @@ tracks/0/keys = {
 [node name="RotatingBrick" type="Node2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 1, 0, 0.760784, 0.552941 )
+modulate = Color( 0, 0.768627, 0.960784, 0.690196 )
 material = SubResource( 3 )
 texture = ExtResource( 1 )
 

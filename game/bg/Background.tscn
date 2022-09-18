@@ -26,20 +26,26 @@ stretch_mode = 2
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="BricksRing" parent="." instance=ExtResource( 5 )]
-rect_rotation = 0.0
+[node name="RingAndCenterLeft" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
 
-[node name="BricksRing2" parent="." instance=ExtResource( 5 )]
+[node name="BricksRing" parent="RingAndCenterLeft" instance=ExtResource( 5 )]
+
+[node name="CenterBrick" parent="RingAndCenterLeft" instance=ExtResource( 4 )]
+position = Vector2( 240, 309 )
+rotation = 1.74846e-07
+
+[node name="RingAndCetnerRight" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="BricksRing" parent="RingAndCetnerRight" instance=ExtResource( 5 )]
 margin_left = 267.0
 margin_top = 7.0
 margin_right = 267.0
 margin_bottom = 7.0
-rect_rotation = 0.0
 
-[node name="RotatingBrick5" parent="." instance=ExtResource( 4 )]
-position = Vector2( 240, 309 )
-rotation = 1.74846e-07
-
-[node name="RotatingBrick6" parent="." instance=ExtResource( 4 )]
+[node name="CenterBrick" parent="RingAndCetnerRight" instance=ExtResource( 4 )]
 position = Vector2( 776, 306 )
 rotation = 1.74846e-07

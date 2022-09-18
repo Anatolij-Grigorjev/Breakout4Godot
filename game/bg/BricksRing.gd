@@ -13,7 +13,7 @@ func _ready():
 
 
 func do_speed_pulse(duration: float, speedup: float = 2.0):
-	anim.playback_speed = speedup
+	anim.playback_speed = max(2.0, speedup)
 	_start_timer_for(duration)
 
 

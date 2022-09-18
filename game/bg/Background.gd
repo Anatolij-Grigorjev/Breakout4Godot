@@ -17,8 +17,8 @@ func do_pulse(max_intensity: float):
 		pulse_duration, Tween.TRANS_QUAD, Tween.EASE_OUT
 	)
 	pulser.start() 
-	$BricksRing.do_speed_pulse(pulse_duration, max_intensity)
-	$BricksRing2.do_speed_pulse(pulse_duration, max_intensity)
+	$RingAndCenterLeft/BricksRing.do_speed_pulse(pulse_duration, max_intensity)
+	$RingAndCetnerRight/BricksRing.do_speed_pulse(pulse_duration, max_intensity)
 	
 
 
