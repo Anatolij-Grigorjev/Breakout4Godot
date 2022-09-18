@@ -22,6 +22,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0.768627, 0.960784, 0.690196 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "rotate"
@@ -47,7 +59,7 @@ modulate = Color( 0, 0.768627, 0.960784, 0.690196 )
 material = SubResource( 3 )
 texture = ExtResource( 1 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="RotationAnim" type="AnimationPlayer" parent="."]
 autoplay = "rotate"
 anims/RESET = SubResource( 1 )
 anims/rotate = SubResource( 2 )
